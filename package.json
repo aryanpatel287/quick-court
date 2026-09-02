@@ -1,0 +1,18 @@
+{
+    "name": "apex-template-root",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Root configuration for workspace orchestrations and Git hooks",
+    "scripts": {
+        "prepare": "husky",
+        "format:write": "npx prettier --write \"client/src/**/*.{js,jsx,scss}\" \"server/src/**/*.js\" \"**/*.{json,md}\"",
+        "format:check": "npx prettier --check \"client/src/**/*.{js,jsx,scss}\" \"server/src/**/*.js\" \"**/*.{json,md}\""
+    },
+    "devDependencies": {
+        "eslint": "^10.8.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.3.0",
+        "prettier": "^3.9.6",
+        "stylelint": "^17.14.1"
+    }
+}

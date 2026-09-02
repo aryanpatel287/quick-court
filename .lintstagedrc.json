@@ -1,0 +1,6 @@
+{
+    "client/src/**/*.{js,jsx}": ["eslint --config client/eslint.config.js --fix"],
+    "client/src/**/*.scss": ["stylelint --config client/.stylelintrc.json --fix"],
+    "server/src/**/*.js": ["eslint --config server/eslint.config.js --fix"],
+    "**/*.{js,jsx,scss,json,md}": ["prettier --write"]
+}

@@ -13,7 +13,9 @@ const router = Router();
 router.use(protect);
 
 // Personal User Routes
+router.get('/me', userController.getMe);
 router.get('/get-me', userController.getMe);
+router.patch('/me', updateProfileValidator, userController.updateProfile);
 router.patch('/profile', updateProfileValidator, userController.updateProfile);
 router.patch('/profile/avatar', upload.single('avatar'), userController.uploadAvatar);
 router.patch('/change-password', changePasswordValidator, userController.changePassword);

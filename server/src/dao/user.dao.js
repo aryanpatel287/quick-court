@@ -1,6 +1,6 @@
 import { db } from '../config/database.config.js';
 import { users } from '../db/schema/users.schema.js';
-import { eq, and, lt } from 'drizzle-orm';
+import { eq, and, lt, or, ilike, sql, count, desc } from 'drizzle-orm';
 
 /**
  * Get user by email
@@ -19,6 +19,8 @@ export async function getUserByEmail(email, includeDeleted = false) {
     return user || null;
 }
 
+export const findUserByEmail = getUserByEmail;
+
 /**
  * Get user by ID
  * @param {string} id
@@ -35,6 +37,8 @@ export async function getUserById(id, includeDeleted = false) {
         .where(and(...filters));
     return user || null;
 }
+
+export const findUserById = getUserById;
 
 /**
  * Get user by googleId
@@ -63,6 +67,22 @@ export async function createUser(userData) {
 }
 
 /**
+ * Mark a user's email as verified
+ * @param {string} email
+ */
+export async function verifyUserEmail(email) {
+    const [user] = await db
+        .update(users)
+        .set({
+            emailVerified: true,
+            updatedAt: new Date(),
+        })
+        .where(eq(users.email, email))
+        .returning();
+    return user || null;
+}
+
+/**
  * Update user details
  * @param {string} id
  * @param {object} updates
@@ -71,6 +91,25 @@ export async function updateUser(id, updates) {
     const [user] = await db
         .update(users)
         .set({ ...updates, updatedAt: new Date() })
+        .where(and(eq(users.id, id), eq(users.isDeleted, false)))
+        .returning();
+    return user || null;
+}
+
+export const updateUserProfile = updateUser;
+
+/**
+ * Update user active status (for ban/unban)
+ * @param {string} id
+ * @param {boolean} isActive
+ */
+export async function updateUserActiveStatus(id, isActive) {
+    const [user] = await db
+        .update(users)
+        .set({
+            isActive,
+            updatedAt: new Date(),
+        })
         .where(and(eq(users.id, id), eq(users.isDeleted, false)))
         .returning();
     return user || null;
@@ -106,6 +145,93 @@ export async function listUsers(includeDeleted = false) {
         return db.select().from(users);
     }
     return db.select().from(users).where(eq(users.isDeleted, false));
+}
+
+/**
+ * Find users with advanced filters, search, and pagination
+ * @param {object} options
+ */
+export async function findUsersWithFilters({
+    search = '',
+    role = '',
+    status = '',
+    page = 1,
+    limit = 20,
+    includeDeleted = true,
+} = {}) {
+    const conditions = [];
+
+    if (!includeDeleted) {
+        conditions.push(eq(users.isDeleted, false));
+    }
+
+    if (role) {
+        const normalizedRole = role.toUpperCase();
+        conditions.push(eq(users.role, normalizedRole));
+    }
+
+    if (status) {
+        if (status.toLowerCase() === 'active') {
+            conditions.push(eq(users.isActive, true));
+            conditions.push(eq(users.isDeleted, false));
+        } else if (status.toLowerCase() === 'banned') {
+            conditions.push(eq(users.isActive, false));
+            conditions.push(eq(users.isDeleted, false));
+        } else if (status.toLowerCase() === 'deleted') {
+            conditions.push(eq(users.isDeleted, true));
+        }
+    }
+
+    if (search && search.trim() !== '') {
+        const searchPattern = `%${search.trim()}%`;
+        conditions.push(
+            or(
+                ilike(users.firstName, searchPattern),
+                ilike(users.lastName, searchPattern),
+                ilike(users.email, searchPattern),
+            ),
+        );
+    }
+
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+    const pageNum = Math.max(1, parseInt(page, 10) || 1);
+    const limitNum = Math.max(1, Math.min(100, parseInt(limit, 10) || 20));
+    const offset = (pageNum - 1) * limitNum;
+
+    const [totalCountResult] = await db.select({ total: count() }).from(users).where(whereClause);
+
+    const total = Number(totalCountResult?.total || 0);
+
+    const userList = await db
+        .select({
+            id: users.id,
+            firstName: users.firstName,
+            lastName: users.lastName,
+            email: users.email,
+            profileImage: users.profileImage,
+            role: users.role,
+            emailVerified: users.emailVerified,
+            isActive: users.isActive,
+            isDeleted: users.isDeleted,
+            deletedAt: users.deletedAt,
+            createdAt: users.createdAt,
+            updatedAt: users.updatedAt,
+        })
+        .from(users)
+        .where(whereClause)
+        .orderBy(desc(users.createdAt))
+        .limit(limitNum)
+        .offset(offset);
+
+    return {
+        users: userList,
+        pagination: {
+            page: pageNum,
+            limit: limitNum,
+            total,
+            totalPages: Math.ceil(total / limitNum),
+        },
+    };
 }
 
 /**

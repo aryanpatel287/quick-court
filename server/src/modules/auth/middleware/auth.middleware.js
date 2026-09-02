@@ -90,8 +90,10 @@ export async function protect(req, res, next) {
  * Role restriction middleware for RBAC checks
  */
 export function restrictTo(...roles) {
+    const normalizedAllowed = roles.map((r) => String(r).toUpperCase());
     return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
+        const userRole = String(req.user?.role || '').toUpperCase();
+        if (!normalizedAllowed.includes(userRole)) {
             return sendResponse({
                 res,
                 statusCode: 403,

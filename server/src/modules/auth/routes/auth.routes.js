@@ -5,6 +5,10 @@ import { protect, rateLimiter } from '../middleware/auth.middleware.js';
 import envConfig from '../../../config/env.config.js';
 import {
     registerValidator,
+    registerUserValidator,
+    registerFacilityOwnerValidator,
+    verifyOtpValidator,
+    resendOtpValidator,
     loginValidator,
     changePasswordValidator,
     forgotPasswordValidator,
@@ -20,6 +24,17 @@ const router = Router();
 const authRateLimiter = rateLimiter({ windowMs: 15 * 60 * 1000, maxRequests: 3 }); //rate limiting
 
 // Public Routes
+router.post('/register/user', authRateLimiter, registerUserValidator, authController.registerUser);
+router.post(
+    '/register/facility-owner',
+    authRateLimiter,
+    registerFacilityOwnerValidator,
+    authController.registerFacilityOwner,
+);
+router.post('/verify-otp', verifyOtpValidator, authController.verifyOtp);
+router.post('/resend-otp', resendOtpValidator, authController.resendOtpHandler);
+
+// Public Routes - Standard / Legacy
 router.post('/register', authRateLimiter, registerValidator, authController.register);
 router.post(
     '/send-verification-otp',
@@ -41,7 +56,6 @@ router.post(
     authController.verifyForgotPasswordOtp,
 );
 router.post('/verify-email', authController.verifyEmail);
-router.post('/resend-otp', authController.resendOtpHandler);
 router.post('/logout', authController.logout);
 router.post(
     '/recover-account/request',
@@ -75,6 +89,7 @@ router.get(
 // Authenticated Routes
 router.use(protect);
 
+router.get('/me', authController.getMe);
 router.get('/get-me', authController.getMe);
 router.patch('/change-password', changePasswordValidator, authController.changePassword);
 

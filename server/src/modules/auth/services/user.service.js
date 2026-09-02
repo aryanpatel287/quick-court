@@ -1,26 +1,55 @@
 import bcrypt from 'bcryptjs';
-import { getUserById, updateUser, softDeleteUser, listUsers } from '../../../dao/user.dao.js';
+import {
+    getUserByEmail,
+    getUserById,
+    updateUser,
+    softDeleteUser,
+    listUsers,
+} from '../../../dao/user.dao.js';
+import { issueOtp, OTP_PURPOSES, getOtpHtml, normalizeEmail } from '../../../utils/otp.utils.js';
 import { AppError } from '../utils/appError.js';
 
 /**
  * Update current user profile
  * @param {string} userId
- * @param {object} updates name, email
+ * @param {object} updates name, email, profileImage
  * @returns {object} updated user
  */
 export async function updateProfile(userId, { email, firstName, lastName, profileImage }) {
-    const updates = {};
-    if (email) updates.email = email;
-    if (profileImage !== undefined) updates.profileImage = profileImage;
-
-    if (firstName) updates.firstName = firstName;
-    if (lastName) updates.lastName = lastName;
-
-    const user = await updateUser(userId, updates);
+    const user = await getUserById(userId);
     if (!user) {
         throw new AppError('User not found', 404);
     }
-    return user;
+
+    const updates = {};
+    if (profileImage !== undefined) updates.profileImage = profileImage;
+    if (firstName) updates.firstName = firstName.trim();
+    if (lastName) updates.lastName = lastName.trim();
+
+    if (email) {
+        const normalizedEmail = normalizeEmail(email);
+        if (normalizedEmail && normalizedEmail !== user.email) {
+            const existingUser = await getUserByEmail(normalizedEmail);
+            if (existingUser && existingUser.id !== userId) {
+                throw new AppError('Email is already in use by another account', 400);
+            }
+            updates.email = normalizedEmail;
+            updates.emailVerified = false;
+
+            await issueOtp({
+                email: normalizedEmail,
+                purpose: OTP_PURPOSES.VERIFY_EMAIL,
+                subject: 'QuickCourt Verify Your New Email',
+                buildHtml: getOtpHtml,
+            });
+        }
+    }
+
+    const updatedUser = await updateUser(userId, updates);
+    if (!updatedUser) {
+        throw new AppError('User not found', 404);
+    }
+    return updatedUser;
 }
 
 /**
@@ -48,6 +77,7 @@ export async function changePassword(userId, { currentPassword, newPassword }) {
 /**
  * Soft delete own user account
  * @param {string} userId
+ * @param {string} [password]
  */
 export async function deleteAccount(userId, password) {
     const user = await getUserById(userId);
@@ -55,9 +85,11 @@ export async function deleteAccount(userId, password) {
         throw new AppError('User not found', 404);
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        throw new AppError('Incorrect password', 400);
+    if (password && user.password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            throw new AppError('Incorrect password', 400);
+        }
     }
 
     const deletedUser = await softDeleteUser(userId);

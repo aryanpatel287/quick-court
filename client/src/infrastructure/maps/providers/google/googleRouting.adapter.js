@@ -1,11 +1,16 @@
 import { normalizeCoordinate } from '../../utils/coordinates';
 
 export function createGoogleRoutingAdapter(routesLib) {
+    const lib = routesLib || window.google?.maps || {};
+
     return {
         async getRoute({ origin, destination, travelMode = 'DRIVING' }) {
-            const directionsService = new routesLib.DirectionsService();
+            const DirectionsServiceClass = lib.DirectionsService || window.google?.maps?.DirectionsService;
+            if (!DirectionsServiceClass) throw new Error('DirectionsService is not available');
+            const directionsService = new DirectionsServiceClass();
             const normalizedOrigin = normalizeCoordinate(origin);
             const normalizedDest = normalizeCoordinate(destination);
+
 
             return new Promise((resolve, reject) => {
                 directionsService.route(
@@ -56,9 +61,12 @@ export function createGoogleRoutingAdapter(routesLib) {
         },
 
         async getMatrix({ origins, destinations }) {
-            const service = new routesLib.DistanceMatrixService();
+            const DistanceMatrixServiceClass = lib.DistanceMatrixService || window.google?.maps?.DistanceMatrixService;
+            if (!DistanceMatrixServiceClass) throw new Error('DistanceMatrixService is not available');
+            const service = new DistanceMatrixServiceClass();
             const normalizedOrigins = origins.map(normalizeCoordinate);
             const normalizedDestinations = destinations.map(normalizeCoordinate);
+
 
             return new Promise((resolve, reject) => {
                 service.getDistanceMatrix(

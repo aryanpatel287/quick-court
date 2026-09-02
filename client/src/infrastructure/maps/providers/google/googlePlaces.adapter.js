@@ -1,11 +1,13 @@
 import { normalizeCoordinate } from '../../utils/coordinates';
 
 export function createGooglePlacesAdapter(placesLib) {
+    const lib = placesLib || window.google?.maps?.places || {};
+
     return {
         async autocomplete(query) {
             if (!query) return [];
             try {
-                const { AutocompleteSuggestion } = placesLib;
+                const { AutocompleteSuggestion } = lib;
                 if (AutocompleteSuggestion) {
                     const { suggestions } =
                         await AutocompleteSuggestion.fetchAutocompleteSuggestions({
@@ -24,7 +26,9 @@ export function createGooglePlacesAdapter(placesLib) {
                 }
 
                 // Fallback to legacy AutocompleteService for backwards compatibility
-                const autocompleteService = new placesLib.AutocompleteService();
+                const AutocompleteService = lib.AutocompleteService || window.google?.maps?.places?.AutocompleteService;
+                if (!AutocompleteService) return [];
+                const autocompleteService = new AutocompleteService();
                 const response = await autocompleteService.getPlacePredictions({ input: query });
                 return (response.predictions || []).map((pred) => ({
                     id: pred.place_id,
@@ -41,17 +45,48 @@ export function createGooglePlacesAdapter(placesLib) {
         async getDetails(placeId) {
             if (!placeId) throw new Error('placeId is required for details');
             try {
-                const { Place } = placesLib;
-                const place = new Place({ id: placeId });
-                await place.fetchFields({
-                    fields: ['displayName', 'formattedAddress', 'location'],
-                });
-                return {
-                    id: placeId,
-                    name: place.displayName || '',
-                    formattedAddress: place.formattedAddress || '',
-                    location: normalizeCoordinate(place.location),
-                };
+                const { Place } = lib;
+                if (Place) {
+                    const place = new Place({ id: placeId });
+                    await place.fetchFields({
+                        fields: ['displayName', 'formattedAddress', 'location'],
+                    });
+                    return {
+                        id: placeId,
+                        name: place.displayName || '',
+                        formattedAddress: place.formattedAddress || '',
+                        location: normalizeCoordinate(place.location),
+                    };
+                }
+
+                // Fallback to legacy PlacesService
+                const PlacesService = lib.PlacesService || window.google?.maps?.places?.PlacesService;
+                if (PlacesService) {
+                    const dummy = document.createElement('div');
+                    const service = new PlacesService(dummy);
+                    return new Promise((resolve, reject) => {
+                        service.getDetails(
+                            {
+                                placeId,
+                                fields: ['name', 'formatted_address', 'geometry'],
+                            },
+                            (result, status) => {
+                                if (status === 'OK' && result) {
+                                    resolve({
+                                        id: placeId,
+                                        name: result.name || '',
+                                        formattedAddress: result.formatted_address || '',
+                                        location: normalizeCoordinate(result.geometry?.location),
+                                    });
+                                } else {
+                                    reject(new Error(`Places getDetails failed with status: ${status}`));
+                                }
+                            },
+                        );
+                    });
+                }
+
+                throw new Error('Google Places service is not available');
             } catch (err) {
                 console.error('Google Places getDetails error:', err);
                 throw err;
@@ -59,3 +94,4 @@ export function createGooglePlacesAdapter(placesLib) {
         },
     };
 }
+

@@ -1,7 +1,9 @@
 import { normalizeCoordinate } from '../../utils/coordinates';
 
 export function createGoogleGeocodingAdapter(geocodingLib) {
-    const geocoder = new geocodingLib.Geocoder();
+    const GeocoderClass = geocodingLib?.Geocoder || window.google?.maps?.Geocoder;
+    const geocoder = GeocoderClass ? new GeocoderClass() : null;
+
 
     return {
         async forward(address) {

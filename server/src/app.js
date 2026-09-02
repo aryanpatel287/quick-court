@@ -9,6 +9,9 @@ import aiRouter from './modules/ai/routes/ai.routes.js';
 import { ragRouter } from './modules/rag/index.js';
 import { pdfRouter } from './modules/pdf/index.js';
 import { qrRouter } from './modules/qr/index.js';
+import { facilityRouter } from './modules/facility/index.js';
+import { courtRouter } from './modules/court/index.js';
+import { availabilityRouter } from './modules/availability/index.js';
 import { errorHandler } from './modules/auth/middleware/errorHandler.js';
 import passport from './config/passport.config.js';
 
@@ -33,6 +36,11 @@ app.use('/api/ai', aiRouter);
 app.use('/api/rag', ragRouter);
 app.use('/api/pdf', pdfRouter);
 app.use('/api/qr', qrRouter);
+
+// DEV 2 - Facility Supply Management
+app.use('/api/owner/facilities', facilityRouter);
+app.use('/api/owner', courtRouter);
+app.use('/api/owner', availabilityRouter);
 
 app.use(errorHandler);
 

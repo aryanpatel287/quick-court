@@ -5,6 +5,8 @@ import { sports } from '../db/schema/sports.schema.js';
 import { bookings } from '../db/schema/bookings.schema.js';
 import { users } from '../db/schema/users.schema.js';
 import { reviews } from '../db/schema/reviews.schema.js';
+import { payments } from '../db/schema/payments.schema.js';
+import { bookingStatusHistory } from '../db/schema/booking_status_history.schema.js';
 import { eq, and, isNull, sql, inArray, gte, lte, gt, or, desc, asc } from 'drizzle-orm';
 import { formatDateToDDMMYYYY } from '../utils/date.utils.js';
 
@@ -46,6 +48,14 @@ const ownerBookingSelect = {
         email: users.email,
         profileImage: users.profileImage,
     },
+    payment: {
+        id: payments.id,
+        status: payments.status,
+        amount: payments.amount,
+        currency: payments.currency,
+        paymentId: payments.paymentId,
+        paidAt: payments.paidAt,
+    },
 };
 
 /**
@@ -70,6 +80,16 @@ function formatOwnerBookingRow(row) {
         facility: row.facility,
         sport: row.sport,
         customer: row.customer,
+        payment: row.payment?.id
+            ? {
+                  id: row.payment.id,
+                  status: row.payment.status,
+                  amount: parseFloat(row.payment.amount || 0),
+                  currency: row.payment.currency || 'INR',
+                  paymentId: row.payment.paymentId,
+                  paidAt: row.payment.paidAt,
+              }
+            : null,
     };
 }
 
@@ -140,6 +160,7 @@ export async function getOwnerBookings({
         .innerJoin(facilities, eq(courts.facilityId, facilities.id))
         .innerJoin(sports, eq(courts.sportId, sports.id))
         .innerJoin(users, eq(bookings.userId, users.id))
+        .leftJoin(payments, eq(bookings.id, payments.bookingId))
         .where(combinedWhere)
         .orderBy(desc(bookings.startTime))
         .limit(limitNum)
@@ -203,6 +224,7 @@ export async function getOwnerUpcomingBookings({ ownerId, facilityId, page = 1, 
         .innerJoin(facilities, eq(courts.facilityId, facilities.id))
         .innerJoin(sports, eq(courts.sportId, sports.id))
         .innerJoin(users, eq(bookings.userId, users.id))
+        .leftJoin(payments, eq(bookings.id, payments.bookingId))
         .where(combinedWhere)
         .orderBy(asc(bookings.startTime))
         .limit(limitNum)
@@ -265,6 +287,7 @@ export async function getOwnerPastBookings({ ownerId, facilityId, page = 1, limi
         .innerJoin(facilities, eq(courts.facilityId, facilities.id))
         .innerJoin(sports, eq(courts.sportId, sports.id))
         .innerJoin(users, eq(bookings.userId, users.id))
+        .leftJoin(payments, eq(bookings.id, payments.bookingId))
         .where(combinedWhere)
         .orderBy(desc(bookings.startTime))
         .limit(limitNum)
@@ -294,8 +317,9 @@ export async function getOwnerPastBookings({ ownerId, facilityId, page = 1, limi
  * @param {string} [params.facilityId]
  * @param {number} [params.month] - 1 to 12
  * @param {number} [params.year] - e.g. 2026
+ * @param {'court'|'flat'} [params.groupBy]
  */
-export async function getOwnerCalendarBookings({ ownerId, facilityId, month, year }) {
+export async function getOwnerCalendarBookings({ ownerId, facilityId, month, year, groupBy }) {
     const currentYear = year ? parseInt(year, 10) : new Date().getFullYear();
     const currentMonth = month ? parseInt(month, 10) - 1 : new Date().getMonth();
 
@@ -321,15 +345,38 @@ export async function getOwnerCalendarBookings({ ownerId, facilityId, month, yea
         .innerJoin(facilities, eq(courts.facilityId, facilities.id))
         .innerJoin(sports, eq(courts.sportId, sports.id))
         .innerJoin(users, eq(bookings.userId, users.id))
+        .leftJoin(payments, eq(bookings.id, payments.bookingId))
         .where(and(...whereConditions))
         .orderBy(asc(bookings.startTime));
 
-    return {
+    const formattedBookings = rows.map(formatOwnerBookingRow);
+
+    const result = {
         month: currentMonth + 1,
         year: currentYear,
         totalBookings: rows.length,
-        bookings: rows.map(formatOwnerBookingRow),
+        bookings: formattedBookings,
     };
+
+    if (groupBy === 'court') {
+        const courtsMap = {};
+        for (const b of formattedBookings) {
+            const cId = b.court?.id || 'unknown';
+            if (!courtsMap[cId]) {
+                courtsMap[cId] = {
+                    court: b.court,
+                    facility: b.facility,
+                    totalBookings: 0,
+                    bookings: [],
+                };
+            }
+            courtsMap[cId].totalBookings += 1;
+            courtsMap[cId].bookings.push(b);
+        }
+        result.calendarByCourt = Object.values(courtsMap);
+    }
+
+    return result;
 }
 
 /**
@@ -655,3 +702,71 @@ export async function getOwnerPeakHours({ ownerId, facilityId }) {
 
     return result;
 }
+
+/**
+ * Cancels a booking as a facility owner and writes an audit log in bookingStatusHistory.
+ *
+ * @param {object} params
+ * @param {string} params.ownerId - Authenticated owner ID
+ * @param {string} params.bookingId - Target booking UUID
+ * @param {string} [params.cancellationReason]
+ * @returns {Promise<object>} Cancelled booking record
+ */
+export async function cancelOwnerBooking({ ownerId, bookingId, cancellationReason }) {
+    return await db.transaction(async (tx) => {
+        const [target] = await tx
+            .select({
+                booking: bookings,
+                facility: facilities,
+                court: courts,
+            })
+            .from(bookings)
+            .innerJoin(courts, eq(bookings.courtId, courts.id))
+            .innerJoin(facilities, eq(courts.facilityId, facilities.id))
+            .where(
+                and(
+                    eq(bookings.id, bookingId),
+                    eq(facilities.ownerId, ownerId),
+                    isNull(facilities.deletedAt),
+                ),
+            )
+            .limit(1);
+
+        if (!target) {
+            const error = new Error('Booking not found or not authorized for this owner');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        if (target.booking.status === 'CANCELLED') {
+            const error = new Error('Booking is already cancelled');
+            error.statusCode = 409;
+            throw error;
+        }
+
+        const reasonText = cancellationReason || 'Cancelled by facility owner';
+        const now = new Date();
+
+        const [updatedBooking] = await tx
+            .update(bookings)
+            .set({
+                status: 'CANCELLED',
+                cancelledAt: now,
+                cancellationReason: reasonText,
+                updatedAt: now,
+            })
+            .where(eq(bookings.id, bookingId))
+            .returning();
+
+        await tx.insert(bookingStatusHistory).values({
+            bookingId,
+            changedBy: ownerId,
+            oldStatus: target.booking.status,
+            newStatus: 'CANCELLED',
+            reason: reasonText,
+        });
+
+        return updatedBooking;
+    });
+}
+

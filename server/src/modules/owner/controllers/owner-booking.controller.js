@@ -3,6 +3,7 @@ import {
     getOwnerUpcomingBookings as getOwnerUpcomingBookingsDao,
     getOwnerPastBookings as getOwnerPastBookingsDao,
     getOwnerCalendarBookings as getOwnerCalendarBookingsDao,
+    cancelOwnerBooking as cancelOwnerBookingDao,
 } from '../../../dao/analytics.dao.js';
 import { sendResponse } from '../../../utils/response.utlis.js';
 import { parseDDMMYYYY } from '../../../utils/date.utils.js';
@@ -101,13 +102,14 @@ export async function getOwnerPastBookings(req, res, next) {
  */
 export async function getOwnerCalendarBookings(req, res, next) {
     try {
-        const { facilityId, month, year } = req.query;
+        const { facilityId, month, year, groupBy } = req.query;
 
         const result = await getOwnerCalendarBookingsDao({
             ownerId: req.user.id,
             facilityId,
             month: month ? parseInt(month, 10) : undefined,
             year: year ? parseInt(year, 10) : undefined,
+            groupBy,
         });
 
         return sendResponse({
@@ -121,3 +123,41 @@ export async function getOwnerCalendarBookings(req, res, next) {
         next(error);
     }
 }
+
+/**
+ * Cancel a booking as a facility owner
+ * PATCH /api/owner/bookings/:bookingId/cancel
+ */
+export async function cancelOwnerBooking(req, res, next) {
+    try {
+        const { bookingId } = req.params;
+        const { cancellationReason } = req.body || {};
+
+        const updatedBooking = await cancelOwnerBookingDao({
+            ownerId: req.user.id,
+            bookingId,
+            cancellationReason,
+        });
+
+        return sendResponse({
+            res,
+            statusCode: 200,
+            message: 'Booking cancelled successfully by facility owner',
+            success: true,
+            data: {
+                booking: updatedBooking,
+            },
+        });
+    } catch (error) {
+        if (error.statusCode) {
+            return sendResponse({
+                res,
+                statusCode: error.statusCode,
+                message: error.message,
+                success: false,
+            });
+        }
+        next(error);
+    }
+}
+

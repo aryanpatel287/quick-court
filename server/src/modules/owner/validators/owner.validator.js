@@ -1,4 +1,4 @@
-import { query, validationResult } from 'express-validator';
+import { query, param, body, validationResult } from 'express-validator';
 import { sendResponse } from '../../../utils/response.utlis.js';
 import { parseDDMMYYYY } from '../../../utils/date.utils.js';
 
@@ -32,14 +32,14 @@ export const ownerBookingsQueryValidator = [
         .optional()
         .custom((val) => {
             const parsed = parseDDMMYYYY(val);
-            if (!parsed) throw new Error('startDate must be in format DD-MM-YYYY or DDMMYYYY');
+            if (!parsed) throw new Error('startDate must be in format DD-MM-YYYY, DDMMYYYY, or YYYY-MM-DD');
             return true;
         }),
     query('endDate')
         .optional()
         .custom((val) => {
             const parsed = parseDDMMYYYY(val);
-            if (!parsed) throw new Error('endDate must be in format DD-MM-YYYY or DDMMYYYY');
+            if (!parsed) throw new Error('endDate must be in format DD-MM-YYYY, DDMMYYYY, or YYYY-MM-DD');
             return true;
         }),
     query('page').optional().isInt({ min: 1 }).withMessage('page must be a positive integer'),
@@ -60,6 +60,21 @@ export const calendarQueryValidator = [
         .optional()
         .isInt({ min: 2000, max: 2100 })
         .withMessage('year must be a valid 4-digit year'),
+    query('groupBy')
+        .optional()
+        .isIn(['court', 'flat'])
+        .withMessage('groupBy must be one of: court, flat'),
+    validateRequest,
+];
+
+export const cancelOwnerBookingValidator = [
+    param('bookingId').isUUID().withMessage('Valid booking UUID is required'),
+    body('cancellationReason')
+        .optional()
+        .isString()
+        .trim()
+        .isLength({ max: 500 })
+        .withMessage('Cancellation reason must be at most 500 characters'),
     validateRequest,
 ];
 
@@ -78,15 +93,16 @@ export const trendQueryValidator = [
         .optional()
         .custom((val) => {
             const parsed = parseDDMMYYYY(val);
-            if (!parsed) throw new Error('startDate must be in format DD-MM-YYYY or DDMMYYYY');
+            if (!parsed) throw new Error('startDate must be in format DD-MM-YYYY, DDMMYYYY, or YYYY-MM-DD');
             return true;
         }),
     query('endDate')
         .optional()
         .custom((val) => {
             const parsed = parseDDMMYYYY(val);
-            if (!parsed) throw new Error('endDate must be in format DD-MM-YYYY or DDMMYYYY');
+            if (!parsed) throw new Error('endDate must be in format DD-MM-YYYY, DDMMYYYY, or YYYY-MM-DD');
             return true;
         }),
     validateRequest,
 ];
+

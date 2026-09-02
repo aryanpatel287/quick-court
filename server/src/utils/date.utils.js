@@ -47,7 +47,7 @@ export function generateBookingReference(sequence, date = new Date()) {
 }
 
 /**
- * Parses a DDMMYYYY, DD-MM-YYYY, or DD/MM/YYYY string into a valid Date object
+ * Parses a DDMMYYYY, DD-MM-YYYY, DD/MM/YYYY, or YYYY-MM-DD string into a valid Date object
  *
  * @param {string} str
  * @returns {Date|null}
@@ -55,6 +55,16 @@ export function generateBookingReference(sequence, date = new Date()) {
 export function parseDDMMYYYY(str) {
     if (!str || typeof str !== 'string') return null;
     const clean = str.trim();
+
+    // Match YYYY-MM-DD or YYYY/MM/DD (ISO standard)
+    const isoMatch = clean.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
+    if (isoMatch) {
+        const year = parseInt(isoMatch[1], 10);
+        const month = parseInt(isoMatch[2], 10) - 1;
+        const day = parseInt(isoMatch[3], 10);
+        const d = new Date(year, month, day);
+        return Number.isNaN(d.getTime()) ? null : d;
+    }
 
     // Match DD-MM-YYYY or DD/MM/YYYY
     const separatedMatch = clean.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
@@ -78,3 +88,4 @@ export function parseDDMMYYYY(str) {
 
     return null;
 }
+

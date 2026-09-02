@@ -65,17 +65,3 @@ export const userBookingsQueryValidator = [
     validateRequest,
 ];
 
-export const ownerBookingsQueryValidator = [
-    query('status')
-        .optional()
-        .isIn(['CONFIRMED', 'CANCELLED', 'COMPLETED', 'confirmed', 'cancelled', 'completed'])
-        .withMessage('Status must be CONFIRMED, CANCELLED, or COMPLETED'),
-    query('courtId').optional().isUUID().withMessage('Invalid court UUID'),
-    query('facilityId').optional().isUUID().withMessage('Invalid facility UUID'),
-    query('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer'),
-    query('limit')
-        .optional()
-        .isInt({ min: 1, max: 100 })
-        .withMessage('Limit must be between 1 and 100'),
-    validateRequest,
-];

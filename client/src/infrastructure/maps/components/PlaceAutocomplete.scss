@@ -7,27 +7,27 @@
 
 .place-autocomplete-input {
     width: 100%;
-    padding: 10px 16px;
-    padding-right: 40px;
+    padding: 10px 14px;
+    padding-right: 36px;
+    font-family: variables.$font-sans;
     font-size: variables.$font-size-sm;
-    color: variables.$color-gray-100;
-    background: rgb(15 23 42 / 60%);
-    border: 1px solid rgb(255 255 255 / 10%);
-    border-radius: 8px;
+    color: variables.$color-gray-900;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-small;
     outline: none;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
+    box-shadow: variables.$shadow-sm;
+    box-sizing: border-box;
+
+    @include variables.transition-ease;
 
     &:focus {
-        border-color: variables.$color-indigo-light;
-        box-shadow:
-            0 0 0 2px rgb(99 102 241 / 20%),
-            0 4px 6px -1px rgb(0 0 0 / 10%);
-        background: rgb(15 23 42 / 80%);
+        border-color: variables.$color-gray-400;
+        box-shadow: variables.$shadow-md;
     }
 
     &::placeholder {
-        color: variables.$color-gray-500;
+        color: variables.$color-gray-400;
     }
 }
 
@@ -38,55 +38,56 @@
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    border: 2px solid rgb(255 255 255 / 10%);
-    border-top-color: variables.$color-indigo-light;
+    border: 2px solid variables.$color-gray-200;
+    border-top-color: variables.$color-primary;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
 
 .place-autocomplete-suggestions {
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% + 4px);
     left: 0;
     width: 100%;
     max-height: 220px;
     overflow-y: auto;
-    background: rgb(15 23 42 / 95%);
-    border: 1px solid rgb(255 255 255 / 10%);
-    border-radius: 8px;
-    padding: 6px 0;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-medium;
+    padding: variables.$spacing-xs 0;
     margin: 0;
     list-style: none;
     z-index: variables.$z-dropdown;
-    backdrop-filter: blur(12px);
-    box-shadow:
-        0 10px 15px -3px rgb(0 0 0 / 30%),
-        0 4px 6px -2px rgb(0 0 0 / 5%);
+    box-shadow: variables.$shadow-lg;
+    box-sizing: border-box;
 }
 
 .place-autocomplete-suggestion-item {
-    padding: 10px 16px;
+    padding: 8px 14px;
+    font-family: variables.$font-sans;
     font-size: variables.$font-size-sm;
-    color: variables.$color-gray-300;
+    color: variables.$color-gray-700;
     cursor: pointer;
-    transition: background 0.15s ease;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
+    @include variables.transition-ease;
+
     &:hover {
-        background: rgb(99 102 241 / 15%);
-        color: variables.$color-gray-100;
+        background-color: variables.$color-gray-100;
+        color: variables.$color-gray-900;
     }
 
     .main-text {
         font-weight: 500;
-        color: variables.$color-gray-100;
+        color: variables.$color-gray-900;
     }
 
     .secondary-text {
         color: variables.$color-gray-500;
         font-size: variables.$font-size-xs;
+        margin-left: 4px;
     }
 }
 
@@ -95,3 +96,4 @@
         transform: rotate(360deg);
     }
 }
+

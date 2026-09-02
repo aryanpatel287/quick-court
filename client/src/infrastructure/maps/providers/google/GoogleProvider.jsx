@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { APIProvider, useMapsLibrary } from '@vis.gl/react-google-maps';
+import {
+    APIProvider,
+    useMapsLibrary,
+    useApiLoadingStatus,
+    APILoadingStatus,
+} from '@vis.gl/react-google-maps';
 import { MapsContext } from '../../context/MapsContext';
 import { MAP_CONFIG } from '../../config';
 import { getCapabilities } from '../../capabilities';
@@ -7,27 +12,51 @@ import { createGooglePlacesAdapter } from './googlePlaces.adapter';
 import { createGoogleGeocodingAdapter } from './googleGeocoding.adapter';
 import { createGoogleRoutingAdapter } from './googleRouting.adapter';
 
+const REQUIRED_LIBRARIES = ['places', 'geocoding', 'routes', 'marker', 'geometry'];
+
 function GoogleLibraryLoader({ children, setServices, setStatus, setError }) {
+    const apiLoadingStatus = useApiLoadingStatus();
     const placesLib = useMapsLibrary('places');
     const geocodingLib = useMapsLibrary('geocoding');
     const routesLib = useMapsLibrary('routes');
 
     useEffect(() => {
-        if (placesLib && geocodingLib && routesLib) {
+        if (apiLoadingStatus === APILoadingStatus.AUTH_FAILURE) {
+            const authErr = new Error(
+                'Google Maps Authentication Error: The provided API key is invalid, restricted, or billing/Maps JavaScript API is not enabled for this project in Google Cloud Console.',
+            );
+            console.error(authErr);
+            setError(authErr);
+            setStatus('error');
+            return;
+        }
+
+        if (apiLoadingStatus === APILoadingStatus.FAILED) {
+            const loadErr = new Error(
+                'Failed to load Google Maps script. Check your network connection and configuration.',
+            );
+            console.error(loadErr);
+            setError(loadErr);
+            setStatus('error');
+            return;
+        }
+
+        if (apiLoadingStatus === APILoadingStatus.LOADED) {
             try {
                 setServices({
-                    places: createGooglePlacesAdapter(placesLib),
-                    geocoding: createGoogleGeocodingAdapter(geocodingLib),
-                    routing: createGoogleRoutingAdapter(routesLib),
+                    places: createGooglePlacesAdapter(placesLib || window.google?.maps?.places),
+                    geocoding: createGoogleGeocodingAdapter(geocodingLib || window.google?.maps),
+                    routing: createGoogleRoutingAdapter(routesLib || window.google?.maps),
                 });
                 setStatus('ready');
+                setError(null);
             } catch (err) {
                 console.error('Error initializing Google services:', err);
                 setError(err);
                 setStatus('error');
             }
         }
-    }, [placesLib, geocodingLib, routesLib, setServices, setStatus, setError]);
+    }, [apiLoadingStatus, placesLib, geocodingLib, routesLib, setServices, setStatus, setError]);
 
     return children;
 }
@@ -50,7 +79,7 @@ export function GoogleProvider({ children }) {
     return (
         <APIProvider
             apiKey={MAP_CONFIG.googleApiKey}
-            onLoad={() => setStatus('loading')}
+            libraries={REQUIRED_LIBRARIES}
             onError={handleLoadError}
         >
             <GoogleLibraryLoader
@@ -73,3 +102,4 @@ export function GoogleProvider({ children }) {
         </APIProvider>
     );
 }
+

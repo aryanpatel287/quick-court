@@ -3,20 +3,28 @@
 .maps-showcase-grid {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 24px;
-    background: #0b0f19;
-    min-height: 100vh;
-    color: variables.$color-gray-200;
-    font-family: Inter, sans-serif;
+    gap: variables.$spacing-lg;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: variables.$color-gray-900;
+    font-family: variables.$font-sans;
 
     .card {
-        background: rgb(17 24 39 / 70%);
-        border: 1px solid rgb(255 255 255 / 8%);
-        border-radius: 12px;
-        padding: 20px;
-        backdrop-filter: blur(12px);
-        box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: variables.$radius-large;
+        padding: variables.$spacing-lg;
+        box-shadow: variables.$shadow-sm;
+        box-sizing: border-box;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            border-color: variables.$color-gray-300;
+            box-shadow: variables.$shadow-md;
+        }
     }
 }
 
@@ -25,47 +33,61 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: variables.$spacing-md;
+
+    .header-titles {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
 
     h2 {
         margin: 0;
-        font-size: variables.$font-size-xxl;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-xl;
         font-weight: 700;
-        background: linear-gradient(135deg, #a5b4fc, #6366f1);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: variables.$color-gray-900;
+        letter-spacing: -0.01em;
     }
 
     .subtitle {
-        margin: 4px 0 0;
+        margin: 0;
         font-size: variables.$font-size-sm;
-        color: variables.$color-gray-400;
+        color: variables.$color-gray-500;
+
+        strong {
+            color: variables.$color-gray-900;
+            font-weight: 600;
+        }
     }
 
     .caps-badges {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: variables.$spacing-xs;
     }
 
     .badge {
-        padding: 6px 10px;
-        border-radius: 6px;
-        font-size: variables.$font-size-xs;
-        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: variables.$radius-tiny;
+        font-size: variables.$font-size-xxs;
+        font-weight: 700;
         text-transform: uppercase;
-        border: 1px solid;
+        letter-spacing: 0.04em;
+        line-height: 1;
 
         &.supported {
-            background: rgb(16 185 129 / 10%);
+            background-color: variables.$color-success-light;
             color: variables.$color-success;
-            border-color: rgb(16 185 129 / 20%);
+            border: 1px solid variables.$color-success-border;
         }
 
         &.unsupported {
-            background: rgb(239 68 68 / 10%);
+            background-color: variables.$color-danger-light;
             color: variables.$color-danger;
-            border-color: rgb(239 68 68 / 20%);
+            border: 1px solid variables.$color-danger-border;
         }
     }
 }
@@ -76,37 +98,39 @@
     .map-wrapper {
         position: relative;
         width: 100%;
-        height: 450px;
-        border-radius: 8px;
+        height: 480px;
+        border-radius: variables.$radius-medium;
         overflow: hidden;
-        border: 1px solid rgb(255 255 255 / 10%);
-        box-shadow: inset 0 2px 4px rgb(0 0 0 / 30%);
+        border: 1px solid variables.$color-gray-200;
+        box-shadow: variables.$shadow-sm;
+        box-sizing: border-box;
     }
 }
 
 .controls-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    gap: variables.$spacing-lg;
 }
 
 .operations-card {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: variables.$spacing-md;
 
     h3 {
-        margin: 0 0 4px;
-        font-size: variables.$font-size-lg;
-        font-weight: 600;
-        color: variables.$color-gray-100;
-        border-bottom: 1px solid rgb(255 255 255 / 8%);
-        padding-bottom: 10px;
+        margin: 0;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-md;
+        font-weight: 700;
+        color: variables.$color-gray-900;
+        border-bottom: 1px solid variables.$color-gray-100;
+        padding-bottom: variables.$spacing-sm;
     }
 
     .description {
         font-size: variables.$font-size-sm;
-        color: variables.$color-gray-400;
+        color: variables.$color-gray-500;
         line-height: 1.5;
         margin: 0;
     }
@@ -114,12 +138,12 @@
     .form-group {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: variables.$spacing-xs;
 
         label {
             font-size: variables.$font-size-xs;
             font-weight: 600;
-            color: variables.$color-gray-400;
+            color: variables.$color-gray-600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -127,41 +151,59 @@
 
     .input-group {
         display: flex;
-        gap: 8px;
+        gap: variables.$spacing-xs;
 
         input {
             flex: 1;
-            padding: 8px 12px;
-            background: rgb(15 23 42 / 50%);
-            border: 1px solid rgb(255 255 255 / 10%);
-            border-radius: 6px;
-            color: variables.$color-gray-200;
+            padding: 9px 12px;
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: variables.$radius-small;
+            color: variables.$color-gray-900;
             outline: none;
+            font-family: variables.$font-sans;
             font-size: variables.$font-size-sm;
+            box-shadow: variables.$shadow-sm;
+
+            @include variables.transition-ease;
 
             &:focus {
-                border-color: variables.$color-indigo-light;
+                border-color: variables.$color-gray-400;
+                box-shadow: variables.$shadow-md;
+            }
+
+            &::placeholder {
+                color: variables.$color-gray-400;
             }
         }
     }
 
     .coord-inputs {
         display: flex;
-        gap: 8px;
-        margin-bottom: 10px;
+        gap: variables.$spacing-xs;
+        margin-bottom: 4px;
 
         input {
             flex: 1;
-            padding: 8px 12px;
-            background: rgb(15 23 42 / 50%);
-            border: 1px solid rgb(255 255 255 / 10%);
-            border-radius: 6px;
-            color: variables.$color-gray-200;
+            padding: 9px 12px;
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: variables.$radius-small;
+            color: variables.$color-gray-900;
             outline: none;
+            font-family: variables.$font-sans;
             font-size: variables.$font-size-sm;
+            box-shadow: variables.$shadow-sm;
+
+            @include variables.transition-ease;
 
             &:focus {
-                border-color: variables.$color-indigo-light;
+                border-color: variables.$color-gray-400;
+                box-shadow: variables.$shadow-md;
+            }
+
+            &::placeholder {
+                color: variables.$color-gray-400;
             }
         }
     }
@@ -169,50 +211,55 @@
     .divider {
         border: 0;
         height: 1px;
-        background: rgb(255 255 255 / 8%);
-        margin: 8px 0;
+        background-color: variables.$color-gray-100;
+        margin: variables.$spacing-xs 0;
     }
 
     .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         padding: 9px 16px;
+        font-family: variables.$font-sans;
         font-size: variables.$font-size-sm;
-        font-weight: 500;
-        border-radius: 6px;
+        font-weight: 600;
+        border-radius: variables.$radius-small;
         cursor: pointer;
-        transition: all 0.15s ease-in-out;
         border: none;
         outline: none;
+        box-sizing: border-box;
+
+        @include variables.transition-ease;
 
         &:disabled {
-            opacity: 0.5;
+            opacity: 0.55;
             cursor: not-allowed;
+            pointer-events: none;
         }
 
         &.btn-primary {
-            background: #6366f1;
+            background-color: variables.$color-black;
             color: variables.$color-white;
+            border: none;
+
+            @include variables.shine-effect;
 
             &:hover:not(:disabled) {
-                background: #4f46e5;
+                background-color: variables.$color-gray-900;
+                box-shadow: variables.$shadow-md;
             }
         }
 
         &.btn-secondary {
-            background: rgb(255 255 255 / 8%);
-            color: variables.$color-gray-100;
-            border: 1px solid rgb(255 255 255 / 10%);
+            background-color: variables.$color-white;
+            color: variables.$color-black;
+            border: 1px solid variables.$color-gray-200;
+            box-shadow: variables.$shadow-sm;
 
             &:hover:not(:disabled) {
-                background: rgb(255 255 255 / 12%);
-            }
-        }
-
-        &.btn-indigo {
-            background: #4f46e5;
-            color: variables.$color-white;
-
-            &:hover:not(:disabled) {
-                background: #4338ca;
+                background-color: variables.$color-gray-100;
+                border-color: variables.$color-gray-300;
             }
         }
 
@@ -222,31 +269,36 @@
     }
 
     .result-panel {
-        background: rgb(15 23 42 / 60%);
-        border: 1px solid rgb(255 255 255 / 5%);
-        border-radius: 8px;
-        padding: 12px;
-        margin-top: 8px;
+        background-color: variables.$color-gray-100;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: variables.$radius-small;
+        padding: variables.$spacing-sm variables.$spacing-md;
+        margin-top: 4px;
 
         p {
-            margin: 4px 0;
+            margin: 2px 0;
             font-size: variables.$font-size-sm;
+            line-height: 1.4;
         }
 
         .result-title {
             font-weight: 600;
-            color: variables.$color-gray-400;
+            color: variables.$color-gray-500;
             font-size: variables.$font-size-xs;
             text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .result-text {
-            color: variables.$color-gray-100;
+            color: variables.$color-gray-900;
+            font-weight: 500;
         }
 
         .result-coords {
-            color: variables.$color-blue-accent;
+            color: variables.$color-gray-600;
             font-family: monospace;
+            font-size: variables.$font-size-xs;
+            margin-top: 4px;
         }
     }
 
@@ -255,31 +307,39 @@
         justify-content: space-around;
         align-items: center;
         text-align: center;
+        padding: variables.$spacing-md;
 
         .metric {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
 
             .label {
                 font-size: variables.$font-size-xxs;
-                font-weight: 600;
+                font-weight: 700;
                 color: variables.$color-gray-500;
                 text-transform: uppercase;
+                letter-spacing: 0.05em;
             }
 
             .val {
-                font-size: variables.$font-size-lg;
+                font-size: variables.$font-size-xl;
                 font-weight: 700;
-                color: variables.$color-indigo-light;
+                color: variables.$color-gray-900;
             }
+        }
+    }
+
+    .customer-info {
+        p {
+            color: variables.$color-gray-900;
         }
     }
 
     .driver-list {
         margin: 6px 0 0;
-        padding-left: 16px;
-        color: variables.$color-gray-400;
+        padding-left: 18px;
+        color: variables.$color-gray-600;
         font-size: variables.$font-size-xs;
 
         li {
@@ -289,7 +349,7 @@
 
     .status-text {
         font-size: variables.$font-size-sm;
-        color: variables.$color-blue-accent;
+        color: variables.$color-gray-500;
         margin: 0;
         font-style: italic;
     }
@@ -297,57 +357,63 @@
     .matrix-results-panel {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        margin-top: 12px;
+        gap: variables.$spacing-xs;
+        margin-top: variables.$spacing-xs;
 
         h4 {
-            margin: 0 0 4px;
-            font-size: variables.$font-size-sm;
-            color: variables.$color-gray-200;
+            margin: 0 0 2px;
+            font-size: variables.$font-size-xs;
+            color: variables.$color-gray-600;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .matrix-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 14px;
-            background: rgb(255 255 255 / 3%);
-            border: 1px solid rgb(255 255 255 / 5%);
-            border-radius: 6px;
+            padding: 8px 12px;
+            background-color: variables.$color-gray-50;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: variables.$radius-small;
             font-size: variables.$font-size-sm;
 
+            @include variables.transition-ease;
+
             .driver-name {
-                color: variables.$color-gray-300;
+                color: variables.$color-gray-800;
                 font-weight: 500;
             }
 
             .driver-stats {
                 display: flex;
                 align-items: center;
-                gap: 8px;
-                color: variables.$color-gray-400;
+                gap: 6px;
+                color: variables.$color-gray-500;
                 font-family: monospace;
+                font-size: variables.$font-size-xs;
 
                 .dot {
-                    color: rgb(255 255 255 / 15%);
+                    color: variables.$color-gray-400;
                 }
             }
 
             &.nearest-row {
-                background: rgb(16 185 129 / 8%);
-                border-color: rgb(16 185 129 / 20%);
+                background-color: variables.$color-success-light;
+                border-color: variables.$color-success-border;
 
                 .driver-name {
                     color: variables.$color-success;
-                    font-weight: 600;
+                    font-weight: 700;
                 }
 
                 .driver-stats {
                     color: variables.$color-success;
-                    font-weight: 600;
+                    font-weight: 700;
                 }
             }
         }
     }
 }
+

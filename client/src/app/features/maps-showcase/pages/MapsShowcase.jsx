@@ -215,7 +215,7 @@ function MapsDashboardContent() {
                                 color={m.color}
                             />
                         ))}
-                        {computedRoute && <MapPolyline path={computedRoute.path} color="#6366f1" />}
+                        {computedRoute && <MapPolyline path={computedRoute.path} color="#3b82f6" weight={5} />}
                     </MapView>
                 </div>
             </div>
@@ -351,11 +351,12 @@ function MapsDashboardContent() {
 
                     <button
                         onClick={handleCalculateMatrix}
-                        className="btn btn-indigo btn-block"
+                        className="btn btn-primary btn-block"
                         disabled={matrixLoading || !services.routing}
                     >
                         {matrixLoading ? 'Calculating Matrix...' : 'Dispatch Nearest Driver'}
                     </button>
+
 
                     {matrixResults && (
                         <div className="matrix-results-panel">

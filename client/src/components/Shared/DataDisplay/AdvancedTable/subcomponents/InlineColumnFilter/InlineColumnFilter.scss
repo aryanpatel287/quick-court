@@ -1,0 +1,105 @@
+@use '../../../../../../styles/variables';
+
+.at-inline-filter-container {
+    width: 100%;
+
+    .at-fdp-search {
+        padding-bottom: 6px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid variables.$color-gray-100;
+
+        .searchbar-container {
+            width: 100%;
+            max-width: 100%;
+
+            .searchbar-input-wrapper {
+                height: 28px;
+                min-height: 28px;
+                padding: 0 8px;
+
+                .searchbar-input {
+                    font-size: variables.$font-size-xs;
+                }
+
+                .searchbar-icon {
+                    svg {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    .at-fdp-list {
+        max-height: 180px;
+        overflow-y: auto;
+        padding: 2px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: variables.$color-gray-200;
+            border-radius: 3px;
+        }
+    }
+
+    .at-fdp-empty {
+        padding: 8px 10px;
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-400;
+        text-align: center;
+    }
+
+    .at-fdp-item {
+        display: flex;
+        align-items: center;
+        padding: 4px 6px;
+        border-radius: 4px;
+        cursor: pointer;
+        user-select: none;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-50;
+        }
+
+        .at-fdp-checkbox {
+            width: 100%;
+            margin: 0;
+
+            .checkbox-label-text {
+                font-size: variables.$font-size-sm;
+                font-weight: 500;
+                color: variables.$color-gray-800;
+            }
+        }
+    }
+
+    .at-fdp-footer {
+        padding-top: 6px;
+        margin-top: 6px;
+        border-top: 1px solid variables.$color-gray-100;
+
+        .at-fdp-clear {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            color: variables.$color-danger;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px 0;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+@use './styles/foundation';
+@use './styles/variables' as variables;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    // Global Scrollbar Styling (Standard CSS & Theme Responsive)
+    scrollbar-width: thin;
+    scrollbar-color: variables.$color-gray-300 transparent;
+
+    // WebKit Browsers (Chrome, Edge, Safari, Brave, Opera)
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: variables.$color-gray-300;
+        border-radius: variables.$radius-tiny;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: variables.$color-gray-400;
+        }
+
+        &:active {
+            background-color: variables.$color-gray-500;
+        }
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+html {
+    overflow-x: hidden;
+    background-color: variables.$color-gray-50;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: variables.$color-gray-50;
+    color: variables.$color-gray-900;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}

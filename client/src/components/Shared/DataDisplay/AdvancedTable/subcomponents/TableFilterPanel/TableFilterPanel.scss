@@ -1,0 +1,429 @@
+@use '../../../../../../styles/variables';
+
+// ── Filter Toggle Button ─────────────────────────────────────────────────
+.at-filter-toggle-wrapper {
+    position: relative;
+}
+
+.at-filter-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    height: 36px;
+    border-radius: 100px;
+    border: 1px solid variables.$color-gray-200;
+    background-color: variables.$color-white;
+    font-family: variables.$font-sans;
+    font-size: variables.$font-size-sm;
+    font-weight: 600;
+    color: variables.$color-gray-700;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    outline: none;
+
+    @include variables.transition-ease;
+
+    svg {
+        color: variables.$color-gray-500;
+
+        @include variables.transition-ease;
+    }
+
+    &:hover {
+        background-color: variables.$color-gray-100;
+        border-color: variables.$color-gray-300;
+        color: variables.$color-black;
+
+        svg {
+            color: variables.$color-black;
+        }
+    }
+
+    &.is-open {
+        background-color: variables.$color-gray-100;
+        border-color: variables.$color-gray-300;
+        color: variables.$color-black;
+
+        svg {
+            color: variables.$color-black;
+        }
+    }
+
+    &.has-filters {
+        border-color: variables.$color-blue-dark;
+        color: variables.$color-blue-dark;
+        background-color: rgb(47 84 235 / 4%);
+
+        svg {
+            color: variables.$color-blue-dark;
+        }
+
+        &:hover {
+            background-color: rgb(47 84 235 / 8%);
+        }
+    }
+
+    .at-filter-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        border-radius: 100px;
+        background-color: variables.$color-blue-dark;
+        color: variables.$color-white;
+        font-size: variables.$font-size-xxs;
+        font-weight: 700;
+        line-height: 1;
+        margin-left: 2px;
+    }
+}
+
+// ── Filter Panel ─────────────────────────────────────────────────────────
+.at-filter-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: variables.$z-toast;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-small;
+    box-shadow:
+        0 10px 28px rgb(0 0 0 / 12%),
+        0 2px 8px rgb(0 0 0 / 8%);
+    width: 340px;
+    min-width: 340px;
+    animation: at-fp-fade-in 0.15s ease;
+    overflow: visible;
+
+    .at-fp-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        border-bottom: 1px solid variables.$color-gray-100;
+        background-color: variables.$color-gray-50;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+
+        .at-fp-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: variables.$font-size-xs;
+            font-weight: 700;
+            color: variables.$color-gray-800;
+
+            svg {
+                color: variables.$color-gray-500;
+            }
+        }
+
+        .at-fp-clear-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 3px 8px;
+            border: 1px solid variables.$color-danger;
+            border-radius: variables.$radius-tiny;
+            background: transparent;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            color: variables.$color-danger;
+            cursor: pointer;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: rgb(239 68 68 / 6%);
+            }
+        }
+    }
+
+    .at-fp-body {
+        padding: 8px 10px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 420px;
+        overflow: visible auto;
+        background-color: variables.$color-white;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: variables.$color-gray-200;
+            border-radius: 4px;
+        }
+    }
+
+    .at-fp-accordion-item {
+        border: 1px solid variables.$color-gray-200;
+        border-radius: variables.$radius-tiny;
+        background-color: variables.$color-white;
+        overflow: visible;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            border-color: variables.$color-gray-300;
+        }
+
+        &.is-expanded {
+            border-color: variables.$color-gray-300;
+            box-shadow: 0 2px 5px rgb(0 0 0 / 3%);
+        }
+
+        &.has-active-value {
+            border-color: rgb(47 84 235 / 30%);
+            background-color: rgb(47 84 235 / 1%);
+        }
+    }
+
+    .at-fp-accordion-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 8px 10px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: variables.$font-sans;
+        outline: none;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-50;
+        }
+
+        .at-fp-accordion-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            color: variables.$color-gray-800;
+
+            svg {
+                color: variables.$color-gray-500;
+            }
+
+            .at-fp-active-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: variables.$color-blue-dark;
+                display: inline-block;
+            }
+        }
+
+        .at-fp-accordion-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .at-fp-summary-badge {
+                font-size: variables.$font-size-xxs;
+                font-weight: 500;
+                color: variables.$color-gray-400;
+                background-color: variables.$color-gray-100;
+                padding: 2px 7px;
+                border-radius: 100px;
+                max-width: 140px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                &.is-active {
+                    color: variables.$color-blue-dark;
+                    background-color: rgb(47 84 235 / 10%);
+                    font-weight: 600;
+                }
+            }
+
+            .at-fp-accordion-arrow {
+                color: variables.$color-gray-400;
+
+                @include variables.transition-ease;
+
+                &.is-open {
+                    transform: rotate(180deg);
+                    color: variables.$color-gray-800;
+                }
+            }
+        }
+    }
+
+    .at-fp-accordion-content {
+        padding: 8px 10px 10px;
+        border-top: 1px solid variables.$color-gray-100;
+        background-color: variables.$color-white;
+        animation: at-fp-fade-in 0.15s ease;
+        overflow: visible;
+    }
+
+    // Date range row
+    .at-fp-date-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+
+        .at-fp-date-sep {
+            width: 8px;
+            height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &::after {
+                content: '';
+                display: block;
+                width: 7px;
+                height: 1.5px;
+                background-color: variables.$color-gray-400;
+                border-radius: 1px;
+            }
+        }
+
+        .at-fp-datepicker {
+            flex: 1;
+            min-width: 0;
+
+            .datepicker-selected-info {
+                display: none;
+            }
+
+            .datepicker-input-wrapper {
+                height: 32px;
+                min-height: 32px;
+                padding: 0 8px;
+
+                .datepicker-value-text {
+                    font-size: variables.$font-size-xs;
+                }
+            }
+        }
+    }
+
+    // Numeric range row
+    .at-fp-numeric-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+
+        .at-fp-numeric-sep {
+            width: 8px;
+            height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &::after {
+                content: '';
+                display: block;
+                width: 7px;
+                height: 1.5px;
+                background-color: variables.$color-gray-400;
+                border-radius: 1px;
+            }
+        }
+
+        .at-fp-numeric-field {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: variables.$radius-tiny;
+            background-color: variables.$color-white;
+            height: 32px;
+            min-height: 32px;
+            box-sizing: border-box;
+            overflow: hidden;
+
+            @include variables.transition-ease;
+
+            &:focus-within {
+                border-color: variables.$color-blue-dark;
+                box-shadow: 0 0 0 2px rgb(47 84 235 / 10%);
+            }
+
+            .at-fp-numeric-prefix {
+                padding: 0 7px;
+                font-size: variables.$font-size-xxs;
+                font-weight: 700;
+                color: variables.$color-gray-400;
+                background-color: variables.$color-gray-50;
+                border-right: 1px solid variables.$color-gray-200;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                user-select: none;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                flex-shrink: 0;
+            }
+
+            .at-fp-numeric-input {
+                flex: 1;
+                border: none;
+                outline: none;
+                background: transparent;
+                padding: 3px 6px;
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-xs;
+                font-weight: 500;
+                color: variables.$color-gray-900;
+                width: 100%;
+                min-width: 0;
+                height: 100%;
+                box-sizing: border-box;
+
+                &::placeholder {
+                    color: variables.$color-gray-400;
+                }
+
+                // Hide number spinners
+                &::-webkit-inner-spin-button,
+                &::-webkit-outer-spin-button {
+                    appearance: none;
+                    margin: 0;
+                }
+
+                appearance: textfield;
+            }
+        }
+    }
+}
+
+// ── Responsive Filter Panel Breakpoints ─────────────────────────────────
+@include variables.mobile {
+    .at-filter-panel {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100vw - 32px);
+        min-width: 0;
+        max-width: 360px;
+        max-height: 85vh;
+        box-shadow: 0 20px 40px rgb(0 0 0 / 25%);
+
+        .at-fp-body {
+            max-height: calc(85vh - 50px);
+        }
+    }
+}

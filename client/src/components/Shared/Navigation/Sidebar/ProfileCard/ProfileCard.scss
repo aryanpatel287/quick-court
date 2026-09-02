@@ -1,0 +1,175 @@
+@use '../../../../../styles/variables';
+
+.profile-card-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: variables.$radius-medium;
+    background-color: variables.$color-gray-100;
+    border: none;
+    cursor: default;
+    width: 100%;
+    margin-top: 8px;
+    position: relative;
+
+    @include variables.transition-ease;
+
+    .avatar-wrapper {
+        position: relative;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: variables.$color-gray-200;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid variables.$color-white;
+
+            &.online {
+                background-color: variables.$color-success;
+            }
+        }
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-width: 0; // Ensures text overflow works inside flexbox
+
+        .profile-name {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            color: variables.$color-primary;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-handle,
+        .profile-role {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-xs;
+            font-weight: 500;
+            color: variables.$color-gray-500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .profile-settings-btn {
+        border: none;
+        background: transparent;
+        color: variables.$color-gray-500;
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include variables.transition-ease;
+
+        &:hover,
+        &.active {
+            color: variables.$color-black;
+            background-color: variables.$color-gray-200;
+        }
+    }
+
+    .profile-settings-popover {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: 0;
+        width: 200px;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: variables.$radius-medium;
+        box-shadow: variables.$shadow-lg;
+        padding: 6px 0;
+        z-index: variables.$z-sticky;
+
+        &.collapsed-popover {
+            left: 100%;
+            right: auto;
+            bottom: 0;
+            margin-left: 12px;
+        }
+
+        .popover-header {
+            padding: 8px 14px 6px;
+            border-bottom: 1px solid variables.$color-gray-100;
+
+            .popover-title {
+                font-size: variables.$font-size-xs;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: variables.$color-gray-400;
+            }
+        }
+
+        .popover-menu {
+            display: flex;
+            flex-direction: column;
+            padding: 4px;
+        }
+
+        .popover-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border: none;
+            background: transparent;
+            border-radius: variables.$radius-tiny;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 500;
+            color: variables.$color-gray-700;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: variables.$color-gray-100;
+                color: variables.$color-black;
+            }
+
+            &.logout-option {
+                color: variables.$color-danger;
+
+                &:hover {
+                    background-color: rgba(variables.$color-danger, 0.08);
+                    color: variables.$color-danger;
+                }
+            }
+        }
+
+        .popover-divider {
+            height: 1px;
+            background-color: variables.$color-gray-100;
+            margin: 4px 0;
+        }
+    }
+}

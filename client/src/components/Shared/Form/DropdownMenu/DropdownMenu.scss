@@ -1,0 +1,67 @@
+@use '@/styles/variables' as variables;
+
+.shared-dropdown-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.shared-dropdown-trigger {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+}
+
+.shared-dropdown-menu-content {
+    position: absolute;
+    z-index: variables.$z-dropdown;
+    margin-top: variables.$spacing-xs;
+    min-width: 160px;
+    border-radius: variables.$radius-medium;
+    background-color: variables.$color-white;
+    padding: variables.$spacing-xs;
+    box-shadow: variables.$shadow-md;
+    border: 1px solid variables.$color-gray-200;
+    outline: none;
+
+    &.align-start {
+        left: 0;
+    }
+
+    &.align-end {
+        right: 0;
+    }
+}
+
+.shared-dropdown-menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: variables.$spacing-sm variables.$spacing-md;
+    font-size: variables.$font-size-sm;
+    color: variables.$color-gray-700;
+    border-radius: variables.$radius-small;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    &:hover,
+    &:focus {
+        background-color: variables.$color-gray-50;
+        color: variables.$color-primary;
+    }
+}
+
+.shared-dropdown-menu-label {
+    padding: variables.$spacing-xs variables.$spacing-md;
+    font-size: variables.$font-size-xs;
+    font-weight: 600;
+    color: variables.$color-gray-400;
+}
+
+.shared-dropdown-menu-separator {
+    height: 1px;
+    background-color: variables.$color-gray-200;
+    margin: variables.$spacing-xs 0;
+}

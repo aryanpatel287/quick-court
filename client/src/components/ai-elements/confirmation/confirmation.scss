@@ -1,0 +1,25 @@
+@use '@/styles/variables' as variables;
+
+.ai-confirmation-container {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-sm;
+}
+
+.ai-confirmation-title {
+    display: inline;
+}
+
+.ai-confirmation-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: variables.$spacing-sm;
+    align-self: flex-end;
+}
+
+.ai-confirmation-action {
+    height: 32px;
+    padding: 0 variables.$spacing-sm;
+    font-size: variables.$font-size-sm;
+}

@@ -1,0 +1,47 @@
+@use '@/styles/variables' as variables;
+
+.shared-card {
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-large;
+    box-shadow: variables.$shadow-sm;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.shared-card-header {
+    padding: variables.$spacing-md;
+    border-bottom: 1px solid variables.$color-gray-100;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.shared-card-title {
+    font-size: variables.$font-size-md;
+    font-weight: 600;
+    color: variables.$color-gray-900;
+    margin: 0;
+}
+
+.shared-card-description {
+    font-size: variables.$font-size-xs;
+    color: variables.$color-gray-500;
+    margin: variables.$spacing-xs 0 0;
+}
+
+.shared-card-content {
+    padding: variables.$spacing-md;
+    flex: 1;
+}
+
+.shared-card-footer {
+    padding: variables.$spacing-md;
+    border-top: 1px solid variables.$color-gray-100;
+    background-color: variables.$color-gray-50;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: variables.$spacing-sm;
+}

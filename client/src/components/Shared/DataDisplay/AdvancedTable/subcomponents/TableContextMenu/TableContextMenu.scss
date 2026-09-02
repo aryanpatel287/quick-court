@@ -1,0 +1,103 @@
+@use '../../../../../../styles/variables';
+
+.at-context-menu {
+    position: fixed;
+    z-index: variables.$z-tooltip;
+    width: 210px;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: 8px;
+    box-shadow:
+        0 10px 25px -5px rgb(0 0 0 / 12%),
+        0 8px 10px -6px rgb(0 0 0 / 8%);
+    padding: 4px;
+    font-family: variables.$font-sans;
+    font-size: variables.$font-size-sm;
+    animation: context-menu-pop-in 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+
+    .at-context-menu-header {
+        padding: 6px 10px 8px;
+        border-bottom: 1px solid variables.$color-gray-100;
+        margin-bottom: 4px;
+        display: flex;
+        flex-direction: column;
+
+        .at-context-menu-title {
+            font-size: variables.$font-size-xs;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: variables.$color-gray-400;
+            font-family: variables.$font-sans;
+        }
+
+        .at-context-menu-preview {
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            color: variables.$color-gray-800;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-top: 2px;
+            font-family: variables.$font-sans;
+        }
+    }
+
+    .at-context-menu-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .at-context-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 7px 10px;
+        border: none;
+        background: transparent;
+        border-radius: 5px;
+        color: variables.$color-gray-700;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        text-align: left;
+        cursor: pointer;
+        transition:
+            background-color 0.15s ease,
+            color 0.15s ease;
+
+        .at-context-menu-icon {
+            color: variables.$color-gray-500;
+            flex-shrink: 0;
+            transition: color 0.15s ease;
+        }
+
+        &:hover {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-black;
+
+            .at-context-menu-icon {
+                color: variables.$color-black;
+            }
+        }
+
+        &:active {
+            background-color: variables.$color-gray-200;
+        }
+    }
+}
+
+@keyframes context-menu-pop-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}

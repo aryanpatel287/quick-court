@@ -1,0 +1,110 @@
+@use '@/styles/variables';
+
+.insights-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+
+    .insights-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .insights-title-group {
+            .insights-title {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-xl;
+                font-weight: 700;
+                color: variables.$color-gray-900;
+                margin: 0 0 4px;
+            }
+
+            .insights-subtitle {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                color: variables.$color-gray-500;
+                margin: 0;
+            }
+        }
+    }
+
+    // Quick Stats Grid
+    .insights-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+
+        .insights-stat-card-wrapper {
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: variables.$radius-large;
+            padding: 8px 12px;
+            box-shadow: variables.$shadow-sm;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                border-color: variables.$color-gray-300;
+                box-shadow: variables.$shadow-md;
+            }
+        }
+    }
+
+    // Advanced Table wrapper
+    .insights-table-section {
+        width: 100%;
+
+        // Table body custom cell formatting
+        .invoice-info {
+            display: flex;
+            flex-direction: column;
+
+            .invoice-id-text {
+                font-weight: 600;
+                color: variables.$color-gray-900;
+            }
+
+            .invoice-date {
+                font-size: variables.$font-size-xs;
+                color: variables.$color-gray-400;
+                margin-top: 2px;
+            }
+        }
+
+        .client-info {
+            display: flex;
+            flex-direction: column;
+
+            .client-name {
+                font-weight: 600;
+                color: variables.$color-gray-900;
+            }
+
+            .customer-company-wrapper {
+                font-size: variables.$font-size-xs;
+                color: variables.$color-gray-400;
+                margin-top: 2px;
+            }
+        }
+
+        .has-amount {
+            font-weight: 600;
+
+            &.paid-amount-text {
+                color: variables.$color-success;
+            }
+
+            &.due-amount-text {
+                color: variables.$color-danger;
+            }
+        }
+
+        .no-amount {
+            color: variables.$color-gray-400;
+        }
+    }
+}

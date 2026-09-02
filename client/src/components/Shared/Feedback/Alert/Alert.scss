@@ -1,0 +1,45 @@
+@use '@/styles/variables' as variables;
+
+.shared-alert {
+    padding: variables.$spacing-md;
+    border-radius: variables.$radius-medium;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-xs;
+
+    &.variant-info {
+        background-color: variables.$color-info-light;
+        border-color: variables.$color-info-border;
+        color: variables.$color-info;
+    }
+
+    &.variant-danger {
+        background-color: variables.$color-danger-light;
+        border-color: variables.$color-danger-border;
+        color: variables.$color-danger;
+    }
+
+    &.variant-warning {
+        background-color: variables.$color-warning-light;
+        border-color: variables.$color-warning-border;
+        color: variables.$color-warning;
+    }
+
+    &.variant-success {
+        background-color: variables.$color-success-light;
+        border-color: variables.$color-success-border;
+        color: variables.$color-success;
+    }
+}
+
+.shared-alert-title {
+    font-size: variables.$font-size-sm;
+    font-weight: 600;
+    margin: 0;
+}
+
+.shared-alert-description {
+    font-size: variables.$font-size-xs;
+    line-height: 1.4;
+}

@@ -1,0 +1,327 @@
+@use '../../../../../../styles/variables';
+
+.advanced-table-controls {
+    position: relative;
+    z-index: variables.$z-sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+    background-color: variables.$color-white;
+
+    &:first-child {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+    }
+
+    .advanced-table-controls-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        max-width: 400px;
+    }
+
+    .advanced-table-search-box {
+        position: relative;
+        z-index: variables.$z-dropdown;
+        flex: 1;
+        max-width: 330px;
+        min-width: 240px;
+    }
+
+    .advanced-table-refresh-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 50%;
+        background-color: variables.$color-gray-100;
+        color: variables.$color-gray-700;
+        cursor: pointer;
+        flex-shrink: 0;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-200;
+            color: variables.$color-black;
+            border: none;
+        }
+
+        &:active {
+            transform: scale(0.93);
+        }
+
+        &.is-spinning svg {
+            animation: spin 0.8s linear infinite;
+        }
+    }
+
+    // "Showing X of Y results" Select Layout
+    .advanced-table-showing-results {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .showing-text {
+            font-size: variables.$font-size-sm;
+            font-weight: 500;
+            color: variables.$color-gray-700;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            white-space: nowrap;
+
+            .showing-total-count {
+                font-weight: 700;
+                color: variables.$color-gray-900;
+                margin: 0 4px;
+            }
+        }
+
+        .showing-divider {
+            color: variables.$color-gray-300;
+            font-size: variables.$font-size-sm;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .rows-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .showing-select-dropdown {
+            width: fit-content;
+            min-width: 62px;
+            margin-bottom: 0;
+
+            .shared-dropdown {
+                margin-bottom: 0;
+            }
+
+            .shared-dropdown-trigger {
+                padding: 0 12px;
+                background-color: variables.$color-white;
+                border: 1px solid variables.$color-gray-200;
+                border-radius: 100px;
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                font-weight: 600;
+                color: variables.$color-gray-800;
+                height: 32px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 6px;
+
+                @include variables.transition-ease;
+
+                &:hover:not(:disabled) {
+                    border-color: variables.$color-gray-300;
+                    background-color: variables.$color-gray-50;
+                }
+
+                &:focus-visible {
+                    border-color: variables.$color-primary;
+                    box-shadow: 0 0 0 2px rgb(17 24 39 / 5%);
+                }
+            }
+
+            .shared-dropdown-selected {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .shared-dropdown-selected-title {
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            .shared-dropdown-menu {
+                width: max-content;
+                min-width: 90px;
+                right: 0;
+                left: auto;
+                margin-top: 4px;
+            }
+        }
+    }
+}
+
+/* ── Column Toggle + Rows-per-page stacked ────────────────────────── */
+.at-column-toggle-with-rows {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    .at-rows-below-toggle {
+        display: flex;
+        justify-content: center;
+
+        .showing-select-dropdown {
+            margin-bottom: 0;
+
+            .shared-dropdown {
+                margin-bottom: 0;
+            }
+
+            .shared-dropdown-trigger {
+                padding: 0 10px;
+                background-color: variables.$color-white;
+                border: 1px solid variables.$color-gray-200;
+                border-radius: 100px;
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                font-weight: 600;
+                color: variables.$color-gray-800;
+                height: 26px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 4px;
+
+                @include variables.transition-ease;
+
+                &:hover:not(:disabled) {
+                    border-color: variables.$color-gray-300;
+                    background-color: variables.$color-gray-50;
+                }
+            }
+
+            .shared-dropdown-menu {
+                width: max-content;
+                min-width: 80px;
+                right: 50%;
+                transform: translateX(50%);
+                left: auto;
+                margin-top: 4px;
+            }
+        }
+    }
+}
+
+.table-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: variables.$radius-tiny;
+    border: 1px solid variables.$color-gray-300;
+    background-color: variables.$color-gray-50;
+    font-size: variables.$font-size-sm;
+    font-weight: 600;
+    color: variables.$color-gray-700;
+    cursor: pointer;
+    outline: none;
+
+    @include variables.transition-ease;
+
+    svg {
+        color: variables.$color-gray-500;
+
+        @include variables.transition-ease;
+    }
+
+    &:hover {
+        background-color: variables.$color-gray-100;
+        border-color: variables.$color-gray-400;
+        color: variables.$color-black;
+
+        svg {
+            color: variables.$color-black;
+        }
+    }
+
+    &:active {
+        transform: scale(0.97);
+    }
+}
+
+// ── Responsive Controls Breakpoints ─────────────────────────────────────
+@include variables.tablet {
+    .advanced-table-controls {
+        padding: 12px 16px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: stretch;
+
+        .advanced-table-controls-left {
+            width: 100%;
+            max-width: 100%;
+
+            .advanced-table-search-box {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+
+        .advanced-table-showing-results {
+            width: 100%;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    }
+}
+
+@include variables.mobile {
+    .advanced-table-controls {
+        padding: 12px 16px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: stretch;
+
+        .advanced-table-controls-left {
+            width: 100%;
+            max-width: 100%;
+
+            .advanced-table-search-box {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+
+        .advanced-table-showing-results {
+            width: 100%;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    }
+
+    .advanced-table-controls {
+        padding: 10px 12px;
+        gap: 10px;
+
+        .advanced-table-showing-results {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+
+            .showing-divider {
+                display: none;
+            }
+        }
+
+        .table-action-btn {
+            padding: 5px 10px;
+            font-size: variables.$font-size-xs;
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+}

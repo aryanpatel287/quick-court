@@ -1,0 +1,257 @@
+@use '../../../../../styles/variables';
+
+.shared-upload-item-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-small;
+    box-shadow: variables.$shadow-sm;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        box-shadow: variables.$shadow-md;
+        border-color: variables.$color-gray-300;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: variables.$color-gray-400;
+        transition: background-color 0.2s ease;
+    }
+
+    // State specific items
+    &.uploading::before {
+        background-color: variables.$color-blue-dark;
+    }
+
+    &.success {
+        border-color: rgba(variables.$color-success, 0.2);
+        background-color: rgba(variables.$color-success, 0.01);
+
+        &::before {
+            background-color: variables.$color-success;
+        }
+    }
+
+    &.error {
+        border-color: rgba(variables.$color-danger, 0.25);
+        background-color: rgba(variables.$color-danger, 0.01);
+
+        &::before {
+            background-color: variables.$color-danger;
+        }
+    }
+}
+
+// Icon preview / Thumbnail
+.shared-upload-item-preview {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: variables.$radius-tiny;
+    background-color: variables.$color-gray-100;
+    overflow: hidden;
+    border: 1px solid variables.$color-gray-200;
+
+    .shared-upload-image-thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.25s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    // File Icon coloring
+    .upload-file-type-icon-svg {
+        width: 22px;
+        height: 22px;
+        color: variables.$color-gray-500;
+
+        &.image {
+            color: variables.$color-info;
+        }
+
+        &.pdf {
+            color: variables.$color-danger;
+        }
+
+        &.zip {
+            color: variables.$color-warning;
+        }
+
+        &.code {
+            color: variables.$color-indigo-light;
+        }
+
+        &.text {
+            color: variables.$color-gray-600;
+        }
+    }
+}
+
+// File Details & Progress Wrapper
+.shared-upload-item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0; // Truncation safety
+}
+
+.shared-upload-item-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+
+    .shared-upload-item-name {
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-gray-900;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .shared-upload-item-size {
+        font-size: variables.$font-size-xs;
+        font-weight: 500;
+        color: variables.$color-gray-500;
+        white-space: nowrap;
+    }
+}
+
+// Progress and Status styling
+.shared-upload-item-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .shared-upload-progress-wrapper {
+        width: 100%;
+        height: 4px;
+        background-color: variables.$color-gray-100;
+        border-radius: variables.$radius-tiny;
+        overflow: hidden;
+    }
+
+    .shared-upload-progress-bar {
+        height: 100%;
+        background-color: variables.$color-blue-dark;
+        border-radius: variables.$radius-tiny;
+        transition: width 0.15s linear;
+
+        &.success {
+            background-color: variables.$color-success;
+        }
+
+        &.error {
+            background-color: variables.$color-danger;
+        }
+    }
+
+    .shared-upload-status-row {
+        display: flex;
+        align-items: center;
+        font-size: variables.$font-size-xs;
+        font-weight: 500;
+        gap: 4px;
+
+        .shared-upload-status-text {
+            &.uploading {
+                color: variables.$color-blue-dark;
+            }
+
+            &.success {
+                color: variables.$color-success;
+            }
+
+            &.error {
+                color: variables.$color-danger;
+                font-weight: 600;
+            }
+        }
+
+        .shared-upload-error-msg {
+            color: variables.$color-danger;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+// Action button configurations
+.shared-upload-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+
+    .shared-upload-retry-btn {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-xs;
+        font-weight: 700;
+        color: variables.$color-blue-dark;
+        background-color: rgba(variables.$color-blue-dark, 0.06);
+        border: none;
+        padding: 4px 8px;
+        border-radius: variables.$radius-tiny;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+
+        &:hover:not(:disabled) {
+            background-color: rgba(variables.$color-blue-dark, 0.12);
+        }
+    }
+
+    .shared-upload-delete-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: variables.$color-gray-400;
+        cursor: pointer;
+        transition:
+            background-color 0.15s ease,
+            color 0.15s ease;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-danger;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            color: variables.$color-gray-300;
+        }
+    }
+}

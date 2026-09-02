@@ -1,0 +1,30 @@
+{
+    "extends": ["stylelint-config-standard-scss"],
+    "plugins": ["stylelint-declaration-strict-value"],
+    "rules": {
+        "selector-class-pattern": null,
+        "scale-unlimited/declaration-strict-value": [
+            ["/color/", "font-size", "z-index", "border"],
+            {
+                "ignoreValues": [
+                    "transparent",
+                    "inherit",
+                    "currentColor",
+                    "currentcolor",
+                    "none",
+                    "0",
+                    "initial",
+                    "solid",
+                    "dashed",
+                    "dotted",
+                    "1px",
+                    "1.5px",
+                    "2px",
+                    "3px",
+                    "4px",
+                    "double"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,116 @@
+:root,
+[data-theme='light'] {
+    // ─── Core Neutrals ────────────────────────────────────────────────────────
+    --color-black: var(--primi-black);
+    --color-white: var(--primi-white);
+    --color-gray-50: var(--primi-gray-50);
+    --color-gray-100: var(--primi-gray-100);
+    --color-gray-200: var(--primi-gray-200);
+    --color-gray-300: var(--primi-gray-300);
+    --color-gray-400: var(--primi-gray-400);
+    --color-gray-500: var(--primi-gray-500);
+    --color-gray-600: var(--primi-gray-600);
+    --color-gray-700: var(--primi-gray-700);
+    --color-gray-800: var(--primi-gray-800);
+    --color-gray-900: var(--primi-gray-900);
+
+    // ─── Brand / Accent ───────────────────────────────────────────────────────
+    --color-primary: var(
+        --primi-gray-900
+    ); // primary = darkest neutral (no separate primitive needed)
+
+    --color-blue-accent: var(--primi-blue-accent);
+    --color-blue-hover: var(--primi-blue-hover);
+    --color-blue-dark: var(--primi-blue-dark);
+
+    // ─── Status ───────────────────────────────────────────────────────────────
+    --color-success: var(--primi-success);
+    --color-danger: var(--primi-danger);
+    --color-warning: var(--primi-warning);
+    --color-info: var(--primi-info);
+
+    // ─── Chart ────────────────────────────────────────────────────────────────
+    --color-chart-this-month: var(--primi-chart-this-month);
+    --color-chart-last-month: var(--primi-chart-last-month);
+    --color-indigo: var(--primi-indigo);
+    --color-indigo-light: var(--primi-indigo-light);
+
+    // ─── Status Palettes ──────────────────────────────────────────────────────
+    --color-danger-light: var(--primi-danger-light);
+    --color-danger-border: var(--primi-danger-border);
+    --color-danger-dark: var(--primi-danger-dark);
+
+    // Derived hover/subtle states — use color-mix() in component styles:
+    // color-mix(in srgb, var(--color-danger-light) 60%, white)  → hover bg
+    // color-mix(in srgb, var(--color-danger-dark)  80%, black)  → darkest text
+
+    --color-warning-light: var(--primi-warning-light);
+    --color-warning-border: var(--primi-warning-border);
+    --color-warning-dark: var(--primi-warning-dark);
+    --color-success-light: var(--primi-success-light);
+    --color-success-border: var(--primi-success-border);
+    --color-info-light: var(--primi-info-light);
+    --color-info-border: var(--primi-info-border);
+
+    // ─── Extended Palette ─────────────────────────────────────────────────────
+    --color-teal: var(--primi-teal);
+    --color-teal-light: var(--primi-teal-light);
+    --color-teal-border: var(--primi-teal-border);
+    --color-violet: var(--primi-violet);
+    --color-purple: var(--primi-purple);
+    --color-purple-light: var(--primi-purple-light);
+    --color-purple-border: var(--primi-purple-border);
+    --color-pink: var(--primi-pink);
+    --color-pink-light: var(--primi-pink-light);
+    --color-pink-border: var(--primi-pink-border);
+    --color-orange-light: var(--primi-orange-light);
+    --color-orange-border: var(--primi-orange-border);
+
+    // ─── Semantic Spacing ─────────────────────────────────────────────────────
+    --spacing-xs: var(--primi-spacing-xs);
+    --spacing-sm: var(--primi-spacing-sm);
+    --spacing-md: var(--primi-spacing-md);
+    --spacing-lg: var(--primi-spacing-lg);
+    --spacing-xl: var(--primi-spacing-xl);
+    --spacing-xxl: var(--primi-spacing-xxl);
+
+    // ─── Semantic Radius ──────────────────────────────────────────────────────
+    --radius-modal: var(--primi-radius-modal);
+    --radius-xlarge: var(--primi-radius-xlarge);
+    --radius-large: var(--primi-radius-large);
+    --radius-medium: var(--primi-radius-medium);
+    --radius-small: var(--primi-radius-small);
+    --radius-tiny: var(--primi-radius-tiny);
+
+    // ─── Semantic Shadows ─────────────────────────────────────────────────────
+    --shadow-sm: var(--primi-shadow-sm);
+    --shadow-md: var(--primi-shadow-md);
+    --shadow-lg: var(--primi-shadow-lg);
+    --shadow-premium: var(--primi-shadow-premium);
+
+    // ─── Semantic Font Families ───────────────────────────────────────────────
+    --font-serif: var(--primi-font-serif);
+    --font-sans: var(--primi-font-sans);
+
+    // ─── Semantic Font Sizes (4px-aligned scale) ─────────────────────────────
+    --font-size-xxs: var(--primi-font-size-xxs); // 10px
+    --font-size-xs: var(--primi-font-size-xs); // 12px
+    --font-size-sm: var(--primi-font-size-sm); // 14px
+    --font-size-md: var(--primi-font-size-md); // 16px
+    --font-size-lg: var(--primi-font-size-lg); // 18px
+    --font-size-xl: var(--primi-font-size-xl); // 20px
+    --font-size-xxl: var(--primi-font-size-xxl); // 24px
+    --font-size-display-sm: var(--primi-font-size-display-sm); // 32px
+    --font-size-display-lg: var(--primi-font-size-display-lg); // 120px
+
+    // ─── Semantic Z-Index (layer stack) ──────────────────────────────────────
+    --z-below: var(--primi-z-below);
+    --z-base: var(--primi-z-base);
+    --z-raised: var(--primi-z-raised);
+    --z-sticky: var(--primi-z-sticky);
+    --z-dropdown: var(--primi-z-dropdown);
+    --z-overlay: var(--primi-z-overlay);
+    --z-modal: var(--primi-z-modal);
+    --z-toast: var(--primi-z-toast);
+    --z-tooltip: var(--primi-z-tooltip);
+}

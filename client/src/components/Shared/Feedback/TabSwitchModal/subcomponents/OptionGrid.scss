@@ -1,0 +1,20 @@
+@use '../../../../../styles/variables';
+
+.option-grid-container {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols, 5), minmax(0, 1fr));
+    gap: 14px 12px;
+    width: 100%;
+
+    @media (width <= 820px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @media (width <= 640px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (width <= 480px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

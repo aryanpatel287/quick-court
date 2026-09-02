@@ -1,0 +1,136 @@
+@use 'sass:color';
+@use '../../../../styles/variables';
+
+.role-selector-container {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: left;
+
+    .role-selector-label {
+        display: block;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-black;
+        margin-bottom: 8px;
+    }
+
+    .role-dropdown {
+        position: relative;
+        width: 100%;
+    }
+
+    .role-dropdown-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        background-color: variables.$color-gray-100;
+        border: 1.5px solid transparent;
+        border-radius: variables.$radius-small;
+        color: variables.$color-black;
+        outline: none;
+        cursor: pointer;
+        text-align: left;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: color-mix(in srgb, variables.$color-gray-100 98%, black);
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
+        }
+
+        &.is-open {
+            .role-dropdown-chevron {
+                transform: rotate(180deg);
+            }
+        }
+
+        .role-dropdown-selected {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: inherit;
+
+            .role-dropdown-selected-icon {
+                width: 16px;
+                height: 16px;
+                stroke: currentcolor;
+                flex-shrink: 0;
+            }
+
+            .role-dropdown-selected-title {
+                font-weight: 500;
+            }
+        }
+
+        .role-dropdown-placeholder {
+            color: variables.$color-gray-400;
+            font-weight: 500;
+        }
+
+        .role-dropdown-chevron {
+            width: 16px;
+            height: 16px;
+            stroke: variables.$color-gray-600;
+            flex-shrink: 0;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    }
+
+    .role-dropdown-list {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        width: 100%;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: variables.$radius-small;
+        box-shadow: 0 10px 25px rgb(0 0 0 / 8%);
+        padding: 6px;
+        z-index: variables.$z-raised;
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+        pointer-events: none;
+        transition:
+            opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+        &.is-open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+    }
+
+    .error-message {
+        display: block;
+        color: variables.$color-danger;
+        font-size: variables.$font-size-xs;
+        margin-top: 6px;
+        font-weight: 500;
+    }
+
+    &.has-error {
+        .role-dropdown-header {
+            background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+            border-color: variables.$color-danger-border;
+
+            &:focus-visible {
+                border-color: variables.$color-danger;
+                box-shadow: 0 0 0 2px rgb(239 68 68 / 10%);
+            }
+        }
+
+        .role-selector-label {
+            color: variables.$color-danger;
+        }
+    }
+}

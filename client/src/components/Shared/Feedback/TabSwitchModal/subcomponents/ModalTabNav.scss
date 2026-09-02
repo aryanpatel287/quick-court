@@ -1,0 +1,58 @@
+@use '../../../../../styles/variables';
+
+.modal-tab-nav-container {
+    position: relative;
+    width: 100%;
+    margin-top: 4px;
+
+    .modal-tab-nav-list {
+        display: flex;
+        gap: 28px;
+        position: relative;
+
+        .modal-tab-item {
+            background: transparent;
+            border: none;
+            padding: 6px 0 14px;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            color: variables.$color-gray-500;
+            cursor: pointer;
+            position: relative;
+            outline: none;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: variables.$color-gray-900;
+            }
+
+            &.is-active {
+                color: variables.$color-gray-900;
+                font-weight: 700;
+            }
+        }
+
+        .modal-tab-active-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 2.5px;
+            background-color: variables.$color-gray-900;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            transition:
+                left 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: variables.$z-raised;
+        }
+    }
+
+    .modal-tab-nav-divider {
+        height: 1px;
+        background-color: variables.$color-gray-200;
+        width: 100%;
+        margin-top: 0;
+    }
+}

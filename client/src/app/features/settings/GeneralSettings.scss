@@ -1,0 +1,161 @@
+@use '@/styles/variables' as variables;
+
+.general-settings-container {
+    background: variables.$color-white;
+    border-radius: variables.$radius-large;
+    padding: 32px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: settings-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .settings-card-header {
+        border-bottom: 1px solid variables.$color-gray-100;
+        padding-bottom: 24px;
+        margin-bottom: 28px;
+
+        .settings-card-title {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-xl;
+            font-weight: 700;
+            color: variables.$color-primary;
+            margin: 0 0 6px;
+        }
+
+        .settings-card-subtitle {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            color: variables.$color-gray-500;
+            margin: 0;
+        }
+    }
+
+    .general-settings-content {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+
+        .preference-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+            .section-header-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .section-label {
+                    font-family: variables.$font-sans;
+                    font-size: variables.$font-size-sm;
+                    font-weight: 600;
+                    color: variables.$color-gray-700;
+                }
+
+                .current-mode-badge {
+                    font-family: variables.$font-sans;
+                    font-size: variables.$font-size-xs;
+                    color: variables.$color-gray-500;
+
+                    .badge-highlight {
+                        color: variables.$color-primary;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .theme-toggle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+
+            .theme-card {
+                background: variables.$color-white;
+                border: 1px solid variables.$color-gray-200;
+                border-radius: variables.$radius-medium;
+                padding: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                cursor: pointer;
+                text-align: left;
+                box-shadow: variables.$shadow-sm;
+
+                @include variables.transition-ease;
+
+                svg {
+                    color: variables.$color-gray-500;
+
+                    @include variables.transition-ease;
+                }
+
+                .theme-info {
+                    display: flex;
+                    flex-direction: column;
+
+                    .theme-name {
+                        font-family: variables.$font-sans;
+                        font-size: variables.$font-size-sm;
+                        font-weight: 600;
+                        color: variables.$color-gray-800;
+                    }
+
+                    .theme-desc {
+                        font-family: variables.$font-sans;
+                        font-size: variables.$font-size-xs;
+                        color: variables.$color-gray-400;
+                        margin-top: 2px;
+                    }
+                }
+
+                &:hover {
+                    background: variables.$color-gray-50;
+                    border-color: variables.$color-gray-300;
+                }
+
+                &.active {
+                    border-color: variables.$color-primary;
+                    background: color-mix(in srgb, variables.$color-primary 8%, transparent);
+                    box-shadow: 0 0 0 1px variables.$color-primary;
+
+                    svg {
+                        color: variables.$color-primary;
+                    }
+
+                    .theme-info .theme-name {
+                        color: variables.$color-primary;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (width <= 768px) {
+    .general-settings-container {
+        padding: 24px;
+
+        .general-settings-content {
+            .theme-toggle-grid {
+                grid-template-columns: 1fr; // Stack cards on mobile screens
+                gap: 10px;
+            }
+        }
+    }
+}
+
+@keyframes settings-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

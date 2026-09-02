@@ -1,0 +1,153 @@
+@use '../../../../styles/variables';
+
+.badge-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 10px;
+    font-family: variables.$font-sans;
+    font-size: variables.$font-size-xs;
+    font-weight: 600;
+    border-radius: 12px;
+    line-height: 1;
+    border: 1px solid transparent;
+    flex-shrink: 0;
+
+    @include variables.transition-ease;
+
+    // Status Dot
+    .badge-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    // --- Type: Light (Saturated text on pastel bg) ---
+    &.badge-light {
+        &.badge-neutral {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-gray-600;
+
+            .badge-status-dot {
+                background-color: variables.$color-gray-500;
+            }
+        }
+
+        &.badge-success {
+            background-color: rgba(variables.$color-success, 0.08);
+            color: variables.$color-success;
+
+            .badge-status-dot {
+                background-color: variables.$color-success;
+            }
+        }
+
+        &.badge-warning {
+            background-color: rgba(variables.$color-warning, 0.08);
+            color: variables.$color-warning;
+
+            .badge-status-dot {
+                background-color: variables.$color-warning;
+            }
+        }
+
+        &.badge-danger {
+            background-color: rgba(variables.$color-danger, 0.08);
+            color: variables.$color-danger;
+
+            .badge-status-dot {
+                background-color: variables.$color-danger;
+            }
+        }
+
+        &.badge-info {
+            background-color: rgba(variables.$color-info, 0.08);
+            color: variables.$color-info;
+
+            .badge-status-dot {
+                background-color: variables.$color-info;
+            }
+        }
+    }
+
+    // --- Type: Solid (Solid bg with white text) ---
+    &.badge-solid {
+        color: variables.$color-white;
+
+        .badge-status-dot {
+            background-color: variables.$color-white;
+        }
+
+        &.badge-neutral {
+            background-color: variables.$color-gray-600;
+        }
+
+        &.badge-success {
+            background-color: variables.$color-success;
+        }
+
+        &.badge-warning {
+            background-color: variables.$color-warning;
+        }
+
+        &.badge-danger {
+            background-color: variables.$color-danger;
+        }
+
+        &.badge-info {
+            background-color: variables.$color-info;
+        }
+    }
+
+    // --- Type: Outline (Border and text color matching variant) ---
+    &.badge-outline {
+        background-color: transparent;
+
+        &.badge-neutral {
+            border-color: variables.$color-gray-300;
+            color: variables.$color-gray-600;
+
+            .badge-status-dot {
+                background-color: variables.$color-gray-500;
+            }
+        }
+
+        &.badge-success {
+            border-color: rgba(variables.$color-success, 0.3);
+            color: variables.$color-success;
+
+            .badge-status-dot {
+                background-color: variables.$color-success;
+            }
+        }
+
+        &.badge-warning {
+            border-color: rgba(variables.$color-warning, 0.3);
+            color: variables.$color-warning;
+
+            .badge-status-dot {
+                background-color: variables.$color-warning;
+            }
+        }
+
+        &.badge-danger {
+            border-color: rgba(variables.$color-danger, 0.3);
+            color: variables.$color-danger;
+
+            .badge-status-dot {
+                background-color: variables.$color-danger;
+            }
+        }
+
+        &.badge-info {
+            border-color: rgba(variables.$color-info, 0.3);
+            color: variables.$color-info;
+
+            .badge-status-dot {
+                background-color: variables.$color-info;
+            }
+        }
+    }
+}

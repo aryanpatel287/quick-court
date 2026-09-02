@@ -1,0 +1,16 @@
+:root {
+    // ─── Global Z-Index Stack ─────────────────────────────────────────────────
+    // Named semantically by UI layer role, not by numeric value.
+    // NEVER use raw integers in component styles — always reference these tokens.
+    // For internal component layering, use `isolation: isolate` instead.
+
+    --primi-z-below: -1; // Decorative elements behind document flow
+    --primi-z-base: 0; // Default document flow (use instead of z-index:1 hacks)
+    --primi-z-raised: 10; // Elevated cards, sticky table headers, floating buttons
+    --primi-z-sticky: 100; // Sticky page headers, persistent sidebars
+    --primi-z-dropdown: 200; // Dropdowns, select menus, popovers, flyouts
+    --primi-z-overlay: 300; // Modal backdrops / dimmer layers
+    --primi-z-modal: 400; // Dialogs, drawers, side panels
+    --primi-z-toast: 500; // Toast notifications, snackbars, alerts
+    --primi-z-tooltip: 600; // Tooltips (always on top of everything)
+}

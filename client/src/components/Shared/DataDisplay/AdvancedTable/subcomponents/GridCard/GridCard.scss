@@ -1,0 +1,168 @@
+@use '../../../../../../styles/variables';
+
+/* -------------------------------------------------------
+   GridCard — Individual data card inside GridView
+   ------------------------------------------------------- */
+
+.grid-card-root {
+    background-color: variables.$color-gray-100;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    @include variables.transition-ease;
+
+    &.is-clickable {
+        cursor: pointer;
+
+        &:hover {
+            border: none;
+            background-color: variables.$color-gray-100;
+            box-shadow: none;
+            transform: none;
+        }
+
+        &:active {
+            transform: none;
+            box-shadow: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid variables.$color-blue-dark;
+            outline-offset: 2px;
+        }
+    }
+
+    /* ---------- Header ---------- */
+    .grid-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .grid-card-header-text {
+        flex: 1;
+        min-width: 0;
+
+        .tooltip-portal-trigger {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
+    }
+
+    .grid-card-title {
+        font-size: variables.$font-size-sm;
+        font-weight: 700;
+        color: variables.$color-gray-900;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
+
+    .grid-card-subtitle {
+        font-size: variables.$font-size-xs;
+        font-weight: 400;
+        color: variables.$color-gray-500;
+        margin: 3px 0 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .grid-card-header-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+        margin-left: auto;
+        align-self: flex-start;
+    }
+
+    .grid-card-badge {
+        flex-shrink: 0;
+    }
+
+    .grid-card-action-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        .icon-button-container,
+        .icon-button,
+        button {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: variables.$color-gray-400;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                color: variables.$color-gray-900;
+                background-color: rgb(0 0 0 / 5%);
+            }
+        }
+    }
+
+    /* ---------- Body ---------- */
+    .grid-card-body {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid rgb(0 0 0 / 6%);
+        padding-top: 12px;
+    }
+
+    .grid-card-body-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 6px 0;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgb(0 0 0 / 4%);
+        }
+    }
+
+    .grid-card-body-label {
+        font-size: variables.$font-size-xs;
+        font-weight: 600;
+        color: variables.$color-gray-400;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .grid-card-body-value {
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        color: variables.$color-gray-800;
+        text-align: right;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

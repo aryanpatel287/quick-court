@@ -1,0 +1,87 @@
+@use '../../../../styles/variables';
+
+/* -------------------------------------------------------
+   ViewToggle — Fully Circular Segmented View Switcher
+   ------------------------------------------------------- */
+
+.view-toggle-group {
+    position: relative;
+    z-index: variables.$z-toast;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+    background-color: variables.$color-gray-100;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 9999px;
+    padding: 4px;
+    gap: 4px;
+    flex-shrink: 0;
+
+    /* ---------- Individual Button (Completely Circular) ---------- */
+    .view-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        background: transparent;
+        color: variables.$color-gray-400;
+        cursor: pointer;
+        box-shadow: none;
+
+        @include variables.transition-ease;
+
+        &:focus,
+        &:focus-visible,
+        &:active {
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        &:hover:not(.is-active) {
+            color: variables.$color-gray-600;
+            background-color: rgb(0 0 0 / 4%);
+        }
+
+        &.is-active {
+            background-color: variables.$color-white;
+            color: variables.$color-gray-900;
+            box-shadow:
+                0 2px 6px rgb(0 0 0 / 8%),
+                0 1px 2px rgb(0 0 0 / 4%);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    /* ---------- Sizes ---------- */
+    &.size-sm {
+        border-radius: 9999px;
+        padding: 3px;
+        gap: 3px;
+
+        .view-toggle-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+        }
+    }
+
+    &.size-md {
+        border-radius: 9999px;
+        padding: 4px;
+        gap: 4px;
+
+        .view-toggle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+    }
+}

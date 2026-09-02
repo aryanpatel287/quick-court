@@ -1,0 +1,34 @@
+@use '@/styles/variables' as variables;
+
+.chat-viewport {
+    flex: 1;
+    overflow-y: auto;
+    position: relative; // required for ConversationScrollButton (position:absolute)
+    display: flex;
+    flex-direction: column;
+
+    &__empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        min-height: 200px;
+
+        p {
+            font-size: variables.$font-size-sm;
+            color: variables.$color-gray-400;
+            margin: 0;
+        }
+    }
+
+    &__thinking {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        span {
+            font-size: variables.$font-size-xs;
+            color: variables.$color-gray-500;
+        }
+    }
+}

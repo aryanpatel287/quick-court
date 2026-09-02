@@ -1,0 +1,149 @@
+@use '../../../../../../styles/variables';
+
+.sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    margin: 4px 0;
+    border-radius: variables.$radius-small;
+    cursor: pointer;
+    color: variables.$color-gray-500;
+    font-family: variables.$font-sans;
+    font-weight: 500;
+    font-size: variables.$font-size-sm;
+
+    @include variables.transition-ease;
+
+    .nav-item-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .nav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: currentcolor;
+
+            @include variables.transition-ease;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        .nav-label {
+            color: currentcolor;
+        }
+    }
+
+    // Hover state: light background, darker text
+    &:hover {
+        color: variables.$color-gray-800;
+        background-color: variables.$color-gray-100;
+
+        .nav-add-btn,
+        .nav-pin-btn,
+        .tooltip-wrapper .nav-pin-btn {
+            opacity: 1;
+        }
+    }
+
+    // Active state: prominent text, active icon styling
+    &.active {
+        color: variables.$color-black;
+        font-weight: 600;
+        background-color: variables.$color-gray-100;
+
+        .nav-icon {
+            color: variables.$color-black;
+        }
+    }
+
+    .nav-item-actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    // Right-side Pin Button
+    .nav-pin-btn {
+        border: none;
+        background: transparent;
+        color: variables.$color-black;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px;
+        border-radius: 4px;
+        opacity: 0;
+
+        @include variables.transition-ease;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            transform: rotate(45deg);
+            color: variables.$color-black;
+        }
+
+        &:hover {
+            background: transparent;
+            opacity: 1;
+
+            svg {
+                transform: rotate(45deg);
+                color: variables.$color-black;
+            }
+        }
+
+        &.pinned {
+            opacity: 1;
+            color: variables.$color-black;
+            background: transparent;
+
+            svg {
+                color: variables.$color-black;
+                fill: variables.$color-black;
+                transform: rotate(45deg);
+            }
+
+            &:hover {
+                background: transparent;
+                opacity: 1;
+
+                svg {
+                    color: variables.$color-black;
+                    fill: variables.$color-black;
+                    transform: rotate(45deg);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    // Right-side Add Button
+    .nav-add-btn {
+        border: none;
+        background: transparent;
+        color: variables.$color-gray-400;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+        border-radius: 4px;
+        opacity: 0.4;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            color: variables.$color-black;
+            background-color: variables.$color-gray-200;
+            opacity: 1;
+        }
+    }
+}

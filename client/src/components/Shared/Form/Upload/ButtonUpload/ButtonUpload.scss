@@ -1,0 +1,95 @@
+@use '../../../../../styles/variables';
+
+.shared-upload-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: variables.$font-sans;
+    text-align: left;
+
+    .shared-upload-label {
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-gray-800;
+        margin-bottom: 2px;
+    }
+}
+
+.shared-upload-dropzone {
+    position: relative;
+    width: 100%;
+    outline: none;
+
+    &.button {
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        cursor: default;
+
+        &:hover {
+            background: transparent;
+            box-shadow: none;
+        }
+    }
+}
+
+.shared-upload-button-layout {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .shared-upload-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-white;
+        background-color: variables.$color-primary;
+        border: none;
+        border-radius: 9999px; /* Capsule shape */
+        cursor: pointer;
+        box-shadow: variables.$shadow-sm;
+        outline: none;
+        transition:
+            background-color 0.2s ease,
+            transform 0.1s ease,
+            box-shadow 0.2s ease;
+
+        .upload-icon-cloud {
+            width: 16px;
+            height: 16px;
+            color: currentcolor;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: variables.$color-black;
+            box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+        }
+
+        &:focus-visible:not(:disabled) {
+            box-shadow: 0 0 0 3px rgba(variables.$color-primary, 0.15);
+        }
+
+        &:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        &:disabled {
+            background-color: variables.$color-gray-300;
+            color: variables.$color-gray-500;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    }
+
+    .shared-upload-helper-inline {
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-500;
+    }
+}

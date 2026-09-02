@@ -1,0 +1,68 @@
+@use '../../../../../styles/variables';
+
+.kanban-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 18px;
+    background-color: variables.$color-white;
+    border: 1px solid rgb(226 232 240 / 80%);
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 2%);
+    cursor: grab;
+    user-select: none;
+
+    @include variables.transition-ease;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &:hover {
+        border-color: variables.$color-gray-300;
+        box-shadow: 0 6px 16px rgb(0 0 0 / 5%);
+        transform: translateY(-2px);
+    }
+
+    .kanban-card-top-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+
+        .kanban-card-title-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+
+            .kanban-card-title {
+                font-size: variables.$font-size-sm;
+                font-weight: 700;
+                color: variables.$color-gray-800;
+                line-height: 1.3;
+                margin: 0;
+            }
+
+            .kanban-card-subtitle {
+                font-size: variables.$font-size-xs;
+                color: variables.$color-gray-500;
+                margin: 0;
+            }
+
+            .kanban-card-pill-badge {
+                display: inline-flex;
+                align-items: center;
+                font-size: variables.$font-size-xs;
+                font-weight: 600;
+                padding: 3px 10px;
+                border-radius: 100px;
+                line-height: 1.3;
+            }
+        }
+
+        .kanban-card-avatar-top {
+            flex-shrink: 0;
+        }
+    }
+}

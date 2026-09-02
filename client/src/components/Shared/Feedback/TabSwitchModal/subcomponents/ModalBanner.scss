@@ -1,0 +1,52 @@
+@use '../../../../../styles/variables';
+
+.modal-banner-callout {
+    background-color: variables.$color-gray-50;
+    border-radius: 16px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 32px;
+    transition: all 0.2s ease;
+
+    .banner-content-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .banner-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .banner-title {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-md;
+                font-weight: 600;
+                color: variables.$color-gray-900;
+            }
+
+            .banner-icon {
+                display: flex;
+                align-items: center;
+                color: variables.$color-gray-900;
+            }
+        }
+
+        .banner-subtitle {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            color: variables.$color-gray-500;
+            margin: 0;
+            line-height: 1.4;
+        }
+    }
+
+    .banner-action-right {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+}

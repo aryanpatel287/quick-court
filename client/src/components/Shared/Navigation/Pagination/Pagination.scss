@@ -1,0 +1,75 @@
+@use '../../../../styles/variables';
+
+.shared-pagination-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    user-select: none;
+    font-family: variables.$font-sans;
+
+    .pagination-pages-list {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .pagination-number-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border-radius: 9999px; // Pill shape!
+        border: 1px solid transparent;
+        background-color: transparent;
+        color: variables.$color-gray-600;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-50;
+            color: variables.$color-black;
+        }
+
+        &.active {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-black;
+            font-weight: 700;
+        }
+    }
+
+    .pagination-ellipsis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+        color: variables.$color-gray-400;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+    }
+}
+
+@media (width <= 480px) {
+    .shared-pagination-container {
+        gap: 4px;
+
+        .pagination-pages-list {
+            gap: 3px;
+        }
+
+        .pagination-number-btn,
+        .pagination-ellipsis {
+            min-width: 28px;
+            height: 28px;
+            padding: 0 4px;
+            font-size: variables.$font-size-xs;
+        }
+    }
+}

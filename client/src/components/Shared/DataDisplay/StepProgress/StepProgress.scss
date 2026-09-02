@@ -1,0 +1,202 @@
+@use '../../../../styles/variables';
+
+.stepprogress-component-container {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+
+    .stepprogress-track-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        position: relative;
+    }
+
+    // Horizontal connector line between node steps
+    .stepprogress-connector-line {
+        height: 2px;
+        flex: 1;
+        margin-top: 13px;
+        transition: background-color 0.4s ease;
+
+        &.active {
+            background-color: variables.$color-blue-dark;
+        }
+
+        &.inactive {
+            background-color: variables.$color-gray-200;
+        }
+    }
+
+    // Step Node Wrapper (Circle + Label)
+    .stepprogress-node-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: variables.$z-raised;
+        padding: 0 4px;
+
+        &.is-clickable {
+            cursor: pointer;
+
+            &:hover {
+                .stepprogress-node-circle {
+                    transform: scale(1.08);
+                }
+            }
+        }
+
+        .stepprogress-node-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+
+            .stepprogress-check-icon {
+                width: 14px;
+                height: 14px;
+                stroke: #fff;
+            }
+        }
+
+        // Label & description text below node
+        .stepprogress-label-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            text-align: center;
+
+            .stepprogress-label {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                transition:
+                    color 0.3s ease,
+                    font-weight 0.3s ease;
+                line-height: 1.3;
+            }
+
+            .stepprogress-description {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-xs;
+                color: variables.$color-gray-400;
+                margin-top: 3px;
+            }
+        }
+
+        // --- 1. COMPLETED STEP STATE ---
+        &.completed {
+            .stepprogress-node-circle {
+                background-color: variables.$color-blue-dark;
+                color: variables.$color-white;
+            }
+
+            .stepprogress-label {
+                color: variables.$color-gray-700;
+                font-weight: 500;
+            }
+        }
+
+        // --- 2. ACTIVE STEP STATE (Solid blue circle + light blue halo ring) ---
+        &.active {
+            .stepprogress-node-circle {
+                background-color: variables.$color-blue-dark;
+                color: variables.$color-white;
+                box-shadow: 0 0 0 4px rgb(0 102 255 / 22%);
+            }
+
+            .stepprogress-label {
+                color: variables.$color-blue-dark;
+                font-weight: 700;
+            }
+        }
+
+        // --- 3. PENDING STEP STATE ---
+        &.pending {
+            .stepprogress-node-circle {
+                background-color: variables.$color-white;
+                border: 2px solid variables.$color-gray-200;
+                color: variables.$color-gray-400;
+                font-weight: 600;
+            }
+
+            .stepprogress-label {
+                color: variables.$color-gray-500;
+                font-weight: 500;
+            }
+        }
+    }
+
+    // --- Variant Color Overrides ---
+    &.stepprogress-variant-teal {
+        .stepprogress-connector-line.active {
+            background-color: variables.$color-teal;
+        }
+
+        .stepprogress-node-wrapper.completed .stepprogress-node-circle {
+            background-color: variables.$color-teal;
+        }
+
+        .stepprogress-node-wrapper.active {
+            .stepprogress-node-circle {
+                background-color: variables.$color-teal;
+                box-shadow: 0 0 0 4px rgb(13 148 136 / 22%);
+            }
+
+            .stepprogress-label {
+                color: variables.$color-teal;
+            }
+        }
+    }
+
+    &.stepprogress-variant-purple {
+        .stepprogress-connector-line.active {
+            background-color: variables.$color-violet;
+        }
+
+        .stepprogress-node-wrapper.completed .stepprogress-node-circle {
+            background-color: variables.$color-violet;
+        }
+
+        .stepprogress-node-wrapper.active {
+            .stepprogress-node-circle {
+                background-color: variables.$color-violet;
+                box-shadow: 0 0 0 4px rgb(124 58 237 / 22%);
+            }
+
+            .stepprogress-label {
+                color: variables.$color-violet;
+            }
+        }
+    }
+
+    &.stepprogress-variant-emerald {
+        .stepprogress-connector-line.active {
+            background-color: variables.$color-success;
+        }
+
+        .stepprogress-node-wrapper.completed .stepprogress-node-circle {
+            background-color: variables.$color-success;
+        }
+
+        .stepprogress-node-wrapper.active {
+            .stepprogress-node-circle {
+                background-color: variables.$color-success;
+                box-shadow: 0 0 0 4px rgb(5 150 105 / 22%);
+            }
+
+            .stepprogress-label {
+                color: variables.$color-success;
+            }
+        }
+    }
+}

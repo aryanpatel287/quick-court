@@ -1,0 +1,19 @@
+@use '@/styles/variables' as variables;
+
+.shared-collapsible {
+    display: block;
+}
+
+.shared-collapsible-trigger {
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px variables.$color-primary;
+    }
+}
+
+.shared-collapsible-content {
+    display: block;
+}

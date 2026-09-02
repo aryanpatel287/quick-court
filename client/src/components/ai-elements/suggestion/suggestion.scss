@@ -1,0 +1,30 @@
+@use '@/styles/variables' as variables;
+
+.ai-suggestions-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    // no-scrollbar
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.ai-suggestions-track {
+    display: flex;
+    width: max-content;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px; // gap-2
+}
+
+.btn.ai-suggestion {
+    cursor: pointer;
+    border-radius: 9999px;
+    padding-left: 1rem; // px-4
+    padding-right: 1rem;
+}

@@ -1,0 +1,532 @@
+@use '@/styles/variables' as variables;
+
+// Custom font scale variables to satisfy declaration-strict-value stylelint rule
+$font-size-inline-code: 0.9em;
+$font-size-footnote-ref: 0.72em;
+$font-size-katex-display: 1.25em;
+$font-size-katex: 1.1em;
+$font-size-kbd: 0.82em;
+$font-size-mermaid-fallback: 0.82rem;
+
+// Standard markdown typography rules
+.markdown-renderer {
+    font-family: variables.$font-sans;
+    font-size: variables.$font-size-md; // 16px body text for ideal readability
+    line-height: 1.65;
+    color: variables.$color-primary;
+
+    & > * + * {
+        margin-top: variables.$spacing-md; // consistent block margin spacing
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: variables.$spacing-md;
+        line-height: 1.65;
+        color: variables.$color-primary;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // Headings
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: variables.$color-primary;
+        font-weight: 600;
+        line-height: 1.35;
+        margin-top: variables.$spacing-xl;
+        margin-bottom: variables.$spacing-xs;
+        letter-spacing: -0.01em;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    h1 {
+        font-size: variables.$font-size-xxl;
+    }
+
+    h2 {
+        font-size: variables.$font-size-xl;
+    }
+
+    h3 {
+        font-size: variables.$font-size-lg;
+    }
+
+    h4 {
+        font-size: variables.$font-size-md;
+    }
+
+    h5,
+    h6 {
+        font-size: variables.$font-size-sm;
+    }
+
+    // Lists
+    ul,
+    ol {
+        margin-top: variables.$spacing-xs;
+        margin-bottom: variables.$spacing-md;
+        padding-left: variables.$spacing-xl;
+
+        li {
+            margin-bottom: 6px;
+            line-height: 1.65;
+
+            &::marker {
+                color: variables.$color-blue-accent;
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    ul {
+        list-style-type: disc;
+    }
+
+    ol {
+        list-style-type: decimal;
+    }
+
+    // Nested lists
+    ul ul,
+    ul ol,
+    ol ul,
+    ol ol {
+        margin-top: variables.$spacing-xs;
+        margin-bottom: variables.$spacing-xs;
+        padding-left: variables.$spacing-lg;
+    }
+
+    // Blockquote
+    blockquote {
+        margin: variables.$spacing-lg 0;
+        padding: variables.$spacing-sm variables.$spacing-md;
+        border-left: 4px solid variables.$color-blue-accent;
+        background-color: color-mix(in srgb, variables.$color-blue-accent 4%, transparent);
+        border-radius: 0 variables.$radius-small variables.$radius-small 0;
+        color: variables.$color-gray-600;
+        font-style: italic;
+
+        .dark & {
+            color: variables.$color-gray-400;
+        }
+
+        & > *:first-child {
+            margin-top: 0;
+        }
+
+        & > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // Bold & italic
+    strong {
+        font-weight: 700;
+        color: variables.$color-primary;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    // Inline code overrides
+    code:not([class]) {
+        font-family: monospace;
+        font-size: $font-size-inline-code;
+        background-color: color-mix(in srgb, variables.$color-blue-accent 8%, transparent);
+        color: variables.$color-blue-dark;
+        border: 1px solid color-mix(in srgb, variables.$color-blue-accent 15%, transparent);
+        padding: 2px 5px;
+        border-radius: variables.$radius-tiny;
+        overflow-wrap: break-word;
+
+        .dark & {
+            color: variables.$color-blue-hover;
+            background-color: color-mix(in srgb, variables.$color-blue-accent 12%, transparent);
+            border-color: color-mix(in srgb, variables.$color-blue-accent 20%, transparent);
+        }
+    }
+
+    // Horizontal Rules
+    hr {
+        height: 1px;
+        padding: 0;
+        margin: variables.$spacing-xl 0;
+        background-color: variables.$color-gray-200;
+        border: 0;
+
+        .dark & {
+            background-color: variables.$color-gray-800;
+        }
+    }
+
+    // Custom lists & tasks
+    ul.contains-task-list,
+    .contains-task-list {
+        list-style-type: none;
+        padding-left: 0;
+        margin: variables.$spacing-sm 0;
+
+        .task-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: variables.$spacing-xs;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            input[type='checkbox'] {
+                margin-top: 5px;
+                width: 15px;
+                height: 15px;
+                accent-color: variables.$color-blue-accent;
+                cursor: default;
+                flex-shrink: 0;
+            }
+
+            &.task-list-item--checked {
+                color: variables.$color-gray-500;
+                text-decoration: line-through;
+            }
+        }
+    }
+
+    // Footnotes & links
+    .markdown-footnote-ref {
+        color: variables.$color-blue-accent;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: $font-size-footnote-ref;
+        background-color: color-mix(in srgb, variables.$color-blue-accent 12%, transparent);
+        border: 1px solid color-mix(in srgb, variables.$color-blue-accent 25%, transparent);
+        border-radius: variables.$radius-tiny;
+        padding: 1px 4px;
+        margin: 0 2px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        vertical-align: super;
+
+        @include variables.transition-ease;
+
+        cursor: pointer;
+
+        &:hover {
+            color: variables.$color-blue-hover;
+            background-color: color-mix(in srgb, variables.$color-blue-accent 25%, transparent);
+            border-color: color-mix(in srgb, variables.$color-blue-accent 40%, transparent);
+            box-shadow: 0 0 0 2px color-mix(in srgb, variables.$color-blue-accent 15%, transparent);
+            transform: translateY(-0.5px);
+        }
+    }
+
+    .markdown-footnote-backref {
+        color: variables.$color-blue-accent;
+        text-decoration: none;
+        font-family: variables.$font-sans;
+        font-weight: 600;
+        margin-left: 6px;
+
+        @include variables.transition-ease;
+
+        display: inline-block;
+
+        &:hover {
+            color: variables.$color-blue-hover;
+            transform: scale(1.1);
+        }
+    }
+
+    .markdown-footnotes {
+        border-top: 1px solid variables.$color-gray-200;
+        margin-top: variables.$spacing-xl;
+        padding-top: variables.$spacing-md;
+        color: variables.$color-gray-500;
+        font-size: variables.$font-size-sm;
+
+        .dark & {
+            border-top-color: variables.$color-gray-800;
+        }
+
+        .markdown-footnotes__title {
+            font-size: variables.$font-size-md;
+            margin-top: 0;
+            margin-bottom: variables.$spacing-sm;
+            color: variables.$color-primary;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        ol {
+            padding-left: variables.$spacing-lg;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: variables.$spacing-sm;
+            line-height: 1.6;
+            padding: 6px 10px;
+            border-radius: variables.$radius-small;
+
+            @include variables.transition-ease;
+
+            list-style-type: decimal;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &:target {
+                background-color: color-mix(in srgb, variables.$color-blue-accent 12%, transparent);
+                color: variables.$color-primary;
+                border-left: 3px solid variables.$color-blue-accent;
+                padding-left: 12px;
+                transform: translateX(2px);
+                box-shadow: variables.$shadow-md;
+            }
+        }
+    }
+
+    // KaTeX LaTeX override
+    .katex-display {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: variables.$spacing-lg 0;
+        padding: variables.$spacing-sm 0;
+        overflow: auto hidden;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+        font-size: $font-size-katex-display;
+        border: none;
+        background: transparent;
+
+        &::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: variables.$color-gray-200;
+            border-radius: variables.$radius-tiny;
+        }
+    }
+
+    .katex {
+        font-size: $font-size-katex;
+        color: variables.$color-primary;
+        font-weight: 500;
+    }
+
+    p > .katex {
+        padding: 0 4px;
+    }
+}
+
+// Kbd styling
+.markdown-kbd {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: monospace;
+    font-size: $font-size-kbd;
+    font-weight: 600;
+    line-height: 1.25;
+    color: variables.$color-primary;
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, variables.$color-white 8%, transparent) 0%,
+        color-mix(in srgb, variables.$color-white 3%, transparent) 100%
+    );
+    border: 1px solid variables.$color-gray-200;
+    border-bottom: 2px solid variables.$color-gray-300;
+    border-radius: variables.$radius-small;
+    padding: 2px 6px;
+    margin: 0 0.25em;
+    box-shadow:
+        0 1px 0 0 rgb(0 0 0 / 5%),
+        0 1.5px 2px rgb(0 0 0 / 3%);
+    white-space: nowrap;
+
+    @include variables.transition-ease;
+
+    .dark & {
+        background: linear-gradient(
+            180deg,
+            color-mix(in srgb, variables.$color-white 8%, transparent) 0%,
+            color-mix(in srgb, variables.$color-white 3%, transparent) 100%
+        );
+        border-color: variables.$color-gray-800;
+        border-bottom-color: variables.$color-gray-700;
+        box-shadow:
+            0 1px 0 0 rgb(0 0 0 / 80%),
+            0 1.5px 2px rgb(0 0 0 / 40%);
+    }
+
+    &:hover {
+        transform: translateY(0.5px);
+        border-bottom-width: 1px;
+        box-shadow:
+            0 0.5px 0 0 rgb(0 0 0 / 5%),
+            0 1px 1px rgb(0 0 0 / 3%);
+
+        .dark & {
+            box-shadow:
+                0 0.5px 0 0 rgb(0 0 0 / 80%),
+                0 1px 1px rgb(0 0 0 / 40%);
+        }
+    }
+}
+
+// Highlighting styling
+.markdown-mark {
+    background-color: color-mix(in srgb, variables.$color-warning 20%, transparent);
+    color: variables.$color-warning-dark;
+    border: 1px solid color-mix(in srgb, variables.$color-warning 35%, transparent);
+    border-radius: variables.$radius-small;
+    padding: 1px 4px;
+    margin: 0 0.15em;
+    font-weight: 500;
+    display: inline-block;
+    line-height: 1.4;
+    vertical-align: baseline;
+}
+
+// Markdown Table styling
+.table-responsive {
+    margin: variables.$spacing-lg 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-medium;
+    background-color: variables.$color-white;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: variables.$color-gray-200;
+        border-radius: variables.$radius-small;
+
+        &:hover {
+            background-color: variables.$color-gray-300;
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: variables.$font-size-sm;
+        line-height: 1.5;
+    }
+
+    thead {
+        background-color: variables.$color-gray-100;
+        border-bottom: 1px solid variables.$color-gray-200;
+    }
+
+    th {
+        padding: 12px 16px;
+        font-weight: 600;
+        color: variables.$color-primary;
+        letter-spacing: 0.02em;
+    }
+
+    td {
+        padding: 12px 16px;
+        border-bottom: 1px solid variables.$color-gray-100;
+        color: variables.$color-gray-700;
+        font-variant-numeric: tabular-nums;
+    }
+
+    tbody tr {
+        @include variables.transition-ease;
+
+        &:last-child td {
+            border-bottom: none;
+        }
+
+        &:nth-child(even) {
+            background-color: color-mix(in srgb, variables.$color-gray-50 60%, transparent);
+        }
+
+        &:hover {
+            background-color: color-mix(in srgb, variables.$color-blue-accent 10%, transparent);
+
+            td {
+                color: variables.$color-primary;
+            }
+        }
+    }
+}
+
+// Mermaid diagram styles
+.mermaid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: variables.$spacing-md 0;
+    padding: variables.$spacing-md;
+    background-color: color-mix(in srgb, variables.$color-white 2%, transparent);
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-medium;
+    overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+
+    .dark & {
+        border-color: variables.$color-gray-800;
+        background-color: color-mix(in srgb, variables.$color-white 2%, transparent);
+    }
+
+    svg {
+        max-width: 100%;
+        height: auto;
+
+        text {
+            font-family: variables.$font-sans;
+            fill: variables.$color-primary;
+        }
+    }
+
+    &__fallback {
+        font-family: monospace;
+        font-size: $font-size-mermaid-fallback;
+        color: variables.$color-gray-500;
+        background-color: color-mix(in srgb, variables.$color-white 5%, transparent);
+        padding: 12px 14px;
+        border-radius: variables.$radius-small;
+        width: 100%;
+        overflow-x: auto;
+        border-left: 3px solid variables.$color-blue-accent;
+    }
+}

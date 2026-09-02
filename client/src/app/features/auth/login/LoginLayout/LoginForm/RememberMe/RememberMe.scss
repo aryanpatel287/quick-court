@@ -1,0 +1,148 @@
+@use '@/styles/variables';
+
+.utilities-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+    width: 100%;
+
+    .remember-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+
+        .remember-checkbox-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1;
+        }
+
+        .remember-info-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 16px;
+        }
+
+        .remember-info-icon {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: help;
+            color: variables.$color-gray-500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            outline: none;
+            line-height: 1;
+
+            @include variables.transition-ease;
+
+            svg {
+                width: 14px;
+                height: 14px;
+                display: block;
+            }
+
+            &:hover,
+            &:focus-visible {
+                color: variables.$color-black;
+            }
+        }
+
+        .remember-info-popover {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: -10px;
+            width: 250px;
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: variables.$radius-small;
+            padding: 12px;
+            box-shadow: variables.$shadow-lg;
+            z-index: variables.$z-sticky;
+            font-size: variables.$font-size-xs;
+            color: variables.$color-gray-600;
+            line-height: 1.4;
+            text-align: left;
+            pointer-events: none; // Tooltip is view-only on hover
+
+            // Small anchor arrow at the bottom of the popover
+            &::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 14px;
+                width: 0;
+                height: 0;
+                border-width: 6px 6px 0;
+                border-style: solid;
+                border-color: variables.$color-white transparent transparent;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 13px;
+                width: 0;
+                height: 0;
+                border-width: 7px 7px 0;
+                border-style: solid;
+                border-color: variables.$color-gray-200 transparent transparent;
+                z-index: variables.$z-below;
+            }
+
+            .popover-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+                font-weight: 600;
+                color: variables.$color-black;
+                font-size: variables.$font-size-sm;
+            }
+
+            .popover-body {
+                font-weight: 400;
+                color: variables.$color-gray-600;
+
+                strong {
+                    color: variables.$color-black;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .remember-help {
+            margin: 0 0 0 24px;
+            font-size: variables.$font-size-xs;
+            color: variables.$color-gray-400;
+        }
+    }
+
+    .forgot-link {
+        color: variables.$color-black;
+        text-decoration: none;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        line-height: 16px;
+        display: inline-flex;
+        align-items: center;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

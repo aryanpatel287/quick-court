@@ -1,0 +1,8 @@
+@use '@/styles/variables' as v;
+
+.website-demo-landing {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 120px);
+}

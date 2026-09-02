@@ -1,0 +1,246 @@
+@use '../../../../styles/variables';
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .tooltip-bubble {
+        position: absolute;
+        background-color: variables.$color-primary; // Dark charcoal backdrop
+        color: variables.$color-white;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-xs;
+        font-weight: 500;
+        padding: 5px 9px;
+        border-radius: 4px;
+        z-index: variables.$z-modal;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+
+        @include variables.transition-ease;
+
+        &.variant-flat {
+            box-shadow: none;
+        }
+
+        .tooltip-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+
+    // Hover and active animations: slide-in smoothly and display bubble
+    &.is-visible,
+    &:hover {
+        .tooltip-bubble {
+            opacity: 1;
+            visibility: visible;
+
+            &.tooltip-top {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            &.tooltip-bottom {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            &.tooltip-left {
+                transform: translateY(-50%) translateX(0);
+            }
+
+            &.tooltip-right {
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+    }
+
+    .tooltip-bubble.is-visible {
+        opacity: 1;
+        visibility: visible;
+
+        &.tooltip-top {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        &.tooltip-bottom {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        &.tooltip-left {
+            transform: translateY(-50%) translateX(0);
+        }
+
+        &.tooltip-right {
+            transform: translateY(-50%) translateX(0);
+        }
+    }
+
+    // Positioning coordinates
+    .tooltip-bubble {
+        &.tooltip-top {
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+
+            .tooltip-arrow {
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 4px 4px 0;
+                border-top-color: variables.$color-primary;
+            }
+        }
+
+        &.tooltip-bottom {
+            top: 125%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-4px);
+
+            .tooltip-arrow {
+                top: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 0 4px 4px;
+                border-bottom-color: variables.$color-primary;
+            }
+        }
+
+        &.tooltip-left {
+            right: 125%;
+            top: 50%;
+            transform: translateY(-50%) translateX(4px);
+
+            .tooltip-arrow {
+                right: -4px;
+                top: 50%;
+                transform: translateY(-50%);
+                border-width: 4px 0 4px 4px;
+                border-left-color: variables.$color-primary;
+            }
+        }
+
+        &.tooltip-right {
+            left: 125%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-4px);
+
+            .tooltip-arrow {
+                left: -4px;
+                top: 50%;
+                transform: translateY(-50%);
+                border-width: 4px 4px 4px 0;
+                border-right-color: variables.$color-primary;
+            }
+        }
+    }
+}
+
+// ── Portal Tooltip (renders into document.body via React Portal) ────────────
+// position:fixed means it escapes overflow:hidden/auto containers entirely.
+
+.tooltip-portal-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.tooltip-portal-bubble {
+    position: fixed;
+    background-color: variables.$color-gray-900;
+    color: variables.$color-white;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: variables.$font-size-xxs;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: variables.$z-tooltip;
+    box-shadow: 0 4px 14px rgb(0 0 0 / 22%);
+    text-transform: none;
+    letter-spacing: normal;
+    animation: tooltip-portal-in 0.12s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    &.variant-flat {
+        box-shadow: none;
+    }
+
+    .tooltip-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+    }
+
+    // top: bubble goes above, anchored at bottom of trigger
+    &.tooltip-portal-top {
+        transform: translateX(-50%) translateY(-100%);
+
+        .tooltip-arrow {
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 4px 4px 0;
+            border-top-color: variables.$color-gray-900;
+        }
+    }
+
+    // bottom: bubble goes below, anchored at top of trigger
+    &.tooltip-portal-bottom {
+        transform: translateX(-50%);
+
+        .tooltip-arrow {
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 4px 4px;
+            border-bottom-color: variables.$color-gray-900;
+        }
+    }
+
+    &.tooltip-portal-left {
+        transform: translateX(-100%) translateY(-50%);
+
+        .tooltip-arrow {
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 4px 0 4px 4px;
+            border-left-color: variables.$color-gray-900;
+        }
+    }
+
+    &.tooltip-portal-right {
+        transform: translateY(-50%);
+
+        .tooltip-arrow {
+            left: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 4px 4px 4px 0;
+            border-right-color: variables.$color-gray-900;
+        }
+    }
+}
+
+@keyframes tooltip-portal-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(calc(-100% - 4px));
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-100%);
+    }
+}

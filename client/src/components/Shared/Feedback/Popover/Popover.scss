@@ -1,0 +1,15 @@
+@use '@/styles/variables' as variables;
+
+.shared-popover-popup {
+    z-index: variables.$z-dropdown;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-sm;
+    border-radius: variables.$radius-medium;
+    background-color: variables.$color-white;
+    padding: variables.$spacing-md;
+    font-size: variables.$font-size-sm;
+    box-shadow: variables.$shadow-md;
+    border: 1px solid variables.$color-gray-200;
+    outline: none;
+}

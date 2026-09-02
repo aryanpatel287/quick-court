@@ -1,0 +1,322 @@
+@use '@/styles/variables' as v;
+@use './glass-effects' as glass;
+
+.website-testimonials {
+    position: relative;
+    width: 100%;
+    padding: v.$spacing-xxl v.$spacing-lg;
+    background: color-mix(in srgb, v.$color-white 50%, transparent);
+
+    @include v.tablet {
+        padding: v.$spacing-xl v.$spacing-md;
+    }
+
+    @include v.mobile {
+        padding: v.$spacing-xl v.$spacing-sm;
+    }
+
+    .testimonials-container {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: v.$spacing-xxl;
+
+        @include v.mobile {
+            gap: v.$spacing-lg;
+        }
+    }
+
+    // ─── Section Header ────────────────────────────────────────────────────────
+    .section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: v.$spacing-sm;
+        max-width: 760px;
+        margin: 0 auto;
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: v.$spacing-xs;
+            padding: v.$spacing-xs v.$spacing-md;
+            border-radius: 9999px;
+            background: color-mix(in srgb, v.$color-warning 10%, transparent);
+            border: 1px solid color-mix(in srgb, v.$color-warning 25%, transparent);
+            color: v.$color-gray-800;
+            font-size: v.$font-size-xs;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+
+            .badge-star-icon {
+                color: v.$color-warning;
+                fill: v.$color-warning;
+            }
+        }
+
+        .section-title {
+            font-family: Poppins, sans-serif;
+            font-size: v.$font-size-display-sm;
+            font-weight: 700;
+            line-height: 1.2;
+            color: v.$color-gray-900;
+            letter-spacing: -0.01em;
+            margin: 0;
+
+            @include v.mobile {
+                font-size: v.$font-size-xl;
+            }
+        }
+
+        .section-subtitle {
+            font-size: v.$font-size-md;
+            color: v.$color-gray-600;
+            line-height: 1.6;
+            margin: 0;
+
+            @include v.mobile {
+                font-size: v.$font-size-sm;
+            }
+        }
+    }
+
+    // ─── Testimonials Grid ─────────────────────────────────────────────────────
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: v.$spacing-xl;
+
+        @include v.tablet {
+            grid-template-columns: 1fr;
+            max-width: 540px;
+            margin: 0 auto;
+            gap: v.$spacing-lg;
+        }
+
+        @include v.mobile {
+            grid-template-columns: 1fr;
+            gap: v.$spacing-lg;
+        }
+    }
+
+    // ─── Testimonial Card ──────────────────────────────────────────────────────
+    .testimonial-card {
+        @include glass.glass-card;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: v.$spacing-xl;
+        border-radius: v.$radius-xlarge;
+        gap: v.$spacing-lg;
+
+        @include v.mobile {
+            padding: v.$spacing-lg;
+            gap: v.$spacing-md;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: v.$spacing-sm;
+
+            .rating-stars {
+                display: flex;
+                align-items: center;
+                gap: 3px;
+
+                .star-filled {
+                    color: v.$color-warning;
+                    fill: v.$color-warning;
+                }
+            }
+
+            .testimonial-tag {
+                font-size: v.$font-size-xxs;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                padding: 3px v.$spacing-xs;
+                border-radius: v.$radius-tiny;
+                background: color-mix(in srgb, v.$color-gray-200 60%, transparent);
+                border: 1px solid color-mix(in srgb, v.$color-gray-300 50%, transparent);
+                color: v.$color-gray-700;
+            }
+        }
+
+        .testimonial-quote {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: v.$spacing-xs;
+            flex: 1;
+
+            .quote-icon {
+                color: color-mix(in srgb, v.$color-primary 40%, transparent);
+                margin-bottom: 2px;
+            }
+
+            p {
+                margin: 0;
+                font-size: v.$font-size-sm;
+                color: v.$color-gray-700;
+                line-height: 1.7;
+                font-style: normal;
+            }
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: v.$spacing-sm;
+            padding-top: v.$spacing-md;
+            border-top: 1px solid color-mix(in srgb, v.$color-gray-200 70%, transparent);
+
+            .author-avatar {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: Poppins, sans-serif;
+                font-size: v.$font-size-sm;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                flex-shrink: 0;
+
+                &.avatar-teal {
+                    background: color-mix(in srgb, v.$color-teal 15%, transparent);
+                    border: 1.5px solid color-mix(in srgb, v.$color-teal 40%, transparent);
+                    color: v.$color-teal;
+                }
+
+                &.avatar-violet {
+                    background: color-mix(in srgb, v.$color-violet 15%, transparent);
+                    border: 1.5px solid color-mix(in srgb, v.$color-violet 40%, transparent);
+                    color: v.$color-violet;
+                }
+
+                &.avatar-pink {
+                    background: color-mix(in srgb, v.$color-pink 15%, transparent);
+                    border: 1.5px solid color-mix(in srgb, v.$color-pink 40%, transparent);
+                    color: v.$color-pink;
+                }
+            }
+
+            .author-details {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                min-width: 0;
+
+                .author-name-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+
+                    .author-name {
+                        font-family: Poppins, sans-serif;
+                        font-size: v.$font-size-sm;
+                        font-weight: 700;
+                        color: v.$color-gray-900;
+                    }
+
+                    .verified-badge {
+                        color: v.$color-success;
+                        display: inline-flex;
+                        align-items: center;
+                    }
+                }
+
+                .author-role {
+                    font-size: v.$font-size-xs;
+                    color: v.$color-gray-500;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+    // ─── Trust Metrics Bar ─────────────────────────────────────────────────────
+    .trust-metrics-bar {
+        @include glass.glass-panel;
+
+        width: 100%;
+        border-radius: v.$radius-xlarge;
+        padding: v.$spacing-lg v.$spacing-xl;
+        box-shadow: v.$shadow-sm;
+
+        @include v.mobile {
+            padding: v.$spacing-md;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: v.$spacing-lg;
+
+            @include v.tablet {
+                grid-template-columns: repeat(2, 1fr);
+                gap: v.$spacing-md;
+            }
+
+            @include v.mobile {
+                grid-template-columns: 1fr;
+                gap: v.$spacing-md;
+            }
+
+            .metric-item {
+                display: flex;
+                align-items: center;
+                gap: v.$spacing-md;
+
+                @include v.mobile {
+                    padding: v.$spacing-xs 0;
+                }
+
+                .metric-icon-wrapper {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: v.$radius-medium;
+                    background: color-mix(in srgb, v.$color-primary 8%, transparent);
+                    border: 1px solid color-mix(in srgb, v.$color-primary 15%, transparent);
+                    color: v.$color-primary;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                .metric-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2px;
+
+                    .metric-value {
+                        font-family: Poppins, sans-serif;
+                        font-size: v.$font-size-xl;
+                        font-weight: 700;
+                        color: v.$color-gray-900;
+                        line-height: 1.2;
+                    }
+
+                    .metric-label {
+                        font-size: v.$font-size-xs;
+                        color: v.$color-gray-500;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}

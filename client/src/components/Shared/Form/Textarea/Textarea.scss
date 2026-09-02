@@ -1,0 +1,166 @@
+@use '@/styles/variables' as variables;
+
+.textarea-group {
+    margin-bottom: 20px;
+    width: 100%;
+
+    /* ---------- Label ---------- */
+    .textarea-label {
+        display: block;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-black;
+        margin-bottom: 8px;
+    }
+
+    .textarea-required {
+        color: variables.$color-danger;
+        margin-left: 3px;
+        font-weight: 700;
+    }
+
+    /* ---------- Wrapper ---------- */
+    .textarea-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    /* ---------- The <textarea> itself ---------- */
+    .textarea-field {
+        width: 100%;
+        padding: 14px 16px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        line-height: 1.6;
+        background-color: variables.$color-gray-100;
+        border: 1.5px solid transparent;
+        border-radius: variables.$radius-small;
+        color: variables.$color-black;
+        outline: none;
+        box-shadow: none;
+        display: block;
+
+        @include variables.transition-ease;
+
+        &::placeholder {
+            color: variables.$color-gray-400;
+        }
+
+        &:focus {
+            background-color: variables.$color-gray-100;
+            border-color: transparent;
+            outline: none;
+            box-shadow: none;
+        }
+
+        &:hover:not(:disabled) {
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: variables.$color-gray-100;
+            color: variables.$color-gray-400;
+            border-color: transparent;
+        }
+
+        /* ---------- Resize variants ---------- */
+        &.resize-none {
+            resize: none;
+        }
+
+        &.resize-vertical {
+            resize: vertical;
+        }
+
+        &.resize-horizontal {
+            resize: horizontal;
+        }
+
+        &.resize-both {
+            resize: both;
+        }
+
+        /* ---------- Auto-resize (JS-driven height) ---------- */
+        &.auto-resize {
+            resize: none;
+            overflow: hidden;
+            min-height: 52px;
+        }
+    }
+
+    /* ---------- Footer row (error / hint / char count) ---------- */
+    .textarea-footer {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 6px;
+        min-height: 18px; // Reserve space so layout doesn't shift
+    }
+
+    .textarea-footer-left {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .textarea-error {
+        display: block;
+        color: variables.$color-danger;
+        font-size: variables.$font-size-xs;
+        font-weight: 500;
+    }
+
+    .textarea-hint {
+        display: block;
+        color: variables.$color-gray-500;
+        font-size: variables.$font-size-xs;
+        font-weight: 400;
+    }
+
+    .textarea-char-count {
+        flex-shrink: 0;
+        font-size: variables.$font-size-xs;
+        font-weight: 500;
+        color: variables.$color-gray-400;
+        white-space: nowrap;
+
+        @include variables.transition-ease;
+
+        &.near-limit {
+            color: variables.$color-warning;
+        }
+
+        &.at-limit {
+            color: variables.$color-danger;
+            font-weight: 600;
+        }
+    }
+
+    /* ---------- Error state ---------- */
+    &.has-error {
+        .textarea-field {
+            background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+            border-color: variables.$color-danger-border;
+
+            &:focus {
+                background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+                border-color: variables.$color-danger;
+                outline: none;
+            }
+        }
+
+        .textarea-label {
+            color: variables.$color-danger;
+        }
+    }
+
+    /* ---------- Disabled state ---------- */
+    &.is-disabled {
+        .textarea-label {
+            opacity: 0.55;
+        }
+    }
+}

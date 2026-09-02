@@ -1,0 +1,61 @@
+@use '@/styles/variables' as variables;
+
+.shared-input-group {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-radius: variables.$radius-medium;
+    border: 1px solid variables.$color-gray-200;
+    background-color: variables.$color-white;
+    transition: border-color 0.15s ease;
+
+    &:focus-within {
+        border-color: variables.$color-primary;
+    }
+}
+
+.shared-input-group-addon {
+    display: flex;
+    align-items: center;
+    padding: variables.$spacing-sm;
+    color: variables.$color-gray-400;
+
+    &.align-inline-start {
+        order: -1;
+    }
+
+    &.align-inline-end {
+        order: 99;
+    }
+}
+
+.shared-input-group-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.size-icon-sm {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+    }
+
+    &.size-xs {
+        height: 24px;
+        padding: 0 variables.$spacing-sm;
+        font-size: variables.$font-size-xs;
+    }
+}
+
+.shared-input-group-textarea {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: variables.$spacing-md;
+    font-size: variables.$font-size-sm;
+    outline: none;
+    resize: none;
+    font-family: variables.$font-sans;
+    color: variables.$color-gray-900;
+}

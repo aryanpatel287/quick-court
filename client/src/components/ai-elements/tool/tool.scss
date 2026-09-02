@@ -1,0 +1,150 @@
+@use '@/styles/variables' as variables;
+
+.ai-tool {
+    margin-bottom: 1rem; // mb-4
+    width: 100%;
+    border-radius: variables.$radius-medium;
+    border: 1px solid variables.$color-gray-200;
+
+    .dark & {
+        border-color: variables.$color-gray-800;
+    }
+}
+
+.ai-tool-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px; // gap-4
+    padding: variables.$spacing-md;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+.ai-tool-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px; // gap-2
+}
+
+.ai-tool-header-icon {
+    width: 1rem;
+    height: 1rem;
+    color: variables.$color-gray-500;
+}
+
+.ai-tool-header-title {
+    font-weight: 500;
+    font-size: variables.$font-size-sm;
+}
+
+.ai-tool-header-chevron {
+    width: 1rem;
+    height: 1rem;
+    color: variables.$color-gray-500;
+    transition: transform 0.2s ease;
+
+    .group[data-state='open'] & {
+        transform: rotate(180deg);
+    }
+}
+
+.badge-container.ai-tool-badge,
+.ai-tool-badge {
+    gap: 6px; // gap-1.5
+    border-radius: 9999px;
+    font-size: variables.$font-size-xs;
+}
+
+.ai-tool-badge-icon {
+    width: 1rem;
+    height: 1rem;
+
+    &.color-yellow {
+        color: variables.$color-warning;
+    }
+
+    &.color-blue {
+        color: variables.$color-info;
+    }
+
+    &.color-green {
+        color: variables.$color-success;
+    }
+
+    &.color-orange {
+        color: variables.$color-warning;
+    }
+
+    &.color-red {
+        color: variables.$color-danger;
+    }
+}
+
+.ai-tool-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // space-y-4
+    padding: variables.$spacing-md;
+    outline: none;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+
+    &[data-state='closed'] {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    &[data-state='open'] {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai-tool-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // space-y-2
+    overflow: hidden;
+}
+
+.ai-tool-section-title {
+    font-weight: 500;
+    color: variables.$color-gray-500;
+    font-size: variables.$font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ai-tool-input-box {
+    border-radius: variables.$radius-medium;
+    background-color: color-mix(in srgb, variables.$color-gray-100 50%, transparent);
+
+    .dark & {
+        background-color: color-mix(in srgb, variables.$color-gray-900 50%, transparent);
+    }
+}
+
+.ai-tool-output-box {
+    overflow-x: auto;
+    border-radius: variables.$radius-medium;
+    font-size: variables.$font-size-xs;
+
+    & table {
+        width: 100%;
+    }
+
+    &.is-error {
+        background-color: color-mix(in srgb, variables.$color-danger 10%, transparent);
+        color: variables.$color-danger;
+    }
+
+    &.is-success {
+        background-color: color-mix(in srgb, variables.$color-success 10%, transparent);
+        color: variables.$color-success;
+    }
+}

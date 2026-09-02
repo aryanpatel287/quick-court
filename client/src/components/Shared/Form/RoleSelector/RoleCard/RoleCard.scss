@@ -1,0 +1,36 @@
+@use '../../../../../styles/variables';
+
+.role-card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .role-card-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .role-card-icon {
+        width: 16px;
+        height: 16px;
+        stroke: currentcolor;
+        flex-shrink: 0;
+    }
+
+    .role-card-title {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: inherit;
+        color: inherit;
+        line-height: 1;
+    }
+
+    .role-card-check {
+        width: 14px;
+        height: 14px;
+        stroke: variables.$color-gray-800;
+        flex-shrink: 0;
+    }
+}

@@ -1,0 +1,113 @@
+@use '../../../../styles/variables';
+
+.error-page-container.notfound-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 0;
+
+    .error-card {
+        position: relative;
+        max-width: 460px;
+        width: 100%;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-100;
+        border-radius: variables.$radius-medium;
+        padding: 44px 32px;
+        box-shadow: variables.$shadow-sm;
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        animation: error-card-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+        .error-code-bg {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-display-lg;
+            font-weight: 900;
+            color: variables.$color-gray-100;
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+            user-select: none;
+            pointer-events: none;
+            line-height: 1;
+            z-index: variables.$z-base;
+        }
+
+        .error-graphic-wrapper {
+            position: relative;
+            z-index: variables.$z-raised;
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgb(0 0 0 / 3%);
+
+            .error-svg-icon.not-found {
+                width: 32px;
+                height: 32px;
+                color: variables.$color-gray-600;
+            }
+        }
+
+        .error-content {
+            position: relative;
+            z-index: variables.$z-raised;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .error-title {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-lg;
+                font-weight: 700;
+                color: variables.$color-primary;
+                margin: 0;
+            }
+
+            .error-message {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                font-weight: 500;
+                color: variables.$color-gray-500;
+                line-height: 1.5;
+                margin: 0;
+            }
+        }
+
+        .error-action-row {
+            position: relative;
+            z-index: variables.$z-raised;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .error-home-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    }
+}
+
+@keyframes error-card-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,248 @@
+@use '@/styles/variables' as v;
+@use './glass-effects' as glass;
+
+.website-features {
+    position: relative;
+    width: 100%;
+    padding: v.$spacing-xxl v.$spacing-lg;
+    background: color-mix(in srgb, v.$color-white 40%, transparent);
+
+    @include v.tablet {
+        padding: v.$spacing-xl v.$spacing-md;
+    }
+
+    @include v.mobile {
+        padding: v.$spacing-xl v.$spacing-sm;
+    }
+
+    .features-container {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: v.$spacing-xxl;
+
+        @include v.mobile {
+            gap: v.$spacing-lg;
+        }
+    }
+
+    // ─── Section Header ────────────────────────────────────────────────────────
+    .section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: v.$spacing-sm;
+        max-width: 760px;
+        margin: 0 auto;
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: v.$spacing-xs;
+            padding: v.$spacing-xs v.$spacing-md;
+            border-radius: 9999px;
+            background: color-mix(in srgb, v.$color-primary 8%, transparent);
+            border: 1px solid color-mix(in srgb, v.$color-primary 15%, transparent);
+            color: v.$color-gray-800;
+            font-size: v.$font-size-xs;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: Poppins, sans-serif;
+            font-size: v.$font-size-display-sm;
+            font-weight: 700;
+            line-height: 1.2;
+            color: v.$color-gray-900;
+            letter-spacing: -0.01em;
+            margin: 0;
+
+            @include v.mobile {
+                font-size: v.$font-size-xl;
+            }
+        }
+
+        .section-subtitle {
+            font-size: v.$font-size-md;
+            color: v.$color-gray-600;
+            line-height: 1.6;
+            margin: 0;
+
+            @include v.mobile {
+                font-size: v.$font-size-sm;
+            }
+        }
+    }
+
+    // ─── Features Grid ─────────────────────────────────────────────────────────
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: v.$spacing-xl;
+
+        @include v.tablet {
+            grid-template-columns: repeat(2, 1fr);
+            gap: v.$spacing-md;
+        }
+
+        @include v.mobile {
+            grid-template-columns: 1fr;
+            gap: v.$spacing-md;
+        }
+    }
+
+    // ─── Feature Card ──────────────────────────────────────────────────────────
+    .feature-card {
+        @include glass.glass-card;
+
+        padding: v.$spacing-xl;
+        display: flex;
+        flex-direction: column;
+        gap: v.$spacing-md;
+        position: relative;
+        overflow: hidden;
+
+        @include v.mobile {
+            padding: v.$spacing-lg;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(
+                90deg,
+                color-mix(in srgb, v.$color-primary 80%, transparent),
+                color-mix(in srgb, v.$color-blue-accent 80%, transparent)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        &:hover::before {
+            opacity: 1;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: v.$spacing-sm;
+
+            .feature-icon-wrapper {
+                width: 48px;
+                height: 48px;
+                border-radius: v.$radius-medium;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: color-mix(in srgb, v.$color-primary 8%, transparent);
+                border: 1px solid color-mix(in srgb, v.$color-primary 15%, transparent);
+                color: v.$color-gray-900;
+                transition:
+                    transform 0.3s ease,
+                    background-color 0.3s ease;
+
+                &.icon-blue {
+                    color: v.$color-blue-accent;
+                    background: color-mix(in srgb, v.$color-blue-accent 10%, transparent);
+                    border-color: color-mix(in srgb, v.$color-blue-accent 20%, transparent);
+                }
+
+                &.icon-violet {
+                    color: v.$color-violet;
+                    background: color-mix(in srgb, v.$color-violet 10%, transparent);
+                    border-color: color-mix(in srgb, v.$color-violet 20%, transparent);
+                }
+
+                &.icon-teal {
+                    color: v.$color-teal;
+                    background: color-mix(in srgb, v.$color-teal 10%, transparent);
+                    border-color: color-mix(in srgb, v.$color-teal 20%, transparent);
+                }
+
+                &.icon-pink {
+                    color: v.$color-pink;
+                    background: color-mix(in srgb, v.$color-pink 10%, transparent);
+                    border-color: color-mix(in srgb, v.$color-pink 20%, transparent);
+                }
+
+                &.icon-success {
+                    color: v.$color-success;
+                    background: color-mix(in srgb, v.$color-success 10%, transparent);
+                    border-color: color-mix(in srgb, v.$color-success 20%, transparent);
+                }
+            }
+
+            .feature-tag {
+                font-size: v.$font-size-xxs;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                padding: 3px v.$spacing-xs;
+                border-radius: v.$radius-tiny;
+                background: color-mix(in srgb, v.$color-gray-200 60%, transparent);
+                border: 1px solid color-mix(in srgb, v.$color-gray-300 50%, transparent);
+                color: v.$color-gray-700;
+            }
+        }
+
+        &:hover .feature-icon-wrapper {
+            transform: scale(1.08) rotate(3deg);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: v.$spacing-xs;
+
+            .feature-title {
+                font-family: Poppins, sans-serif;
+                font-size: v.$font-size-lg;
+                font-weight: 700;
+                color: v.$color-gray-900;
+                margin: 0;
+                letter-spacing: -0.01em;
+            }
+
+            .feature-description {
+                font-size: v.$font-size-sm;
+                color: v.$color-gray-600;
+                line-height: 1.6;
+                margin: 0;
+            }
+        }
+
+        .card-points {
+            list-style: none;
+            padding: 0;
+            margin: v.$spacing-xs 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-top: 1px solid color-mix(in srgb, v.$color-gray-200 70%, transparent);
+            padding-top: v.$spacing-sm;
+
+            .point-item {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: v.$font-size-xs;
+                color: v.$color-gray-700;
+
+                .point-bullet {
+                    color: v.$color-success;
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@use '@/styles/variables' as variables;
+
+// Two-column page layout wrapper
+.ai-chat-container {
+    display: flex;
+    height: calc(100vh - 64px); // Topbar height offset
+    background-color: variables.$color-white;
+    color: variables.$color-gray-900;
+    font-family: variables.$font-sans;
+    overflow: hidden;
+}
+
+// Right column that holds viewport + footer
+.ai-chat-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    background-color: variables.$color-white;
+}
+
+// Error toast banner
+.ai-chat-error-toast {
+    position: absolute;
+    top: variables.$spacing-md;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-danger;
+    color: variables.$color-danger;
+    padding: variables.$spacing-sm variables.$spacing-md;
+    border-radius: variables.$radius-medium;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+    z-index: variables.$z-toast;
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-sm;
+    font-size: variables.$font-size-sm;
+    font-weight: 500;
+
+    button {
+        background: none;
+        border: none;
+        color: variables.$color-gray-400;
+        cursor: pointer;
+        font-size: variables.$font-size-md;
+        padding: 0;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            color: variables.$color-danger;
+        }
+    }
+}

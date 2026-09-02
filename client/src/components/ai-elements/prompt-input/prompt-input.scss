@@ -1,0 +1,171 @@
+@use '@/styles/variables' as variables;
+
+.prompt-input-file-input {
+    display: none;
+}
+
+.prompt-input-form {
+    width: 100%;
+}
+
+.prompt-input-group {
+    overflow: hidden;
+}
+
+.prompt-input-body {
+    display: contents;
+}
+
+.prompt-input-textarea {
+    field-sizing: content;
+    max-height: 12rem; // max-h-48 (192px)
+    min-height: 4rem; // min-h-16 (64px)
+}
+
+.prompt-input-header {
+    order: -9999; // order-first
+    flex-wrap: wrap;
+    gap: variables.$spacing-xs;
+}
+
+.prompt-input-footer {
+    justify-content: space-between;
+    gap: variables.$spacing-xs;
+}
+
+.prompt-input-tools {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: variables.$spacing-xs;
+}
+
+.prompt-input-shortcut {
+    margin-left: variables.$spacing-sm;
+    color: variables.$color-gray-500; // muted-foreground
+}
+
+.prompt-input-icon {
+    width: 16px;
+    height: 16px;
+
+    &.mr-2 {
+        margin-right: variables.$spacing-sm; // 8px
+    }
+}
+
+.prompt-input-select {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+
+.prompt-input-select-trigger {
+    border: none;
+    background: transparent;
+    font-weight: 500;
+    color: variables.$color-gray-500;
+    box-shadow: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: variables.$spacing-xs;
+    border-radius: variables.$radius-small;
+    padding: variables.$spacing-xs variables.$spacing-sm;
+    font-size: variables.$font-size-sm;
+
+    @include variables.transition-ease;
+
+    &:hover,
+    &[aria-expanded='true'] {
+        background-color: color-mix(in srgb, variables.$color-blue-dark 8%, transparent);
+        color: variables.$color-blue-dark;
+    }
+}
+
+.prompt-input-select-content {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: variables.$z-dropdown;
+    margin-top: 4px;
+    max-height: 15rem; // max-h-60
+    overflow-y: auto;
+    border-radius: variables.$radius-medium;
+    border: 1px solid variables.$color-gray-200;
+    background-color: variables.$color-white;
+    padding: 4px 0;
+    box-shadow: variables.$shadow-md;
+    outline: none;
+    min-width: 8rem; // min-w-32
+}
+
+.prompt-input-select-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 6px 12px;
+    text-align: left;
+    font-size: variables.$font-size-xs;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: variables.$color-gray-700;
+
+    &:hover {
+        background-color: color-mix(in srgb, variables.$color-blue-dark 8%, transparent);
+    }
+
+    &.is-selected {
+        font-weight: 600;
+        color: variables.$color-blue-dark;
+    }
+}
+
+.prompt-input-hover-card {
+    position: relative;
+    display: inline-block;
+}
+
+.prompt-input-hover-card-content {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    z-index: variables.$z-dropdown;
+    margin-bottom: 8px;
+    min-width: 12rem; // min-w-48
+    border-radius: variables.$radius-large;
+    border: 1px solid variables.$color-gray-200;
+    background-color: variables.$color-white;
+    padding: variables.$spacing-sm;
+    box-shadow: variables.$shadow-lg;
+    font-size: variables.$font-size-sm;
+}
+
+.prompt-input-tab-label {
+    margin-bottom: variables.$spacing-xs;
+    padding: 0 variables.$spacing-sm;
+    font-weight: 500;
+    color: variables.$color-gray-500;
+    font-size: variables.$font-size-xs;
+}
+
+.prompt-input-tab-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.prompt-input-tab-item {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-sm;
+    padding: variables.$spacing-xs variables.$spacing-sm;
+    font-size: variables.$font-size-xs;
+    border-radius: variables.$radius-small;
+
+    &:hover {
+        background-color: color-mix(in srgb, variables.$color-blue-dark 8%, transparent);
+    }
+}

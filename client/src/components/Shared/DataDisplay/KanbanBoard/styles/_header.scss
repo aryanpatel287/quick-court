@@ -1,0 +1,67 @@
+@use '../../../../../styles/variables';
+
+.kanban-board-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .kanban-board-header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex: 1;
+
+        .kanban-board-title-group {
+            .kanban-board-title {
+                font-size: variables.$font-size-xl;
+                font-weight: 700;
+                color: variables.$color-gray-900;
+                margin: 0;
+            }
+
+            .kanban-board-subtitle {
+                font-size: variables.$font-size-sm;
+                color: variables.$color-gray-500;
+                margin: 2px 0 0;
+            }
+        }
+
+        .kanban-board-search {
+            max-width: 320px;
+            flex: 1;
+        }
+    }
+
+    .kanban-board-header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .kanban-board-add-col-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 16px;
+            height: 36px;
+            border-radius: 100px;
+            border: 1px solid variables.$color-gray-200;
+            background-color: variables.$color-white;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            color: variables.$color-gray-700;
+            cursor: pointer;
+            outline: none;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: variables.$color-gray-100;
+                border-color: variables.$color-gray-300;
+                color: variables.$color-black;
+            }
+        }
+    }
+}

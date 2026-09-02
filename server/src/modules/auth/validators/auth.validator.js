@@ -25,6 +25,42 @@ export const registerValidator = [
     validateRequest,
 ];
 
+export const registerUserValidator = [
+    body('firstName').trim().notEmpty().withMessage('First Name is required'),
+    body('lastName').trim().notEmpty().withMessage('Last Name is required'),
+    body('email').trim().isEmail().withMessage('A valid email is required'),
+    body('password')
+        .isLength({ min: 6 })
+        .withMessage('Password must be at least 6 characters long'),
+    validateRequest,
+];
+
+export const registerFacilityOwnerValidator = [
+    body('firstName').trim().notEmpty().withMessage('First Name is required'),
+    body('lastName').trim().notEmpty().withMessage('Last Name is required'),
+    body('email').trim().isEmail().withMessage('A valid email is required'),
+    body('password')
+        .isLength({ min: 6 })
+        .withMessage('Password must be at least 6 characters long'),
+    validateRequest,
+];
+
+export const verifyOtpValidator = [
+    body('email').trim().notEmpty().isEmail().withMessage('A valid email is required'),
+    body('otp')
+        .trim()
+        .notEmpty()
+        .withMessage('OTP is required')
+        .isLength({ min: 6, max: 6 })
+        .withMessage('OTP must be exactly 6 characters long'),
+    validateRequest,
+];
+
+export const resendOtpValidator = [
+    body('email').trim().notEmpty().isEmail().withMessage('A valid email is required'),
+    validateRequest,
+];
+
 export const loginValidator = [
     body('email').trim().isEmail().withMessage('A valid email is required'),
     body('password').notEmpty().withMessage('Password is required'),

@@ -16,7 +16,7 @@ import { sendResponse, sendTokenResponse, setTokenCookie } from '../../../utils/
 import { sendEmail } from '../../../services/mail/mail.service.js';
 import {
     issueOtp,
-    verifyOtp,
+    verifyOtp as verifyOtpUtil,
     resendOtp,
     OTP_PURPOSES,
     getOtpHtml,
@@ -25,6 +25,151 @@ import {
     getAccountRecoveredHtml,
     normalizeEmail,
 } from '../../../utils/otp.utils.js';
+
+/**
+ * Handle user registration request
+ */
+export async function registerUser(req, res, next) {
+    try {
+        const { email, password, firstName, lastName, profileImage } = req.body || {};
+        const normalizedEmail = normalizeEmail(email);
+        const passwordValue = typeof password === 'string' ? password : '';
+        const firstNameValue = typeof firstName === 'string' ? firstName.trim() : '';
+        const lastNameValue = typeof lastName === 'string' ? lastName.trim() : '';
+
+        if (!normalizedEmail || !passwordValue || !firstNameValue || !lastNameValue) {
+            return sendResponse({
+                res,
+                statusCode: 400,
+                message: 'First Name, Last Name, email, and password are required.',
+                success: false,
+            });
+        }
+
+        const existingUser = await getUserByEmail(normalizedEmail);
+        if (existingUser) {
+            return sendResponse({
+                res,
+                statusCode: 400,
+                message: 'Email is already registered',
+                success: false,
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(passwordValue, 10);
+
+        const user = await createUser({
+            email: normalizedEmail,
+            password: hashedPassword,
+            firstName: firstNameValue,
+            lastName: lastNameValue,
+            profileImage: profileImage || null,
+            role: 'USER',
+            emailVerified: false,
+            isActive: true,
+            isDeleted: false,
+        });
+
+        await issueOtp({
+            email: normalizedEmail,
+            purpose: OTP_PURPOSES.VERIFY_EMAIL,
+            subject: 'QuickCourt Email Verification',
+            buildHtml: getOtpHtml,
+        });
+
+        return sendResponse({
+            res,
+            statusCode: 201,
+            message: 'User registered successfully. Please verify the OTP sent to your email.',
+            success: true,
+            data: {
+                user: {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    role: user.role,
+                    emailVerified: user.emailVerified,
+                },
+            },
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**
+ * Handle facility owner registration request (DEV 1 Facility Owner Endpoint)
+ */
+export async function registerFacilityOwner(req, res, next) {
+    try {
+        const { email, password, firstName, lastName, profileImage } = req.body || {};
+        const normalizedEmail = normalizeEmail(email);
+        const passwordValue = typeof password === 'string' ? password : '';
+        const firstNameValue = typeof firstName === 'string' ? firstName.trim() : '';
+        const lastNameValue = typeof lastName === 'string' ? lastName.trim() : '';
+
+        if (!normalizedEmail || !passwordValue || !firstNameValue || !lastNameValue) {
+            return sendResponse({
+                res,
+                statusCode: 400,
+                message: 'First Name, Last Name, email, and password are required.',
+                success: false,
+            });
+        }
+
+        const existingUser = await getUserByEmail(normalizedEmail);
+        if (existingUser) {
+            return sendResponse({
+                res,
+                statusCode: 400,
+                message: 'Email is already registered',
+                success: false,
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(passwordValue, 10);
+
+        const user = await createUser({
+            email: normalizedEmail,
+            password: hashedPassword,
+            firstName: firstNameValue,
+            lastName: lastNameValue,
+            profileImage: profileImage || null,
+            role: 'FACILITY_OWNER',
+            emailVerified: false,
+            isActive: true,
+            isDeleted: false,
+        });
+
+        await issueOtp({
+            email: normalizedEmail,
+            purpose: OTP_PURPOSES.VERIFY_EMAIL,
+            subject: 'QuickCourt Facility Owner Email Verification',
+            buildHtml: getOtpHtml,
+        });
+
+        return sendResponse({
+            res,
+            statusCode: 201,
+            message:
+                'Facility owner registered successfully. Please verify the OTP sent to your email.',
+            success: true,
+            data: {
+                user: {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    role: user.role,
+                    emailVerified: user.emailVerified,
+                },
+            },
+        });
+    } catch (error) {
+        next(error);
+    }
+}
 
 /**
  * Handle user registration request
@@ -83,9 +228,11 @@ export async function register(req, res, next) {
 
         const hashedPassword = await bcrypt.hash(passwordValue, 10);
 
-        let mappedRole = 'user';
+        let mappedRole = 'USER';
         if (role === 'admin' || role === 'ADMIN') {
-            mappedRole = 'admin';
+            mappedRole = 'ADMIN';
+        } else if (role === 'facility_owner' || role === 'FACILITY_OWNER') {
+            mappedRole = 'FACILITY_OWNER';
         }
 
         const user = await createUser({
@@ -151,7 +298,7 @@ export async function sendVerificationOtp(req, res, next) {
             res,
             statusCode: 200,
             success: true,
-            message: 'Verification OTP sent to your email.',
+            message: 'Verification OTP sent successfully.',
         });
     } catch (error) {
         next(error);
@@ -179,7 +326,7 @@ export async function login(req, res, next) {
             return sendResponse({
                 res,
                 statusCode: 401,
-                message: 'Incorrect email.',
+                message: 'Incorrect email or password.',
                 success: false,
             });
         }
@@ -221,12 +368,30 @@ export async function login(req, res, next) {
             }
         }
 
+        if (!user.isActive) {
+            return sendResponse({
+                res,
+                statusCode: 403,
+                message: 'Your account has been deactivated or banned. Please contact support.',
+                success: false,
+            });
+        }
+
+        if (!user.emailVerified) {
+            return sendResponse({
+                res,
+                statusCode: 403,
+                message: 'Please verify your email address before logging in.',
+                success: false,
+            });
+        }
+
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
             return sendResponse({
                 res,
                 statusCode: 401,
-                message: 'Incorrect password.',
+                message: 'Incorrect email or password.',
                 success: false,
             });
         }
@@ -285,7 +450,7 @@ export async function verifyEmail(req, res, next) {
             });
         }
 
-        const verifyResult = await verifyOtp({
+        const verifyResult = await verifyOtpUtil({
             email,
             otp,
             purpose: OTP_PURPOSES.VERIFY_EMAIL,
@@ -331,21 +496,23 @@ export async function verifyEmail(req, res, next) {
 
         const user = await getUserByEmail(email);
         if (user) {
-            await updateUser(user.id, { emailVerified: true, isActive: true });
+            const updatedUser = await updateUser(user.id, { emailVerified: true, isActive: true });
+            return sendTokenResponse(res, 200, 'Email verified successfully', updatedUser || user);
         } else {
             await redis.set(`verified_email:${email}`, 'true', 'EX', 3600);
+            return sendResponse({
+                res,
+                statusCode: 200,
+                success: true,
+                message: 'Email verified successfully',
+            });
         }
-
-        return sendResponse({
-            res,
-            statusCode: 200,
-            success: true,
-            message: 'Email verified successfully',
-        });
     } catch (error) {
         next(error);
     }
 }
+
+export const verifyOtp = verifyEmail;
 
 /**
  * Resend OTP code
@@ -734,24 +901,26 @@ export async function getMe(req, res, next) {
             }
         }
 
+        const userData = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            role: user.role,
+            profileImage: user.profileImage,
+            isActive: user.isActive,
+            emailVerified: user.emailVerified,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+        };
+
         return sendResponse({
             res,
-            statusCode: fromCache ? 203 : 200, //status 203 if getme from cache
+            statusCode: fromCache ? 203 : 200,
             message: 'User retrieved successfully',
             success: true,
-            user: {
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                role: user.role,
-                profileImage: user.profileImage,
-                isActive: user.isActive,
-                emailVerified: user.emailVerified,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-            },
-            //TODO: remove
+            data: { user: userData },
+            user: userData,
         });
     } catch (error) {
         next(error);

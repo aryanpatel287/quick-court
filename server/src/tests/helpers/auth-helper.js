@@ -30,6 +30,11 @@ export async function createAndLoginTestUser(overrides = {}) {
 
     const hashedPassword = await bcrypt.hash(payload.password, 10);
 
+    let dbRole = 'USER';
+    const roleStr = String(payload.role || '').toUpperCase();
+    if (roleStr === 'ADMIN') dbRole = 'ADMIN';
+    else if (roleStr === 'FACILITY_OWNER') dbRole = 'FACILITY_OWNER';
+
     const [user] = await db
         .insert(users)
         .values({
@@ -37,9 +42,9 @@ export async function createAndLoginTestUser(overrides = {}) {
             lastName: payload.lastName,
             email: payload.email,
             password: hashedPassword,
-            role: payload.role || 'user',
-            isActive: true,
-            emailVerified: true,
+            role: dbRole,
+            isActive: payload.isActive !== undefined ? payload.isActive : true,
+            emailVerified: payload.emailVerified !== undefined ? payload.emailVerified : true,
         })
         .returning();
 

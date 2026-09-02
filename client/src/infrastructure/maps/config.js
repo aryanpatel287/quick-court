@@ -18,4 +18,6 @@ if (provider === MAP_PROVIDERS.GOOGLE && !import.meta.env.VITE_GOOGLE_MAPS_API_K
 export const MAP_CONFIG = {
     provider,
     googleApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    googleMapId: import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || 'DEMO_MAP_ID',
 };
+

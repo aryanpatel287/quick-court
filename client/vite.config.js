@@ -13,10 +13,6 @@ export default defineConfig({
             '@': path.resolve(__dirname, './src'),
         },
     },
-    build: {
-        outDir: '../server/src/public',
-        emptyOutDir: true,
-    },
     server: {
         proxy: {
             '/api': {

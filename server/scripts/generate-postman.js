@@ -54,7 +54,7 @@ function parseMarkdownDoc(filePath) {
             try {
                 headers = JSON.parse(headersMatch[1]);
             } catch (_e) {
-                // Ignore parse errors
+                headers = null;
             }
         }
 
@@ -66,7 +66,7 @@ function parseMarkdownDoc(filePath) {
             try {
                 queryParams = JSON.parse(queryParamsMatch[1]);
             } catch (_e) {
-                // Ignore parse errors
+                queryParams = null;
             }
         }
 
@@ -76,7 +76,7 @@ function parseMarkdownDoc(filePath) {
             try {
                 requestBody = JSON.parse(reqBodyMatch[1]);
             } catch (_e) {
-                // Ignore parse errors
+                requestBody = null;
             }
         }
 
@@ -86,7 +86,7 @@ function parseMarkdownDoc(filePath) {
             try {
                 responseBody = JSON.parse(resBodyMatch[1]);
             } catch (_e) {
-                // Ignore parse errors
+                responseBody = null;
             }
         }
 

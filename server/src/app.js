@@ -16,6 +16,8 @@ import { venueRouter } from './modules/venue/index.js';
 import { homeRouter } from './modules/home/index.js';
 import { ownerRouter } from './modules/owner/index.js';
 import { reviewRouter } from './modules/review/index.js';
+import { bookingRouter, ownerBookingRouter } from './modules/booking/index.js';
+import { paymentRouter } from './modules/payment/index.js';
 import { errorHandler } from './modules/auth/middleware/errorHandler.js';
 import passport from './config/passport.config.js';
 
@@ -40,6 +42,9 @@ app.use('/api/ai', aiRouter);
 app.use('/api/rag', ragRouter);
 app.use('/api/pdf', pdfRouter);
 app.use('/api/qr', qrRouter);
+app.use('/api/bookings', bookingRouter);
+app.use('/api/owner/bookings', ownerBookingRouter);
+app.use('/api/payments', paymentRouter);
 
 // DEV 2 - Facility Supply Management
 app.use('/api/owner/facilities', facilityRouter);

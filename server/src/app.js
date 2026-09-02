@@ -9,6 +9,8 @@ import aiRouter from './modules/ai/routes/ai.routes.js';
 import { ragRouter } from './modules/rag/index.js';
 import { pdfRouter } from './modules/pdf/index.js';
 import { qrRouter } from './modules/qr/index.js';
+import { bookingRouter, ownerBookingRouter } from './modules/booking/index.js';
+import { paymentRouter } from './modules/payment/index.js';
 import { errorHandler } from './modules/auth/middleware/errorHandler.js';
 import passport from './config/passport.config.js';
 
@@ -33,6 +35,9 @@ app.use('/api/ai', aiRouter);
 app.use('/api/rag', ragRouter);
 app.use('/api/pdf', pdfRouter);
 app.use('/api/qr', qrRouter);
+app.use('/api/bookings', bookingRouter);
+app.use('/api/owner/bookings', ownerBookingRouter);
+app.use('/api/payments', paymentRouter);
 
 app.use(errorHandler);
 

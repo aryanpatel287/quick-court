@@ -7,6 +7,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 import { updateProfileValidator, deleteAccountValidator } from '../validators/user.validator.js';
 import { changePasswordValidator } from '../validators/auth.validator.js';
 
+import { getMyBookings } from '../../booking/controllers/booking.controller.js';
+import { userBookingsQueryValidator } from '../../booking/validators/booking.validator.js';
+
 const router = Router();
 
 // Protect all routes
@@ -14,6 +17,7 @@ router.use(protect);
 
 // Personal User Routes
 router.get('/get-me', userController.getMe);
+router.get('/me/bookings', userBookingsQueryValidator, getMyBookings);
 router.patch('/profile', updateProfileValidator, userController.updateProfile);
 router.patch('/profile/avatar', upload.single('avatar'), userController.uploadAvatar);
 router.patch('/change-password', changePasswordValidator, userController.changePassword);

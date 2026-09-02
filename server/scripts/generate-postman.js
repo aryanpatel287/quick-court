@@ -53,7 +53,9 @@ function parseMarkdownDoc(filePath) {
         if (headersMatch) {
             try {
                 headers = JSON.parse(headersMatch[1]);
-            } catch (e) {}
+            } catch (_e) {
+                // Ignore parse errors
+            }
         }
 
         let queryParams = null;
@@ -63,7 +65,9 @@ function parseMarkdownDoc(filePath) {
         if (queryParamsMatch) {
             try {
                 queryParams = JSON.parse(queryParamsMatch[1]);
-            } catch (e) {}
+            } catch (_e) {
+                // Ignore parse errors
+            }
         }
 
         let requestBody = null;
@@ -71,7 +75,9 @@ function parseMarkdownDoc(filePath) {
         if (reqBodyMatch) {
             try {
                 requestBody = JSON.parse(reqBodyMatch[1]);
-            } catch (e) {}
+            } catch (_e) {
+                // Ignore parse errors
+            }
         }
 
         let responseBody = null;
@@ -79,7 +85,9 @@ function parseMarkdownDoc(filePath) {
         if (resBodyMatch) {
             try {
                 responseBody = JSON.parse(resBodyMatch[1]);
-            } catch (e) {}
+            } catch (_e) {
+                // Ignore parse errors
+            }
         }
 
         let notes = '';

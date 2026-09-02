@@ -49,18 +49,17 @@ export function formatCurrency(amount, currency = 'USD') {
 }
 
 /**
- * Format a date string or Date object
+ * Format a date string or Date object in DD-MM-YYYY format
  *
  * @param {string|Date|number} date
- * @returns {string} Formatted date (e.g. "Oct 24, 2026")
+ * @returns {string} Formatted date (e.g. "02-09-2026")
  */
 export function formatDate(date) {
     if (!date) return '';
     const d = new Date(date);
     if (Number.isNaN(d.getTime())) return String(date);
-    return new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-    }).format(d);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
 }

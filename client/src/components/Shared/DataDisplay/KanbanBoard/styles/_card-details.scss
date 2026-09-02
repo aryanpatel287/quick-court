@@ -1,0 +1,87 @@
+@use '../../../../../styles/variables';
+
+.kanban-card {
+    .kanban-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .kanban-card-updated {
+            font-size: variables.$font-size-xs;
+            font-weight: 500;
+            color: variables.$color-gray-400;
+        }
+
+        .kanban-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .kanban-card-action-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 22px;
+                height: 22px;
+                border: none;
+                border-radius: 4px;
+                background: transparent;
+                color: variables.$color-gray-400;
+                cursor: pointer;
+
+                @include variables.transition-ease;
+
+                &:hover {
+                    background-color: variables.$color-gray-100;
+                    color: variables.$color-gray-700;
+                }
+            }
+        }
+    }
+
+    .kanban-card-description {
+        font-size: variables.$font-size-xs;
+        color: variables.$color-gray-500;
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .kanban-card-fields-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 4px;
+
+        .kanban-card-field-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: variables.$font-size-sm;
+
+            .field-label {
+                color: variables.$color-gray-400;
+                font-weight: 500;
+            }
+
+            .field-value {
+                color: variables.$color-gray-700;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .kanban-card-tags {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+
+        .kanban-card-tag {
+            font-size: variables.$font-size-xxs;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 100px;
+            line-height: 1.3;
+        }
+    }
+}

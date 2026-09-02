@@ -1,0 +1,205 @@
+@use 'sass:color';
+@use '../../../../styles/variables';
+
+.shared-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0 0 0 / 55%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: variables.$z-tooltip;
+    padding: 16px;
+    animation: dialog-fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.shared-dialog-card {
+    background-color: variables.$color-white;
+    border-radius: variables.$radius-modal;
+    box-shadow: variables.$shadow-premium;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: calc(100vh - 48px);
+    overflow: hidden;
+    font-family: variables.$font-sans;
+    border: 1px solid rgb(0 0 0 / 4%);
+
+    // Animation
+    transform: scale(0.95);
+    opacity: 0;
+    animation: dialog-scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+
+    // Sizes
+    &.size-xs {
+        max-width: 360px;
+    }
+
+    &.size-sm {
+        max-width: 440px;
+    }
+
+    &.size-md {
+        max-width: 560px;
+    }
+
+    &.size-lg {
+        max-width: 780px;
+    }
+
+    // Variants (border accents removed)
+}
+
+.shared-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid variables.$color-gray-100;
+
+    .dialog-title-text {
+        font-size: variables.$font-size-lg;
+        font-weight: 700;
+        color: variables.$color-gray-900;
+        margin: 0;
+    }
+
+    .dialog-close-btn {
+        background: none;
+        border: none;
+        padding: 6px;
+        cursor: pointer;
+        color: variables.$color-gray-400;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include variables.transition-ease;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        &:hover {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-gray-800;
+        }
+    }
+}
+
+.shared-dialog-body {
+    padding: 24px;
+    font-size: variables.$font-size-sm;
+    color: variables.$color-gray-600;
+    line-height: 1.6;
+    overflow-y: auto;
+    max-height: calc(100vh - 240px);
+}
+
+.shared-dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid variables.$color-gray-100;
+    background-color: variables.$color-white;
+
+    .btn,
+    .shared-cancel-btn,
+    .shared-save-details-btn {
+        height: 40px;
+        padding: 0 20px;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        margin: 0;
+        width: auto;
+        border-radius: variables.$radius-small;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        &.btn-secondary {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-gray-600;
+
+            &:hover {
+                background-color: variables.$color-gray-200;
+                color: variables.$color-gray-800;
+            }
+        }
+
+        &.btn-primary {
+            margin-bottom: 0;
+            background-color: variables.$color-primary;
+            color: variables.$color-white;
+
+            &:hover {
+                background-color: color-mix(in srgb, variables.$color-primary 90%, white);
+                color: variables.$color-white;
+            }
+
+            &.btn-danger {
+                background-color: variables.$color-danger-light;
+                color: variables.$color-danger;
+
+                &:hover {
+                    background-color: variables.$color-danger-light;
+                    color: variables.$color-danger;
+                }
+            }
+
+            &.btn-success {
+                background-color: rgba(variables.$color-success, 0.18);
+                color: color-mix(in srgb, variables.$color-success 90%, black);
+
+                &:hover {
+                    background-color: rgba(variables.$color-success, 0.18);
+                    color: color-mix(in srgb, variables.$color-success 90%, black);
+                }
+            }
+
+            &.btn-warning {
+                background-color: rgba(variables.$color-warning, 0.18);
+                color: color-mix(in srgb, variables.$color-warning 90%, black);
+
+                &:hover {
+                    background-color: rgba(variables.$color-warning, 0.18);
+                    color: color-mix(in srgb, variables.$color-warning 90%, black);
+                }
+            }
+        }
+    }
+}
+
+// Keyframes
+@keyframes dialog-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes dialog-scale-in {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

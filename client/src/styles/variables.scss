@@ -1,0 +1,167 @@
+// ─── Font Families ────────────────────────────────────────────────────────────
+$font-serif: var(--font-serif);
+$font-sans: var(--font-sans);
+
+// ─── Core Neutrals ────────────────────────────────────────────────────────────
+$color-black: var(--color-black);
+$color-white: var(--color-white);
+$color-gray-50: var(--color-gray-50);
+$color-gray-100: var(--color-gray-100);
+$color-gray-200: var(--color-gray-200);
+$color-gray-300: var(--color-gray-300);
+$color-gray-400: var(--color-gray-400);
+$color-gray-500: var(--color-gray-500);
+$color-gray-600: var(--color-gray-600);
+$color-gray-700: var(--color-gray-700);
+$color-gray-800: var(--color-gray-800);
+$color-gray-900: var(--color-gray-900);
+
+// ─── Brand / Accent ───────────────────────────────────────────────────────────
+$color-primary: var(--color-primary);
+$color-blue-accent: var(--color-blue-accent);
+$color-blue-hover: var(--color-blue-hover);
+$color-blue-dark: var(--color-blue-dark);
+
+// ─── Status ───────────────────────────────────────────────────────────────────
+$color-success: var(--color-success);
+$color-danger: var(--color-danger);
+$color-warning: var(--color-warning);
+$color-info: var(--color-info);
+
+// ─── Chart ────────────────────────────────────────────────────────────────────
+$color-chart-this-month: var(--color-chart-this-month);
+$color-chart-last-month: var(--color-chart-last-month);
+$color-indigo: var(--color-indigo);
+$color-indigo-light: var(--color-indigo-light);
+
+// ─── Status Palettes ──────────────────────────────────────────────────────────
+$color-danger-light: var(--color-danger-light);
+$color-danger-border: var(--color-danger-border);
+$color-danger-dark: var(--color-danger-dark);
+$color-warning-light: var(--color-warning-light);
+$color-warning-border: var(--color-warning-border);
+$color-warning-dark: var(--color-warning-dark);
+$color-success-light: var(--color-success-light);
+$color-success-border: var(--color-success-border);
+$color-info-light: var(--color-info-light);
+$color-info-border: var(--color-info-border);
+
+// ─── Extended Palette (badges, chips, tags) ───────────────────────────────────
+$color-teal: var(--color-teal);
+$color-teal-light: var(--color-teal-light);
+$color-teal-border: var(--color-teal-border);
+$color-violet: var(--color-violet);
+$color-purple: var(--color-purple);
+$color-purple-light: var(--color-purple-light);
+$color-purple-border: var(--color-purple-border);
+$color-pink: var(--color-pink);
+$color-pink-light: var(--color-pink-light);
+$color-pink-border: var(--color-pink-border);
+$color-orange-light: var(--color-orange-light);
+$color-orange-border: var(--color-orange-border);
+
+// ─── Spacing ──────────────────────────────────────────────────────────────────
+$spacing-xs: var(--spacing-xs);
+$spacing-sm: var(--spacing-sm);
+$spacing-md: var(--spacing-md);
+$spacing-lg: var(--spacing-lg);
+$spacing-xl: var(--spacing-xl);
+$spacing-xxl: var(--spacing-xxl);
+
+// ─── Border Radius ────────────────────────────────────────────────────────────
+$radius-modal: var(--radius-modal);
+$radius-xlarge: var(--radius-xlarge);
+$radius-large: var(--radius-large);
+$radius-medium: var(--radius-medium);
+$radius-small: var(--radius-small);
+$radius-tiny: var(--radius-tiny);
+
+// ─── Shadows ──────────────────────────────────────────────────────────────────
+$shadow-sm: var(--shadow-sm);
+$shadow-md: var(--shadow-md);
+$shadow-lg: var(--shadow-lg);
+$shadow-premium: var(--shadow-premium);
+
+// ─── Font Sizes (4px-aligned scale) ──────────────────────────────────────────
+$font-size-xxs: var(--font-size-xxs); // 10px — tiny labels, badges
+$font-size-xs: var(--font-size-xs); // 12px — captions, meta
+$font-size-sm: var(--font-size-sm); // 14px — secondary body
+$font-size-md: var(--font-size-md); // 16px — primary body
+$font-size-lg: var(--font-size-lg); // 18px — card titles
+$font-size-xl: var(--font-size-xl); // 20px — section headings
+$font-size-xxl: var(--font-size-xxl); // 24px — page headings
+$font-size-display-sm: var(--font-size-display-sm); // 32px — KPI stat numbers
+$font-size-display-lg: var(--font-size-display-lg); // 120px — hero display text
+
+// ─── Z-Index Layer Stack ──────────────────────────────────────────────────────
+$z-below: var(--z-below); // -1  — decorative behind-content elements
+$z-base: var(--z-base); //  0  — normal document flow
+$z-raised: var(--z-raised); // 10  — elevated cards, floating buttons
+$z-sticky: var(--z-sticky); // 100 — sticky headers, sidebars
+$z-dropdown: var(--z-dropdown); // 200 — dropdowns, popovers, select menus
+$z-overlay: var(--z-overlay); // 300 — modal backdrops / dimmer layers
+$z-modal: var(--z-modal); // 400 — dialogs, drawers, panels
+$z-toast: var(--z-toast); // 500 — toast notifications, urgent alerts
+$z-tooltip: var(--z-tooltip); // 600 — tooltips
+
+// ─── Transition Mixins ────────────────────────────────────────────────────────
+@mixin transition-ease {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin transition-smooth {
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+// ─── Shine Effect Mixin ───────────────────────────────────────────────────────
+@mixin shine-effect {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -135%;
+        width: 120%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            rgb(255 255 255 / 0%) 0%,
+            rgb(255 255 255 / 6%) 20%,
+            rgb(255 255 255 / 22%) 38%,
+            rgb(255 255 255 / 45%) 50%,
+            rgb(255 255 255 / 22%) 62%,
+            rgb(255 255 255 / 6%) 80%,
+            rgb(255 255 255 / 0%) 100%
+        );
+        transform: skewX(-20deg);
+        transition: none;
+        pointer-events: none;
+        z-index: $z-raised;
+    }
+
+    &:hover:not(:disabled, .is-disabled)::after {
+        transition: left 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+        left: 145%;
+    }
+}
+
+// ─── Breakpoint Mixins ────────────────────────────────────────────────────────
+@mixin mobile {
+    @media (width < 576px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (576px <= width <= 992px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (width > 992px) {
+        @content;
+    }
+}

@@ -1,0 +1,199 @@
+@use 'sass:color';
+@use '../../../../styles/variables';
+
+.shared-toast-container {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column-reverse; // Newest toasts stack at the bottom
+    gap: 12px;
+    z-index: variables.$z-modal;
+    pointer-events: none;
+    align-items: center;
+}
+
+.shared-toast-item {
+    pointer-events: auto;
+    background-color: variables.$color-gray-50;
+    border: 1px solid rgb(0 0 0 / 4%);
+    border-radius: 9999px;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 8%);
+    display: flex;
+    align-items: center;
+    padding: 8px 10px 8px 20px;
+    transition:
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(100px);
+    opacity: 0;
+
+    &.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    // Left group: icon & message
+    .toast-message-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .toast-state-icon-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentcolor;
+        }
+
+        &.type-success {
+            color: variables.$color-success;
+        }
+
+        &.type-error {
+            color: variables.$color-danger;
+        }
+
+        &.type-warning {
+            color: variables.$color-warning;
+        }
+
+        &.type-info {
+            color: variables.$color-info;
+        }
+    }
+
+    .toast-selection-text {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        color: variables.$color-gray-800;
+        user-select: none;
+        white-space: nowrap;
+    }
+
+    // Vertical Divider
+    .toast-divider {
+        width: 1px;
+        height: 20px;
+        background-color: variables.$color-gray-200;
+        margin: 0 12px;
+        flex-shrink: 0;
+    }
+
+    // Action group on the right (clickable region)
+    .toast-action-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            .toast-action-text {
+                &.hover-success {
+                    color: color-mix(in srgb, variables.$color-success 90%, black);
+                }
+
+                &.hover-error {
+                    color: color-mix(in srgb, variables.$color-danger 90%, black);
+                }
+
+                &.hover-warning {
+                    color: color-mix(in srgb, variables.$color-warning 90%, black);
+                }
+
+                &.hover-info {
+                    color: color-mix(in srgb, variables.$color-info 90%, black);
+                }
+            }
+
+            .toast-action-icon-box {
+                &.hover-success {
+                    background-color: rgba(variables.$color-success, 0.18);
+                }
+
+                &.hover-error {
+                    background-color: rgba(variables.$color-danger, 0.18);
+                }
+
+                &.hover-warning {
+                    background-color: rgba(variables.$color-warning, 0.18);
+                }
+
+                &.hover-info {
+                    background-color: rgba(variables.$color-info, 0.18);
+                }
+            }
+        }
+    }
+
+    .toast-action-text {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        padding: 2px 4px;
+
+        @include variables.transition-ease;
+
+        &.type-success {
+            color: variables.$color-success;
+        }
+
+        &.type-error {
+            color: variables.$color-danger;
+        }
+
+        &.type-warning {
+            color: variables.$color-warning;
+        }
+
+        &.type-info {
+            color: variables.$color-info;
+        }
+    }
+
+    .toast-action-icon-box {
+        width: 32px;
+        height: 26px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include variables.transition-ease;
+
+        &.type-success {
+            background-color: rgba(variables.$color-success, 0.1);
+            color: variables.$color-success;
+        }
+
+        &.type-error {
+            background-color: rgba(variables.$color-danger, 0.1);
+            color: variables.$color-danger;
+        }
+
+        &.type-warning {
+            background-color: rgba(variables.$color-warning, 0.1);
+            color: variables.$color-warning;
+        }
+
+        &.type-info {
+            background-color: rgba(variables.$color-info, 0.1);
+            color: variables.$color-info;
+        }
+
+        svg {
+            width: 10px;
+            height: 10px;
+            stroke: currentcolor;
+        }
+    }
+}

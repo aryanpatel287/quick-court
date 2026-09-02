@@ -1,0 +1,278 @@
+@use '../../../../styles/variables';
+
+// ── Subcomponent SCSS Modules ──────────────────────────────────────────
+@use './subcomponents/TableControls/TableControls';
+@use './subcomponents/TableHeader/TableHeader';
+@use './subcomponents/TableBody/TableBody';
+@use './subcomponents/TableEmptyState/TableEmptyState';
+@use './subcomponents/TableFilterPanel/TableFilterPanel';
+@use './subcomponents/InlineColumnFilter/InlineColumnFilter';
+@use './subcomponents/TableFilterChips/TableFilterChips';
+@use './subcomponents/TableColumnToggle/TableColumnToggle';
+@use './subcomponents/TableExportMenu/TableExportMenu';
+@use './subcomponents/TableSelectionBar/TableSelectionBar';
+@use './subcomponents/TableContextMenu/TableContextMenu';
+
+// ── Global Keyframes ───────────────────────────────────────────────────
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes at-fp-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes at-chip-in {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// ── Search Highlight Utilities ─────────────────────────────────────────
+.at-search-highlight,
+mark.at-search-highlight {
+    background-color: variables.$color-warning-light;
+    color: variables.$color-warning-dark;
+    border-radius: 3px;
+    padding: 0 2px;
+    font-weight: 600;
+    display: inline;
+    line-height: inherit;
+}
+
+// ── Main AdvancedTable Component Layout ────────────────────────────────
+.advanced-table-component {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-medium;
+    overflow: visible;
+    box-shadow: variables.$shadow-sm;
+    font-family: variables.$font-sans;
+
+    // Viewport and horizontal scroll buttons overlay
+    .advanced-table-viewport-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: visible;
+
+        &:first-child {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+
+            .advanced-table-scroll-wrapper {
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+            }
+        }
+
+        &:last-child {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+
+            .advanced-table-scroll-wrapper {
+                border-bottom-left-radius: inherit;
+                border-bottom-right-radius: inherit;
+            }
+        }
+
+        // Viewport Scroll Buttons (Centered left/right absolute)
+        .scroll-arrow-tooltip {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: variables.$z-raised;
+            pointer-events: auto;
+
+            &.left {
+                left: 12px;
+            }
+
+            &.right {
+                right: 12px;
+            }
+        }
+
+        .viewport-scroll-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid variables.$color-gray-200;
+            background-color: rgb(255 255 255 / 95%);
+            backdrop-filter: blur(4px);
+            color: variables.$color-gray-600;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+            opacity: 0.85;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: variables.$color-white;
+                color: variables.$color-black;
+                transform: scale(1.05);
+                box-shadow: 0 6px 16px rgb(0 0 0 / 12%);
+                opacity: 1;
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
+        // Scroll wrapper
+        .advanced-table-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            background-color: variables.$color-white;
+            -webkit-overflow-scrolling: touch;
+
+            &.has-vertical-scroll {
+                max-height: 360px;
+                overflow-y: auto;
+            }
+        }
+    }
+
+    // Grid Viewport & Scroll Container
+    .advanced-table-grid-viewport {
+        position: relative;
+        width: 100%;
+        overflow: visible;
+
+        &:first-child {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+
+            .advanced-table-grid-scroll-wrapper {
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+            }
+
+            .grid-view-root {
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+            }
+        }
+
+        .advanced-table-grid-scroll-wrapper {
+            width: 100%;
+            max-height: 520px;
+            overflow: hidden auto;
+            background-color: variables.$color-white;
+        }
+    }
+
+    // Main table element structure
+    .advanced-table-main {
+        width: max-content;
+        min-width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 0;
+        text-align: left;
+    }
+
+    // Footer styling
+    .advanced-table-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 20px;
+        border-top: 1px solid variables.$color-gray-100;
+        background-color: variables.$color-white;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+    }
+}
+
+// ── Responsive Layout Breakpoints ──────────────────────────────────────────
+@include variables.tablet {
+    .advanced-table-component {
+        border-radius: variables.$radius-small;
+
+        .advanced-table-viewport-wrapper {
+            padding-bottom: 12px;
+
+            .viewport-scroll-btn {
+                width: 32px;
+                height: 32px;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
+        .advanced-table-footer {
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px 16px;
+            align-items: center;
+        }
+    }
+}
+
+@include variables.mobile {
+    .advanced-table-component {
+        border-radius: variables.$radius-small;
+
+        .advanced-table-viewport-wrapper {
+            padding-bottom: 12px;
+
+            .viewport-scroll-btn {
+                width: 32px;
+                height: 32px;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
+        .advanced-table-footer {
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px 12px;
+            align-items: center;
+        }
+    }
+}

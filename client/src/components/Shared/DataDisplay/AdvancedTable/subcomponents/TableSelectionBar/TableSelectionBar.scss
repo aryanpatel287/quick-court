@@ -1,0 +1,75 @@
+@use '../../../../../../styles/variables';
+
+.table-selection-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: transparent;
+    border-bottom: none;
+    padding: 0;
+    flex: 1;
+
+    .table-selection-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: variables.$color-gray-700;
+
+        .selection-arrow-icon {
+            color: variables.$color-gray-500;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .selection-count-text {
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            color: variables.$color-gray-900;
+            line-height: 1;
+            white-space: nowrap;
+        }
+    }
+
+    .table-selection-bar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        .selection-action-btn {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 6px;
+            color: variables.$color-gray-600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: variables.$color-gray-100;
+                color: variables.$color-black;
+            }
+
+            &.is-active {
+                background-color: rgb(16 185 129 / 10%);
+                color: variables.$color-success;
+            }
+
+            &.danger-action {
+                color: variables.$color-danger;
+
+                &:hover {
+                    background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+                    color: variables.$color-danger;
+                }
+            }
+        }
+    }
+}

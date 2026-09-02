@@ -1,0 +1,134 @@
+@use '@/styles/variables' as variables;
+
+.chat-input-bar {
+    padding: variables.$spacing-sm variables.$spacing-lg;
+    background-color: variables.$color-white;
+    border-top: 1px solid variables.$color-gray-200;
+    flex-shrink: 0;
+
+    &__file-input {
+        display: none;
+    }
+
+    // Outer rounded shell
+    &__shell {
+        border: 1.5px solid variables.$color-gray-300;
+        border-radius: 26px;
+        background-color: variables.$color-white;
+        overflow: hidden;
+        padding: 4px 4px 4px 14px;
+        display: flex;
+        flex-direction: column;
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease;
+
+        &:focus-within {
+            border-color: variables.$color-gray-400;
+            box-shadow: 0 0 0 3px color-mix(in srgb, variables.$color-blue-dark 8%, transparent);
+        }
+    }
+
+    // Attachment chip row (above textarea)
+    &__attachment-strip {
+        padding: variables.$spacing-xs variables.$spacing-sm;
+        border-bottom: 1px solid variables.$color-gray-100;
+    }
+
+    // Main input row: [+] [textarea] [mic][send]
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        min-height: 36px;
+    }
+
+    // Shared icon button base
+    &__icon-btn {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        background: none;
+        padding: 0;
+    }
+
+    &__plus-btn {
+        color: variables.$color-gray-500;
+
+        &:hover {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-gray-800;
+        }
+    }
+
+    &__send-btn {
+        background-color: variables.$color-gray-900;
+        color: variables.$color-white;
+
+        &:hover:not(:disabled) {
+            background-color: variables.$color-gray-700;
+        }
+
+        &:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+    }
+
+    // Right group: mic + send
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+
+        // Constrain SpeechInput container
+        .ai-speech-input-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    // Growing textarea
+    &__textarea {
+        flex: 1;
+        border: none;
+        outline: none;
+        resize: none;
+        background: transparent;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-900;
+        line-height: 1.5;
+        min-height: 22px;
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 0;
+        margin: 0;
+        display: block;
+        caret-color: variables.$color-blue-dark;
+
+        &::placeholder {
+            color: variables.$color-gray-400;
+        }
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 2px;
+            background-color: variables.$color-gray-300;
+        }
+    }
+}

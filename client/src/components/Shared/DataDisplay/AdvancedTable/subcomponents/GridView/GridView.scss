@@ -1,0 +1,120 @@
+@use '../../../../../../styles/variables';
+
+/* -------------------------------------------------------
+   GridView — Responsive card grid layout
+   ------------------------------------------------------- */
+
+/* ---------- Shimmer animation mixin ---------- */
+@mixin skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        variables.$color-gray-100 25%,
+        variables.$color-gray-200 50%,
+        variables.$color-gray-100 75%
+    );
+    background-size: 200% 100%;
+    animation: grid-skeleton-shimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes grid-skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ---------- Grid root ---------- */
+.grid-view-root {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols, 4), minmax(0, 1fr));
+    gap: 16px;
+    padding: 20px;
+    background-color: variables.$color-white;
+    border-top: 1px solid variables.$color-gray-200;
+
+    /* ── Responsive breakpoints ── */
+    @media (width <= 1280px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (width <= 900px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (width <= 560px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Empty state wrapper ---------- */
+.grid-view-empty {
+    padding: 40px 20px;
+    background-color: variables.$color-white;
+    border-top: 1px solid variables.$color-gray-200;
+
+    .empty-state-card-container {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+}
+
+/* ---------- Skeleton cards ---------- */
+.grid-card-skeleton {
+    background-color: variables.$color-white;
+    border: none;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+    border-radius: variables.$radius-medium;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    .skeleton-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        @include skeleton-shimmer;
+    }
+
+    .skeleton-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .skeleton-body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-top: 1px solid variables.$color-gray-100;
+        padding-top: 12px;
+    }
+
+    .skeleton-line {
+        height: 10px;
+        border-radius: 6px;
+
+        @include skeleton-shimmer;
+
+        &.w-full {
+            width: 100%;
+        }
+
+        &.w-80 {
+            width: 80%;
+        }
+
+        &.w-70 {
+            width: 70%;
+        }
+
+        &.w-45 {
+            width: 45%;
+        }
+    }
+}

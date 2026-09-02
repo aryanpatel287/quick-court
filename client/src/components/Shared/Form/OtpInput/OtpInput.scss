@@ -1,0 +1,64 @@
+@use '../../../../styles/variables';
+
+.otp-input-container {
+    width: 100%;
+    margin-bottom: 24px;
+    text-align: left;
+
+    .otp-inputs-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .otp-digit-field {
+        flex: 1;
+        height: 52px;
+        max-width: 56px;
+        text-align: center;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-xl;
+        font-weight: 600;
+        background-color: variables.$color-gray-100;
+        border: 1.5px solid transparent;
+        border-radius: variables.$radius-small;
+        color: variables.$color-black;
+        outline: none;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        &:focus {
+            background-color: variables.$color-gray-100;
+            border-color: variables.$color-black;
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    .error-message {
+        display: block;
+        color: variables.$color-danger;
+        font-size: variables.$font-size-xs;
+        margin-top: 8px;
+        font-weight: 500;
+    }
+
+    &.has-error {
+        .otp-digit-field {
+            background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+            border-color: variables.$color-danger-border;
+
+            &:focus {
+                background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+                border-color: variables.$color-danger;
+                outline: none;
+            }
+        }
+    }
+}

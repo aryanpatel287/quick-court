@@ -1,0 +1,91 @@
+@use '../../../../../../styles/variables';
+
+.at-filter-chips-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px 10px;
+    border-top: 1px solid variables.$color-gray-100;
+    background-color: variables.$color-gray-50;
+    flex-wrap: wrap;
+
+    .at-chips-label {
+        font-size: variables.$font-size-xs;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: variables.$color-gray-400;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .at-chips-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        flex: 1;
+    }
+
+    .at-filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px 3px 10px;
+        border-radius: 100px;
+        background-color: rgb(47 84 235 / 8%);
+        border: 1px solid rgb(47 84 235 / 18%);
+        animation: at-chip-in 0.15s ease;
+
+        .at-chip-label {
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            color: variables.$color-blue-dark;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .at-chip-remove {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: variables.$color-blue-dark;
+            opacity: 0.7;
+            padding: 0;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: rgb(47 84 235 / 15%);
+                opacity: 1;
+            }
+        }
+    }
+
+    .at-chips-clear-all {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-xs;
+        font-weight: 600;
+        color: variables.$color-gray-500;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 3px 0;
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            color: variables.$color-danger;
+            text-decoration: underline;
+        }
+    }
+}

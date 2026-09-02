@@ -1,0 +1,23 @@
+@use '@/styles/variables';
+
+.main-content-container {
+    flex-grow: 1;
+    background-color: variables.$color-white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .dashboard-header-placeholder {
+        font-size: variables.$font-size-xxl;
+        font-weight: 700;
+        color: variables.$color-gray-900;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 16px;
+    }
+}
+
+@media (width <= 600px) {
+    .main-content-container {
+        height: auto; // Let it fit naturally on mobile
+    }
+}

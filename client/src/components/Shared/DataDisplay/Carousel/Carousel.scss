@@ -1,0 +1,80 @@
+@use '@/styles/variables' as variables;
+
+.shared-carousel {
+    position: relative;
+    width: 100%;
+}
+
+.shared-carousel-content-viewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.shared-carousel-content-track {
+    display: flex;
+
+    &.axis-x {
+        flex-direction: row;
+        margin-left: -16px; // default gap offset
+    }
+
+    &.axis-y {
+        flex-direction: column;
+        margin-top: -16px;
+    }
+}
+
+.shared-carousel-item {
+    min-width: 0;
+    flex: 0 0 100%;
+
+    &.axis-x {
+        padding-left: 16px;
+    }
+
+    &.axis-y {
+        padding-top: 16px;
+    }
+}
+
+.shared-carousel-previous,
+.shared-carousel-next {
+    position: absolute;
+    border-radius: 50%;
+    z-index: variables.$z-raised;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+}
+
+.shared-carousel-previous {
+    &.axis-x {
+        top: 50%;
+        left: -48px;
+        transform: translateY(-50%);
+    }
+
+    &.axis-y {
+        top: -48px;
+        left: 50%;
+        transform: translateX(-50%) rotate(90deg);
+    }
+}
+
+.shared-carousel-next {
+    &.axis-x {
+        top: 50%;
+        right: -48px;
+        transform: translateY(-50%);
+    }
+
+    &.axis-y {
+        bottom: -48px;
+        left: 50%;
+        transform: translateX(-50%) rotate(90deg);
+    }
+}

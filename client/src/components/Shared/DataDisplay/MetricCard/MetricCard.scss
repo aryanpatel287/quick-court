@@ -1,0 +1,153 @@
+@use '../../../../styles/variables';
+
+.shared-metric-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px 22px;
+    min-height: 104px;
+    background-color: variables.$color-gray-100;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 2%);
+    font-family: variables.$font-sans;
+
+    @include variables.transition-ease;
+
+    &.is-clickable {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .metric-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+
+        .metric-card-label {
+            font-size: variables.$font-size-xs;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: variables.$color-gray-500; // Muted grayish slate title
+            line-height: 1.3;
+        }
+
+        .metric-card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: -2px;
+
+            svg {
+                stroke-width: 1.8px;
+            }
+        }
+    }
+
+    .metric-card-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+
+        .metric-card-value {
+            font-size: variables.$font-size-xxl;
+            font-weight: 800;
+            color: variables.$color-gray-900; // Deep slate black text
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .metric-card-subvalue {
+            font-size: variables.$font-size-xs;
+            font-weight: 500;
+            color: variables.$color-gray-500;
+        }
+
+        .metric-card-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            margin-top: 2px;
+
+            &.positive {
+                color: variables.$color-success;
+            }
+
+            &.negative {
+                color: variables.$color-danger;
+            }
+
+            &.neutral {
+                color: variables.$color-gray-500;
+                font-weight: 500;
+            }
+
+            .trend-arrow {
+                flex-shrink: 0;
+            }
+        }
+    }
+
+    // Variant Styles
+    &.variant-white {
+        background-color: variables.$color-white;
+        border-color: variables.$color-gray-200;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 3%);
+    }
+
+    &.variant-outlined {
+        background-color: transparent;
+        border: 1.5px solid variables.$color-gray-300;
+    }
+}
+
+// ── Metric Grid ─────────────────────────────────────────────────────────────
+.shared-metric-grid {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+
+    &.cols-1 {
+        grid-template-columns: 1fr;
+    }
+
+    &.cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    &.cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    &.cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    &.cols-5 {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (width <= 1024px) {
+        &.cols-4,
+        &.cols-5 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (width <= 640px) {
+        &,
+        &.cols-2,
+        &.cols-3,
+        &.cols-4,
+        &.cols-5 {
+            grid-template-columns: 1fr;
+        }
+    }
+}

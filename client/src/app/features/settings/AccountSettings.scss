@@ -1,0 +1,234 @@
+@use '@/styles/variables' as variables;
+
+.account-settings-container {
+    background: variables.$color-white;
+    border-radius: variables.$radius-large;
+    border: 1px solid rgba(variables.$color-gray-200, 0.6);
+    box-shadow: variables.$shadow-md;
+    padding: 32px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: settings-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .settings-card-header {
+        border-bottom: 1px solid variables.$color-gray-100;
+        padding-bottom: 24px;
+        margin-bottom: 28px;
+
+        .settings-card-title {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-xl;
+            font-weight: 700;
+            color: variables.$color-primary;
+            margin: 0 0 6px;
+        }
+
+        .settings-card-subtitle {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            color: variables.$color-gray-500;
+            margin: 0;
+        }
+    }
+
+    .account-settings-form {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+
+        .avatar-section-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .section-label {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                font-weight: 600;
+                color: variables.$color-gray-700;
+            }
+
+            .avatar-upload-wrapper {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                max-width: 440px;
+            }
+        }
+
+        .form-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px 20px;
+            width: 100%;
+
+            .form-field-wrapper {
+                display: flex;
+                flex-direction: column;
+
+                .field-hint-text {
+                    font-family: variables.$font-sans;
+                    font-size: variables.$font-size-xs;
+                    color: variables.$color-gray-400;
+                    margin-top: 6px;
+                }
+
+                &.dropdown-wrapper {
+                    // Alignment for standard dropdown component
+                    .shared-dropdown-container {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        .settings-footer-actions {
+            border-top: 1px solid variables.$color-gray-100;
+            padding-top: 24px;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+
+            // Adjust generic Button component size/width
+            button {
+                min-width: fit-content;
+                width: auto;
+                padding-inline: 20px;
+            }
+        }
+    }
+
+    .settings-divider {
+        height: 1px;
+        background-color: variables.$color-gray-100;
+        margin: 40px 0;
+        border: none;
+    }
+
+    .danger-zone-header {
+        .settings-card-title.danger-title,
+        .danger-title {
+            color: variables.$color-danger;
+        }
+    }
+
+    .danger-zone-card {
+        background-color: variables.$color-danger-light;
+        border: 1px solid variables.$color-danger-border;
+        border-radius: variables.$radius-large;
+        padding: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-top: 12px;
+
+        .danger-zone-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .danger-zone-item-title {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-md;
+                font-weight: 700;
+                color: variables.$color-danger-dark;
+                margin: 0;
+            }
+
+            .danger-zone-item-desc {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                color: variables.$color-danger;
+                margin: 0;
+            }
+        }
+
+        .danger-zone-action {
+            flex-shrink: 0;
+        }
+    }
+}
+
+// Responsive design
+@media (width <= 768px) {
+    .account-settings-container {
+        padding: 24px;
+
+        .account-settings-form {
+            .form-fields-grid {
+                grid-template-columns: 1fr; // Collapse grid to single column on mobile
+                gap: 16px;
+            }
+
+            .avatar-section-card {
+                .avatar-upload-wrapper {
+                    justify-content: center; // Center image upload on mobile screens
+                }
+            }
+
+            .settings-footer-actions {
+                button {
+                    width: 100%; // Make buttons full width on small displays
+                }
+            }
+        }
+
+        .danger-zone-card {
+            flex-direction: column;
+            align-items: stretch;
+            text-align: left;
+            gap: 16px;
+
+            .danger-zone-action {
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@keyframes settings-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delete-confirmation-dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .delete-warning-text {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        line-height: 1.6;
+        color: variables.$color-gray-600;
+
+        strong {
+            color: variables.$color-danger;
+            font-weight: 700;
+        }
+    }
+
+    .delete-instruction-text {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-gray-800;
+        margin: 0;
+    }
+
+    .delete-password-input-wrapper {
+        margin-top: 8px;
+    }
+}

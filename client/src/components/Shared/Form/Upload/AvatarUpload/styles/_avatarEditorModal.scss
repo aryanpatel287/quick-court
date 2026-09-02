@@ -1,0 +1,366 @@
+@use '../../../../../../styles/variables' as variables;
+
+// Fullscreen Editor Modal
+.avatar-editor-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(variables.$color-primary, 0.65);
+    backdrop-filter: blur(8px);
+    z-index: variables.$z-modal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: modal-backdrop-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .avatar-editor-card {
+        background: variables.$color-white;
+        width: 100%;
+        max-width: 440px;
+        border-radius: variables.$radius-modal;
+        box-shadow: variables.$shadow-premium;
+        border: 1px solid rgba(variables.$color-gray-200, 0.6);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        animation: modal-card-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        .avatar-editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid variables.$color-gray-100;
+
+            .avatar-editor-title {
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-lg;
+                font-weight: 600;
+                color: variables.$color-primary;
+                margin: 0;
+            }
+
+            .close-btn {
+                background: transparent;
+                border: none;
+                color: variables.$color-gray-400;
+                cursor: pointer;
+                padding: 4px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                @include variables.transition-ease;
+
+                &:hover {
+                    background: variables.$color-gray-100;
+                    color: variables.$color-gray-700;
+                }
+            }
+        }
+
+        .avatar-editor-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            gap: 0;
+            background: variables.$color-white;
+
+            .crop-workspace-container {
+                position: relative;
+                overflow: hidden;
+                border-radius: 0;
+                width: 100%;
+                height: var(--workspace-height, 320px);
+                background: #0f172a;
+                box-shadow: inset 0 2px 8px rgb(0 0 0 / 20%);
+                cursor: grab;
+
+                &:active {
+                    cursor: grabbing;
+                }
+
+                .crop-workspace-img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    user-select: none;
+                    pointer-events: none;
+                    max-width: none;
+                }
+
+                .crop-mask-cutout {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: var(--cutout-size, 260px);
+                    height: var(--cutout-size, 260px);
+                    transform: translate(-50%, -50%);
+                    box-shadow: 0 0 0 9999px rgb(15 23 42 / 72%);
+                    pointer-events: none;
+                    z-index: variables.$z-raised;
+                    box-sizing: border-box;
+
+                    &.shape-circle {
+                        border-radius: 50%;
+                    }
+                }
+
+                .crop-mask-borders {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: var(--cutout-size, 260px);
+                    height: var(--cutout-size, 260px);
+                    transform: translate(-50%, -50%);
+                    border: 2px dashed rgb(255 255 255 / 70%);
+                    pointer-events: none;
+                    z-index: variables.$z-raised;
+                    box-sizing: border-box;
+
+                    &.shape-circle {
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            .editor-controls-panel {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                padding: 24px;
+                box-sizing: border-box;
+                background: variables.$color-gray-50;
+                border-bottom: 1px solid variables.$color-gray-100;
+
+                .zoom-group {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+
+                    .control-label {
+                        font-family: variables.$font-sans;
+                        font-size: variables.$font-size-sm;
+                        font-weight: 500;
+                        color: variables.$color-gray-600;
+                        width: 44px;
+                    }
+
+                    .slider-container {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+
+                        .slider-adj-btn {
+                            background: transparent;
+                            border: none;
+                            color: variables.$color-gray-500;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            padding: 4px;
+                            border-radius: 4px;
+
+                            @include variables.transition-ease;
+
+                            &:hover {
+                                background: variables.$color-gray-200;
+                                color: variables.$color-primary;
+                            }
+                        }
+
+                        .zoom-slider-range {
+                            flex: 1;
+                            appearance: none;
+                            height: 4px;
+                            border-radius: 2px;
+                            background: variables.$color-gray-200;
+                            outline: none;
+
+                            &::-webkit-slider-thumb {
+                                appearance: none;
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 50%;
+                                background: variables.$color-primary;
+                                cursor: pointer;
+
+                                @include variables.transition-ease;
+
+                                &:hover {
+                                    transform: scale(1.15);
+                                    background: variables.$color-blue-dark;
+                                }
+                            }
+
+                            &::-moz-range-thumb {
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 50%;
+                                background: variables.$color-primary;
+                                cursor: pointer;
+                                border: none;
+
+                                @include variables.transition-ease;
+
+                                &:hover {
+                                    transform: scale(1.15);
+                                    background: variables.$color-blue-dark;
+                                }
+                            }
+                        }
+                    }
+
+                    .zoom-percentage-text {
+                        font-family: variables.$font-sans;
+                        font-size: variables.$font-size-sm;
+                        font-weight: 600;
+                        color: variables.$color-gray-800;
+                        width: 40px;
+                        text-align: right;
+                    }
+                }
+
+                .control-group-buttons {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 8px;
+                    width: 100%;
+
+                    .button-sub-group {
+                        display: flex;
+                        background: variables.$color-white;
+                        border: 1px solid variables.$color-gray-200;
+                        border-radius: variables.$radius-tiny;
+                        overflow: hidden;
+                        box-shadow: variables.$shadow-sm;
+                    }
+
+                    .transform-btn {
+                        background: variables.$color-white;
+                        border: none;
+                        border-right: 1px solid variables.$color-gray-100;
+                        padding: 8px 12px;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        cursor: pointer;
+                        font-family: variables.$font-sans;
+                        font-size: variables.$font-size-xs;
+                        font-weight: 500;
+                        color: variables.$color-gray-700;
+
+                        @include variables.transition-ease;
+
+                        &:last-child {
+                            border-right: none;
+                        }
+
+                        span {
+                            display: inline-block;
+                        }
+
+                        &:hover {
+                            background: variables.$color-gray-50;
+                            color: variables.$color-primary;
+                        }
+
+                        &.active {
+                            background: variables.$color-gray-100;
+                            color: variables.$color-blue-dark;
+                            font-weight: 600;
+                        }
+
+                        &.reset-btn {
+                            border: 1px solid variables.$color-gray-200;
+                            border-radius: variables.$radius-tiny;
+                            box-shadow: variables.$shadow-sm;
+                            background: variables.$color-white;
+                            color: variables.$color-gray-500;
+
+                            &:hover {
+                                background: rgba(variables.$color-danger, 0.04);
+                                border-color: rgba(variables.$color-danger, 0.2);
+                                color: variables.$color-danger;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .avatar-editor-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 24px;
+            border-top: 1px solid variables.$color-gray-100;
+        }
+    }
+}
+
+// Media queries for mobile responsiveness
+@media (width <= 480px) {
+    .avatar-editor-modal-overlay {
+        padding: 10px;
+
+        .avatar-editor-card {
+            max-height: 100vh;
+            border-radius: variables.$radius-medium;
+
+            .avatar-editor-body {
+                padding: 0;
+                gap: 0;
+
+                .crop-workspace-container {
+                    --workspace-height: 280px;
+                    --cutout-size: 200px;
+                }
+
+                .editor-controls-panel {
+                    padding: 16px;
+
+                    .control-group-buttons {
+                        gap: 6px;
+
+                        .transform-btn {
+                            padding: 6px 8px;
+
+                            span {
+                                display: none; // hide text labels on narrow mobile screens
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes modal-backdrop-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-card-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}

@@ -1,0 +1,18 @@
+:root {
+    --primi-font-serif: 'Bodoni Moda', serif;
+    --primi-font-sans: 'Plus Jakarta Sans', sans-serif;
+
+    // ─── Core Type Scale (4px-aligned, IBM Carbon "Productive" approach) ───────
+    // All values align to a 4px grid at 16px base for dense dashboard UIs.
+    --primi-font-size-xxs: 0.625rem; // 10px — tiny labels, badges, timestamps
+    --primi-font-size-xs: 0.75rem; // 12px — captions, secondary meta text
+    --primi-font-size-sm: 0.875rem; // 14px — secondary body, table cells
+    --primi-font-size-md: 1rem; // 16px — primary body (WCAG minimum)
+    --primi-font-size-lg: 1.125rem; // 18px — card titles, lead text
+    --primi-font-size-xl: 1.25rem; // 20px — section headings
+    --primi-font-size-xxl: 1.5rem; // 24px — page headings
+
+    // ─── Display Sizes (for KPI stat numbers, hero panels) ───────────────────
+    --primi-font-size-display-sm: 2rem; // 32px — KPI stat numbers, display text
+    --primi-font-size-display-lg: 7.5rem; // 120px — hero/large decorative numbers
+}

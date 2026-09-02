@@ -1,0 +1,93 @@
+@use '../../../../../styles/variables';
+
+.kanban-column-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 120px;
+    max-height: 620px;
+    overflow: hidden auto;
+    padding-right: 4px;
+
+    .kanban-column-quick-add-form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-300;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+
+        .kanban-quick-add-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid variables.$color-gray-300;
+            border-radius: 8px;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            outline: none;
+            box-sizing: border-box;
+
+            &:focus {
+                border-color: variables.$color-indigo-light;
+                box-shadow: 0 0 0 2px rgb(99 102 241 / 15%);
+            }
+        }
+
+        .kanban-quick-add-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .quick-add-save-btn {
+                padding: 4px 12px;
+                height: 28px;
+                border: none;
+                border-radius: 6px;
+                background-color: variables.$color-gray-900;
+                color: variables.$color-white;
+                font-size: variables.$font-size-xs;
+                font-weight: 600;
+                cursor: pointer;
+
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+            }
+
+            .quick-add-cancel-btn {
+                padding: 4px 10px;
+                height: 28px;
+                border: none;
+                background-color: transparent;
+                color: variables.$color-gray-500;
+                font-size: variables.$font-size-xs;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                    color: variables.$color-gray-900;
+                }
+            }
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: variables.$color-gray-300;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: variables.$color-gray-400;
+        }
+    }
+}

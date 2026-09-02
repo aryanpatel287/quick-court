@@ -1,0 +1,165 @@
+@use '../../../../styles/variables';
+
+.otp-verification-step-wrapper {
+    width: 100%;
+
+    .otp-email-badge {
+        display: flex;
+        justify-content: center;
+        margin: -10px 0 24px;
+
+        .otp-email-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: variables.$color-gray-100;
+            padding: 6px 12px 6px 16px;
+            border-radius: 20px;
+
+            .otp-email-text {
+                color: variables.$color-gray-900;
+                font-size: variables.$font-size-sm;
+                font-weight: 600;
+            }
+
+            .otp-email-edit-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
+                padding: 3px;
+                color: variables.$color-gray-500;
+                cursor: pointer;
+                border-radius: 50%;
+
+                @include variables.transition-ease;
+
+                &:hover {
+                    color: variables.$color-blue-dark;
+                    background-color: rgb(47 84 235 / 12%);
+                }
+            }
+        }
+    }
+
+    .otp-resend-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin: 16px 0 20px;
+        font-size: variables.$font-size-sm;
+
+        .resend-prompt {
+            color: variables.$color-gray-500;
+            font-weight: 500;
+        }
+
+        .resend-timer-text {
+            color: variables.$color-gray-400;
+            font-weight: 500;
+
+            .timer-count {
+                color: variables.$color-gray-800;
+                font-weight: 700;
+            }
+        }
+
+        .resend-code-btn {
+            background: none;
+            border: none;
+            color: variables.$color-blue-dark;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+
+            @include variables.transition-ease;
+
+            &:hover:not(:disabled) {
+                color: variables.$color-black;
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .otp-attempts-warning {
+        color: variables.$color-danger;
+        text-align: center;
+        margin: -8px 0 16px;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+    }
+
+    .otp-locked-warning {
+        color: variables.$color-danger;
+        text-align: center;
+        margin: -8px 0 16px;
+        font-size: variables.$font-size-sm;
+        font-weight: 700;
+    }
+
+    .otp-expiry-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 16px 0;
+        font-size: variables.$font-size-sm;
+
+        .otp-ttl-text {
+            color: variables.$color-gray-500;
+            font-weight: 500;
+
+            .ttl-count {
+                color: variables.$color-warning;
+                font-weight: 700;
+            }
+        }
+
+        .otp-expired-text {
+            color: variables.$color-danger;
+            font-weight: 600;
+        }
+    }
+
+    .resend-limit-text {
+        color: variables.$color-danger;
+        font-weight: 600;
+    }
+
+    .back-to-login-prompt {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        .back-link {
+            background: none;
+            border: none;
+            color: variables.$color-gray-500;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+
+            @include variables.transition-ease;
+
+            &:hover:not(:disabled) {
+                color: variables.$color-primary;
+            }
+
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                text-decoration: none;
+            }
+        }
+    }
+}

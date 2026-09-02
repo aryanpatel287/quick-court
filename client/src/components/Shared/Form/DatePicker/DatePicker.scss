@@ -1,0 +1,339 @@
+@use '../../../../styles/variables';
+
+.shared-datepicker-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    font-family: variables.$font-sans;
+
+    .datepicker-label {
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-gray-700;
+    }
+
+    .datepicker-input-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background-color: variables.$color-gray-100;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        user-select: none;
+        min-height: 42px;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-100;
+            border: none;
+            outline: none;
+
+            .datepicker-icon-trigger {
+                color: variables.$color-gray-800;
+            }
+        }
+
+        &:focus,
+        &:focus-visible,
+        &.is-open {
+            background-color: variables.$color-gray-100;
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    .datepicker-value-text {
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        color: variables.$color-black;
+        letter-spacing: 0.01em;
+
+        &.placeholder {
+            color: variables.$color-gray-400;
+            font-weight: 400;
+        }
+    }
+
+    .datepicker-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .datepicker-clear-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            color: variables.$color-gray-400;
+            padding: 2px;
+            border-radius: 50%;
+            cursor: pointer;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: variables.$color-gray-200;
+                color: variables.$color-gray-800;
+            }
+        }
+
+        .datepicker-icon-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: variables.$color-gray-500;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                color: variables.$color-black;
+            }
+        }
+    }
+
+    // Disabled State
+    &.is-disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+
+        .datepicker-input-wrapper {
+            background-color: variables.$color-gray-100;
+            border: none;
+            outline: none;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    }
+
+    // Error State
+    &.has-error {
+        .datepicker-input-wrapper {
+            border: none;
+            outline: none;
+            background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+        }
+
+        .datepicker-error-msg {
+            font-size: variables.$font-size-xs;
+            color: variables.$color-danger;
+            font-weight: 500;
+        }
+    }
+
+    // Popover Dropdown Calendar
+    .datepicker-popover-dropdown {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        z-index: variables.$z-sticky;
+        width: 280px;
+        padding: 16px;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-purple-border;
+        border-radius: 14px;
+        box-shadow: 0 12px 32px rgb(35 25 75 / 12%);
+        animation: datepicker-fade-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+
+        .datepicker-popover-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+
+            .datepicker-month-title {
+                font-size: variables.$font-size-sm;
+                font-weight: 700;
+                color: variables.$color-gray-900;
+            }
+
+            .datepicker-nav-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border: 1px solid variables.$color-purple-border;
+                border-radius: 6px;
+                background-color: variables.$color-gray-50;
+                color: variables.$color-gray-500;
+                cursor: pointer;
+
+                @include variables.transition-ease;
+
+                &:hover {
+                    background-color: variables.$color-purple-light;
+                    color: variables.$color-gray-900;
+                }
+            }
+        }
+
+        .datepicker-weekdays-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 6px;
+
+            .datepicker-weekday {
+                font-size: variables.$font-size-xs;
+                font-weight: 700;
+                color: variables.$color-gray-500;
+                text-transform: uppercase;
+                padding: 4px 0;
+            }
+        }
+
+        .datepicker-days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 10px;
+
+            .datepicker-day-cell {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 32px;
+                border: none;
+                border-radius: 8px;
+                background: transparent;
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-sm;
+                font-weight: 500;
+                color: variables.$color-gray-900;
+                cursor: pointer;
+
+                @include variables.transition-ease;
+
+                &.sibling {
+                    color: variables.$color-gray-300;
+                    pointer-events: none;
+                }
+
+                &.active:hover {
+                    background-color: variables.$color-purple-light;
+                    color: variables.$color-violet;
+                }
+
+                &.today {
+                    font-weight: 700;
+                    color: variables.$color-violet;
+                    background-color: variables.$color-purple-light;
+                }
+
+                &.selected {
+                    background-color: variables.$color-violet;
+                    color: variables.$color-white;
+                    font-weight: 700;
+                    box-shadow: 0 4px 10px rgb(124 101 232 / 30%);
+
+                    &:hover {
+                        background-color: variables.$color-violet;
+                        color: variables.$color-white;
+                    }
+                }
+
+                &:disabled {
+                    opacity: 0.3;
+                    cursor: not-allowed;
+                    background: transparent;
+
+                    &:hover {
+                        background: transparent;
+                    }
+                }
+            }
+        }
+
+        .datepicker-popover-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 8px;
+            border-top: 1px solid variables.$color-purple-border;
+
+            .datepicker-today-btn {
+                border: none;
+                background: transparent;
+                font-size: variables.$font-size-xs;
+                font-weight: 700;
+                color: variables.$color-violet;
+                cursor: pointer;
+                padding: 4px 8px;
+                border-radius: 4px;
+
+                @include variables.transition-ease;
+
+                &:hover {
+                    background-color: variables.$color-purple-light;
+                }
+            }
+        }
+    }
+
+    .datepicker-selected-info {
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-500;
+        font-weight: 500;
+        margin-top: 2px;
+
+        strong {
+            font-weight: 500;
+            color: variables.$color-gray-600;
+        }
+    }
+}
+
+@keyframes datepicker-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Global styles for portal-rendered popover (rendered directly on document.body)
+.datepicker-popover-dropdown {
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-purple-border;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgb(35 25 75 / 14%);
+    padding: 12px 14px;
+    animation: datepicker-fade-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: Inter, sans-serif;
+
+    .datepicker-popover-footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid variables.$color-purple-border;
+
+        .datepicker-today-btn {
+            padding: 5px 14px;
+            border: 1px solid variables.$color-purple-border;
+            border-radius: 8px;
+            background-color: variables.$color-gray-50;
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            color: variables.$color-violet;
+            cursor: pointer;
+            font-family: Inter, sans-serif;
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: variables.$color-purple-light;
+            }
+        }
+    }
+}

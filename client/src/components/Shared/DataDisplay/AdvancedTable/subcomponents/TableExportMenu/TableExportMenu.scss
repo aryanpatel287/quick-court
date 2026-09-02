@@ -1,0 +1,382 @@
+@use '../../../../../../styles/variables';
+
+.at-export-menu-wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: variables.$z-sticky;
+
+    .tooltip-wrapper {
+        z-index: variables.$z-modal;
+    }
+
+    .at-export-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 16px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-gray-700;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: 100px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        @include variables.transition-ease;
+
+        svg {
+            color: variables.$color-gray-500;
+
+            @include variables.transition-ease;
+        }
+
+        &:hover,
+        &.is-open {
+            background-color: variables.$color-gray-100;
+            border-color: variables.$color-gray-300;
+            color: variables.$color-black;
+
+            svg {
+                color: variables.$color-black;
+            }
+        }
+
+        &.icon-only {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background-color: variables.$color-gray-100;
+
+            svg {
+                color: variables.$color-gray-700;
+            }
+
+            &:hover,
+            &.is-open {
+                background-color: variables.$color-gray-200;
+                border: none;
+
+                svg {
+                    color: variables.$color-black;
+                }
+            }
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    .at-export-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        z-index: variables.$z-modal;
+        width: 256px;
+        background-color: variables.$color-white;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: 12px;
+        box-shadow:
+            0 12px 32px rgb(0 0 0 / 12%),
+            0 2px 8px rgb(0 0 0 / 4%);
+        padding: 6px;
+        animation: at-fp-fade-in 0.15s ease;
+
+        &.selection-menu {
+            top: calc(100% + 8px);
+            bottom: auto;
+            right: 0;
+        }
+
+        .export-menu-header {
+            padding: 8px 10px 6px;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-xxs;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: variables.$color-gray-500;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 4px;
+        }
+
+        .export-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-family: variables.$font-sans;
+            transition: all 0.15s ease;
+
+            &:hover {
+                background-color: variables.$color-gray-50;
+            }
+
+            .export-icon-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                flex-shrink: 0;
+                background-color: variables.$color-gray-100;
+
+                &.csv {
+                    color: variables.$color-info;
+                }
+
+                &.excel {
+                    color: variables.$color-success;
+                }
+
+                &.pdf {
+                    color: variables.$color-danger;
+                }
+            }
+
+            .item-text-group {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+
+                .item-title {
+                    font-family: variables.$font-sans;
+                    font-size: variables.$font-size-sm;
+                    font-weight: 600;
+                    color: variables.$color-gray-900;
+                    line-height: 1.2;
+                }
+
+                .item-sub {
+                    font-family: variables.$font-sans;
+                    font-size: variables.$font-size-xxs;
+                    color: variables.$color-gray-500;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
+
+// ── Export Confirmation Modal ─────────────────────────────────────────────
+.at-export-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: variables.$z-tooltip;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15 23 42 / 45%);
+    backdrop-filter: blur(4px);
+    padding: 16px;
+    animation: at-modal-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.at-export-modal-dialog {
+    width: 100%;
+    max-width: 440px;
+    background-color: variables.$color-white;
+    border-radius: 16px;
+    box-shadow:
+        0 20px 40px -10px rgb(15 23 42 / 25%),
+        0 10px 20px -5px rgb(0 0 0 / 10%);
+    overflow: hidden;
+    font-family: variables.$font-sans;
+    animation: at-modal-scale-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .at-export-modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 20px 24px 16px;
+        border-bottom: 1px solid #f1f5f9;
+
+        .at-export-modal-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .at-export-modal-icon-badge {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                flex-shrink: 0;
+                background-color: variables.$color-gray-100;
+
+                &.csv {
+                    color: variables.$color-info;
+                }
+
+                &.excel {
+                    color: variables.$color-success;
+                }
+
+                &.pdf {
+                    color: variables.$color-danger;
+                }
+            }
+
+            .at-export-modal-title {
+                margin: 0;
+                font-size: variables.$font-size-md;
+                font-weight: 700;
+                color: variables.$color-gray-900;
+                line-height: 1.2;
+            }
+
+            .at-export-modal-subtitle {
+                margin: 2px 0 0;
+                font-size: variables.$font-size-xs;
+                font-weight: 500;
+                color: variables.$color-gray-500;
+            }
+        }
+
+        .at-export-modal-close-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: variables.$color-gray-500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+
+            &:hover {
+                background-color: variables.$color-gray-100;
+                color: variables.$color-gray-900;
+            }
+        }
+    }
+
+    .at-export-modal-body {
+        padding: 20px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .at-export-modal-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 14px;
+            background-color: variables.$color-gray-50;
+            border: 1px solid variables.$color-gray-200;
+            border-radius: 10px;
+
+            .notice-icon {
+                color: variables.$color-info;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .notice-text {
+                font-size: variables.$font-size-sm;
+                color: variables.$color-gray-700;
+                line-height: 1.45;
+
+                strong {
+                    color: variables.$color-gray-900;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .at-export-spec-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-100;
+            border-radius: 10px;
+            padding: 12px 14px;
+
+            .spec-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: variables.$font-size-sm;
+
+                .spec-label {
+                    color: variables.$color-gray-500;
+                    font-weight: 500;
+                }
+
+                .spec-value {
+                    color: variables.$color-gray-900;
+                    font-weight: 600;
+
+                    &.highlight {
+                        color: variables.$color-info;
+                        font-weight: 700;
+                    }
+
+                    &.format-pill {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        padding: 3px 8px;
+                        background-color: variables.$color-gray-100;
+                        border-radius: 6px;
+                        font-size: variables.$font-size-xs;
+                        color: variables.$color-gray-700;
+                    }
+                }
+            }
+        }
+    }
+
+    .at-export-modal-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 16px 24px;
+        border-top: 1px solid #f1f5f9;
+        background-color: variables.$color-gray-50;
+    }
+}
+
+@keyframes at-modal-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes at-modal-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}

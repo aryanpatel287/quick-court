@@ -1,0 +1,353 @@
+@use '@/styles/variables' as variables;
+
+.maps-showcase-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    background: #0b0f19;
+    min-height: 100vh;
+    color: variables.$color-gray-200;
+    font-family: Inter, sans-serif;
+
+    .card {
+        background: rgb(17 24 39 / 70%);
+        border: 1px solid rgb(255 255 255 / 8%);
+        border-radius: 12px;
+        padding: 20px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
+    }
+}
+
+.maps-showcase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    h2 {
+        margin: 0;
+        font-size: variables.$font-size-xxl;
+        font-weight: 700;
+        background: linear-gradient(135deg, #a5b4fc, #6366f1);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        margin: 4px 0 0;
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-400;
+    }
+
+    .caps-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .badge {
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: variables.$font-size-xs;
+        font-weight: 600;
+        text-transform: uppercase;
+        border: 1px solid;
+
+        &.supported {
+            background: rgb(16 185 129 / 10%);
+            color: variables.$color-success;
+            border-color: rgb(16 185 129 / 20%);
+        }
+
+        &.unsupported {
+            background: rgb(239 68 68 / 10%);
+            color: variables.$color-danger;
+            border-color: rgb(239 68 68 / 20%);
+        }
+    }
+}
+
+.map-display-panel {
+    width: 100%;
+
+    .map-wrapper {
+        position: relative;
+        width: 100%;
+        height: 450px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgb(255 255 255 / 10%);
+        box-shadow: inset 0 2px 4px rgb(0 0 0 / 30%);
+    }
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.operations-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h3 {
+        margin: 0 0 4px;
+        font-size: variables.$font-size-lg;
+        font-weight: 600;
+        color: variables.$color-gray-100;
+        border-bottom: 1px solid rgb(255 255 255 / 8%);
+        padding-bottom: 10px;
+    }
+
+    .description {
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-400;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        label {
+            font-size: variables.$font-size-xs;
+            font-weight: 600;
+            color: variables.$color-gray-400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    }
+
+    .input-group {
+        display: flex;
+        gap: 8px;
+
+        input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgb(15 23 42 / 50%);
+            border: 1px solid rgb(255 255 255 / 10%);
+            border-radius: 6px;
+            color: variables.$color-gray-200;
+            outline: none;
+            font-size: variables.$font-size-sm;
+
+            &:focus {
+                border-color: variables.$color-indigo-light;
+            }
+        }
+    }
+
+    .coord-inputs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+
+        input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgb(15 23 42 / 50%);
+            border: 1px solid rgb(255 255 255 / 10%);
+            border-radius: 6px;
+            color: variables.$color-gray-200;
+            outline: none;
+            font-size: variables.$font-size-sm;
+
+            &:focus {
+                border-color: variables.$color-indigo-light;
+            }
+        }
+    }
+
+    .divider {
+        border: 0;
+        height: 1px;
+        background: rgb(255 255 255 / 8%);
+        margin: 8px 0;
+    }
+
+    .btn {
+        padding: 9px 16px;
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s ease-in-out;
+        border: none;
+        outline: none;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &.btn-primary {
+            background: #6366f1;
+            color: variables.$color-white;
+
+            &:hover:not(:disabled) {
+                background: #4f46e5;
+            }
+        }
+
+        &.btn-secondary {
+            background: rgb(255 255 255 / 8%);
+            color: variables.$color-gray-100;
+            border: 1px solid rgb(255 255 255 / 10%);
+
+            &:hover:not(:disabled) {
+                background: rgb(255 255 255 / 12%);
+            }
+        }
+
+        &.btn-indigo {
+            background: #4f46e5;
+            color: variables.$color-white;
+
+            &:hover:not(:disabled) {
+                background: #4338ca;
+            }
+        }
+
+        &.btn-block {
+            width: 100%;
+        }
+    }
+
+    .result-panel {
+        background: rgb(15 23 42 / 60%);
+        border: 1px solid rgb(255 255 255 / 5%);
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 8px;
+
+        p {
+            margin: 4px 0;
+            font-size: variables.$font-size-sm;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: variables.$color-gray-400;
+            font-size: variables.$font-size-xs;
+            text-transform: uppercase;
+        }
+
+        .result-text {
+            color: variables.$color-gray-100;
+        }
+
+        .result-coords {
+            color: variables.$color-blue-accent;
+            font-family: monospace;
+        }
+    }
+
+    .route-summary {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .label {
+                font-size: variables.$font-size-xxs;
+                font-weight: 600;
+                color: variables.$color-gray-500;
+                text-transform: uppercase;
+            }
+
+            .val {
+                font-size: variables.$font-size-lg;
+                font-weight: 700;
+                color: variables.$color-indigo-light;
+            }
+        }
+    }
+
+    .driver-list {
+        margin: 6px 0 0;
+        padding-left: 16px;
+        color: variables.$color-gray-400;
+        font-size: variables.$font-size-xs;
+
+        li {
+            margin-bottom: 2px;
+        }
+    }
+
+    .status-text {
+        font-size: variables.$font-size-sm;
+        color: variables.$color-blue-accent;
+        margin: 0;
+        font-style: italic;
+    }
+
+    .matrix-results-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+
+        h4 {
+            margin: 0 0 4px;
+            font-size: variables.$font-size-sm;
+            color: variables.$color-gray-200;
+            font-weight: 600;
+        }
+
+        .matrix-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgb(255 255 255 / 3%);
+            border: 1px solid rgb(255 255 255 / 5%);
+            border-radius: 6px;
+            font-size: variables.$font-size-sm;
+
+            .driver-name {
+                color: variables.$color-gray-300;
+                font-weight: 500;
+            }
+
+            .driver-stats {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: variables.$color-gray-400;
+                font-family: monospace;
+
+                .dot {
+                    color: rgb(255 255 255 / 15%);
+                }
+            }
+
+            &.nearest-row {
+                background: rgb(16 185 129 / 8%);
+                border-color: rgb(16 185 129 / 20%);
+
+                .driver-name {
+                    color: variables.$color-success;
+                    font-weight: 600;
+                }
+
+                .driver-stats {
+                    color: variables.$color-success;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

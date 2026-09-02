@@ -1,0 +1,275 @@
+@use 'sass:map';
+@use '../../../../styles/variables';
+
+/* -------------------------------------------------------
+   ToggleButton — Shared Reusable Toggle Switch Component
+   ------------------------------------------------------- */
+
+/* ---------- Color Map (track "on" color per variant) ---------- */
+$toggle-colors: (
+    'default': #4b5563,
+    'primary': #222,
+    'success': #10b981,
+    'danger': #ef4444,
+    'warning': #f59e0b,
+);
+
+/* ---------- Root Wrapper ---------- */
+.toggle-btn-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+
+    @include variables.transition-ease;
+
+    &.label-left {
+        flex-direction: row-reverse;
+    }
+
+    &.toggle-disabled {
+        cursor: not-allowed;
+        opacity: 0.48;
+
+        .toggle-track-wrap,
+        .toggle-label {
+            pointer-events: none;
+        }
+    }
+}
+
+/* ---------- Hidden Native Input ---------- */
+.toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+    appearance: none;
+}
+
+/* ---------- Track (outer pill) ---------- */
+.toggle-track-wrap {
+    display: inline-flex;
+    align-items: center;
+}
+
+.toggle-track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    background-color: variables.$color-gray-400;
+    transition:
+        background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &.is-on {
+        background-color: variables.$color-gray-900;
+    }
+
+    &.is-off {
+        background-color: variables.$color-gray-400;
+    }
+}
+
+/* ---------- Thumb (inner circle disc with checkmark) ---------- */
+.toggle-thumb {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: variables.$color-white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+    transition:
+        left 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .toggle-track.is-on & {
+        border: 1.5px solid variables.$color-gray-900;
+    }
+
+    .toggle-track.is-off & {
+        border: 1.5px solid variables.$color-gray-400;
+    }
+
+    .toggle-check-icon {
+        color: variables.$color-gray-900;
+        stroke-width: 2.8;
+        opacity: 0;
+        transform: scale(0.3) rotate(-12deg);
+        transition:
+            opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+        pointer-events: none;
+    }
+
+    .toggle-track.is-on & .toggle-check-icon {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* ---------- Label ---------- */
+.toggle-label {
+    font-family: variables.$font-sans;
+    font-size: variables.$font-size-sm;
+    font-weight: 500;
+    color: variables.$color-gray-700;
+    line-height: 1.4;
+
+    @include variables.transition-ease;
+
+    .toggle-btn-wrapper:hover:not(.toggle-disabled) & {
+        color: variables.$color-gray-900;
+    }
+}
+
+/* ================================================
+   SIZE VARIANTS
+   ================================================ */
+
+/* --- Small --- */
+.toggle-size-sm {
+    .toggle-track {
+        width: 33px;
+        height: 22px;
+    }
+
+    .toggle-thumb {
+        width: 18px;
+        height: 18px;
+        left: 2px;
+    }
+
+    .toggle-track.is-on .toggle-thumb {
+        left: calc(33px - 18px - 2px);
+    }
+
+    .toggle-check-icon {
+        width: 11px;
+        height: 11px;
+    }
+
+    .toggle-label {
+        font-size: variables.$font-size-sm;
+    }
+}
+
+/* --- Medium (default - matching reference UI) --- */
+.toggle-size-md {
+    .toggle-track {
+        width: 44px;
+        height: 28px;
+    }
+
+    .toggle-thumb {
+        width: 24px;
+        height: 24px;
+        left: 2px;
+    }
+
+    .toggle-track.is-on .toggle-thumb {
+        left: calc(44px - 24px - 2px);
+    }
+
+    .toggle-check-icon {
+        width: 13px;
+        height: 13px;
+    }
+}
+
+/* --- Large --- */
+.toggle-size-lg {
+    .toggle-track {
+        width: 52px;
+        height: 34px;
+    }
+
+    .toggle-thumb {
+        width: 30px;
+        height: 30px;
+        left: 2px;
+    }
+
+    .toggle-track.is-on .toggle-thumb {
+        left: calc(52px - 30px - 2px);
+    }
+
+    .toggle-check-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .toggle-label {
+        font-size: variables.$font-size-sm;
+    }
+}
+
+/* ================================================
+   VARIANT COLORS (on state track & thumb border color)
+   ================================================ */
+
+.toggle-variant-default .toggle-track.is-on {
+    background-color: map.get($toggle-colors, 'default');
+
+    .toggle-thumb {
+        border-color: map.get($toggle-colors, 'default');
+    }
+}
+
+.toggle-variant-primary .toggle-track.is-on {
+    background-color: map.get($toggle-colors, 'primary');
+
+    .toggle-thumb {
+        border-color: map.get($toggle-colors, 'primary');
+    }
+}
+
+.toggle-variant-success .toggle-track.is-on {
+    background-color: map.get($toggle-colors, 'success');
+
+    .toggle-thumb {
+        border-color: map.get($toggle-colors, 'success');
+    }
+}
+
+.toggle-variant-danger .toggle-track.is-on {
+    background-color: map.get($toggle-colors, 'danger');
+
+    .toggle-thumb {
+        border-color: map.get($toggle-colors, 'danger');
+    }
+}
+
+.toggle-variant-warning .toggle-track.is-on {
+    background-color: map.get($toggle-colors, 'warning');
+
+    .toggle-thumb {
+        border-color: map.get($toggle-colors, 'warning');
+    }
+}
+
+/* ================================================
+   HOVER GLOW & INTERACTION
+   ================================================ */
+
+.toggle-btn-wrapper:hover:not(.toggle-disabled) {
+    .toggle-track.is-on {
+        filter: brightness(1.15);
+    }
+
+    .toggle-track.is-off {
+        filter: brightness(1.08);
+    }
+}

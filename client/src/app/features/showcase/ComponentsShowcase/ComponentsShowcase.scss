@@ -1,0 +1,705 @@
+@use 'sass:color';
+@use '@/styles/variables' as *;
+@use '@/styles/variables' as variables;
+
+.showcase-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: $color-white;
+    padding: 40px 24px;
+}
+
+.showcase-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid $color-gray-200;
+    padding-bottom: 24px;
+    gap: 20px;
+
+    @media (width <= 640px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .header-text-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .showcase-page-title {
+            font-family: $font-sans;
+            font-size: variables.$font-size-display-sm;
+            font-weight: 800;
+            color: $color-black;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .showcase-page-subtitle {
+            font-family: $font-sans;
+            font-size: variables.$font-size-sm;
+            color: $color-gray-500;
+            margin: 0;
+        }
+    }
+
+    .header-actions-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+
+        @media (width <= 640px) {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+
+    .theme-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background-color: $color-white;
+        border: 1px solid $color-gray-300;
+        border-radius: $radius-medium;
+        font-family: $font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: $color-gray-700;
+        cursor: pointer;
+        box-shadow: $shadow-sm;
+
+        @include transition-ease;
+
+        svg {
+            color: $color-gray-600;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            background-color: $color-gray-50;
+            border-color: $color-gray-400;
+            color: $color-black;
+
+            svg {
+                transform: rotate(15deg);
+                color: $color-black;
+            }
+        }
+    }
+
+    .back-dashboard-btn {
+        padding: 10px 20px;
+        background-color: $color-white;
+        border: 1px solid $color-gray-300;
+        border-radius: $radius-medium;
+        font-family: $font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: $color-gray-700;
+        cursor: pointer;
+        box-shadow: $shadow-sm;
+        flex-shrink: 0;
+
+        @include transition-ease;
+
+        &:hover {
+            background-color: $color-gray-50;
+            border-color: $color-gray-400;
+            color: $color-black;
+        }
+    }
+}
+
+.components-showcase-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 8px;
+    min-width: 0;
+
+    .showcase-section {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        min-width: 0;
+
+        .showcase-section-title {
+            font-family: $font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 700;
+            color: $color-gray-400;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-bottom: 1px dashed $color-gray-200;
+            padding-bottom: 8px;
+            margin: 0;
+        }
+
+        // Badge Showcase Card
+        .showcase-badges-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: $color-white;
+            border: 1px solid $color-gray-100;
+            border-radius: $radius-medium;
+            padding: 24px;
+            box-shadow: $shadow-sm;
+
+            .badge-showcase-row {
+                display: flex;
+                align-items: center;
+                gap: 24px;
+
+                .row-label {
+                    font-family: $font-sans;
+                    font-size: variables.$font-size-sm;
+                    font-weight: 600;
+                    color: $color-gray-500;
+                    width: 160px;
+                    flex-shrink: 0;
+                }
+
+                .badge-group {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                }
+            }
+        }
+
+        // ProgressBar Showcase Card
+        .showcase-progress-card {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            background-color: $color-white;
+            border: 1px solid $color-gray-100;
+            border-radius: $radius-medium;
+            padding: 24px;
+            box-shadow: $shadow-sm;
+        }
+
+        // Checkbox Showcase Card
+        .showcase-checkbox-card {
+            display: flex;
+            flex-direction: column;
+            background-color: $color-white;
+            border: 1px solid $color-gray-100;
+            border-radius: $radius-medium;
+            padding: 24px;
+            box-shadow: $shadow-sm;
+            max-width: 400px;
+        }
+
+        // Tooltip Showcase Card
+        .showcase-tooltip-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            background-color: $color-white;
+            border: 1px solid $color-gray-100;
+            border-radius: $radius-medium;
+            padding: 24px;
+            box-shadow: $shadow-sm;
+
+            .demo-tooltip-btn {
+                padding: 8px 16px;
+                background-color: $color-white;
+                border: 1px solid $color-gray-200;
+                border-radius: $radius-small;
+                font-family: $font-sans;
+                font-size: variables.$font-size-sm;
+                font-weight: 600;
+                color: $color-gray-700;
+                cursor: pointer;
+
+                @include transition-ease;
+
+                &:hover {
+                    background-color: $color-gray-50;
+                    border-color: $color-gray-300;
+                    color: $color-black;
+                }
+            }
+        }
+
+        // Pagination Showcase Card
+        .showcase-pagination-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: $color-white;
+            border: 1px solid $color-gray-100;
+            border-radius: $radius-medium;
+            padding: 24px;
+            box-shadow: $shadow-sm;
+            max-width: 300px;
+        }
+
+        // SearchBar Showcase Card
+        .showcase-searchbar-card {
+            display: flex;
+            flex-direction: column;
+            background-color: $color-white;
+            border: 1px solid $color-gray-100;
+            border-radius: $radius-medium;
+            padding: 24px;
+            box-shadow: $shadow-sm;
+            max-width: 500px;
+        }
+
+        // ErrorPage Showcase Layout
+        .showcase-error-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+
+            .error-preview-tabs {
+                display: flex;
+                gap: 8px;
+
+                .preview-tab-btn {
+                    padding: 8px 16px;
+                    border: 1px solid $color-gray-200;
+                    background-color: $color-white;
+                    border-radius: $radius-small;
+                    font-family: $font-sans;
+                    font-size: variables.$font-size-sm;
+                    font-weight: 600;
+                    color: $color-gray-600;
+                    cursor: pointer;
+
+                    @include transition-ease;
+
+                    &:hover {
+                        background-color: $color-gray-50;
+                        color: $color-black;
+                    }
+
+                    &.active {
+                        background-color: $color-primary;
+                        color: $color-white;
+                        border-color: $color-primary;
+                    }
+                }
+            }
+
+            .error-preview-frame {
+                width: 100%;
+                background-color: $color-gray-50;
+                border: 1px dashed $color-gray-200;
+                border-radius: $radius-medium;
+                padding: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .error-page-container {
+                    padding: 0;
+                    width: 100%;
+                }
+            }
+        }
+
+        // Modular & Responsive Showcase Additions
+        .showcase-card {
+            background-color: $color-white;
+            border: 1px solid $color-gray-200;
+            border-radius: $radius-medium;
+            padding: 24px;
+
+            p {
+                margin-top: 0;
+                margin-bottom: 16px;
+            }
+
+            &.action-buttons-row {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+        }
+
+        .showcase-testbed-panel {
+            padding: 20px;
+            background-color: $color-white;
+            border-radius: $radius-large;
+            border: 1px solid $color-gray-200;
+
+            .testbed-title {
+                margin: 0 0 16px;
+                font-size: variables.$font-size-sm;
+                font-weight: 700;
+                color: $color-gray-800;
+            }
+
+            .testbed-label {
+                font-size: variables.$font-size-xs;
+                font-weight: 700;
+                color: $color-gray-500;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+            }
+
+            .testbed-btn {
+                padding: 6px 14px;
+                margin-right: 6px;
+                margin-bottom: 6px;
+                border-radius: $radius-small;
+                border: 1px solid $color-gray-300;
+                background-color: $color-white;
+                color: $color-gray-700;
+                font-weight: 500;
+                cursor: pointer;
+                font-size: variables.$font-size-xs;
+                font-family: $font-sans;
+                transition: all 0.15s ease;
+
+                &:hover {
+                    background-color: $color-gray-100;
+                    border-color: $color-gray-400;
+                    color: $color-gray-900;
+                }
+
+                &.active {
+                    border: 2px solid $color-primary;
+                    background-color: color-mix(in srgb, $color-primary 12%, transparent);
+                    color: $color-primary;
+                    font-weight: 700;
+                }
+            }
+
+            .testbed-launch-btn {
+                padding: 8px 18px;
+                border-radius: $radius-medium;
+                background-color: $color-primary;
+                color: $color-white;
+                border: none;
+                font-weight: 600;
+                font-size: variables.$font-size-sm;
+                cursor: pointer;
+                transition: opacity 0.15s ease;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+        }
+
+        .showcase-dropdown-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            background-color: $color-white;
+            border: 1px solid $color-gray-200;
+            padding: 24px;
+            border-radius: $radius-medium;
+
+            @media (width <= 768px) {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 16px;
+            }
+
+            .showcase-dropdown-value {
+                margin-top: 8px;
+                font-size: variables.$font-size-sm;
+                color: $color-gray-500;
+            }
+        }
+
+        .delete-toast-showcase-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+
+            .delete-toast-counter-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                span {
+                    font-size: variables.$font-size-sm;
+                    color: $color-gray-600;
+                    font-weight: 500;
+                }
+
+                button {
+                    padding: 6px 12px;
+                    border: 1px solid $color-gray-200;
+                    border-radius: $radius-tiny;
+                    background: $color-white;
+                    cursor: pointer;
+                    font-weight: 600;
+
+                    @include transition-ease;
+
+                    &:hover {
+                        background-color: $color-gray-50;
+                        border-color: $color-gray-300;
+                    }
+                }
+
+                .delete-toast-counter-text {
+                    font-size: variables.$font-size-sm;
+                    width: 24px;
+                    display: inline-block;
+                    text-align: center;
+                }
+            }
+        }
+
+        .showcase-toast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+
+            @media (width <= 600px) {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .showcase-toast-col {
+                display: flex;
+                flex-direction: column;
+
+                h4 {
+                    font-size: variables.$font-size-sm;
+                    font-weight: 700;
+                    color: $color-gray-400;
+                    text-transform: uppercase;
+                    margin-top: 0;
+                    margin-bottom: 12px;
+                    letter-spacing: 0.05em;
+                }
+
+                .showcase-toast-buttons-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    max-height: 350px;
+                    overflow-y: auto;
+                    padding-right: 4px;
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background-color: $color-gray-200;
+                        border-radius: 2px;
+                    }
+
+                    span {
+                        font-size: variables.$font-size-xxs;
+                        font-weight: 700;
+                        color: $color-gray-400;
+                        text-transform: uppercase;
+                        margin-top: 6px;
+                        margin-bottom: 2px;
+                    }
+
+                    button {
+                        padding: 8px 12px;
+                        font-size: variables.$font-size-sm;
+                        font-weight: 600;
+                        text-align: left;
+                        border-radius: 6px;
+                        cursor: pointer;
+
+                        @include transition-ease;
+
+                        &.btn-success {
+                            border: 1px solid rgb(16 185 129 / 20%);
+                            background-color: rgb(16 185 129 / 5%);
+                            color: variables.$color-success;
+
+                            &:hover {
+                                background-color: rgb(16 185 129 / 10%);
+                            }
+                        }
+
+                        &.btn-error {
+                            border: 1px solid rgb(239 68 68 / 20%);
+                            background-color: rgb(239 68 68 / 5%);
+                            color: variables.$color-danger;
+
+                            &:hover {
+                                background-color: rgb(239 68 68 / 10%);
+                            }
+                        }
+
+                        &.btn-warning {
+                            border: 1px solid rgb(245 158 11 / 20%);
+                            background-color: rgb(245 158 11 / 5%);
+                            color: variables.$color-warning;
+
+                            &:hover {
+                                background-color: rgb(245 158 11 / 10%);
+                            }
+                        }
+
+                        &.btn-info {
+                            border: 1px solid rgb(59 130 246 / 20%);
+                            background-color: rgb(59 130 246 / 5%);
+                            color: variables.$color-blue-dark;
+
+                            &:hover {
+                                background-color: rgb(59 130 246 / 10%);
+                            }
+                        }
+
+                        &.btn-small-success {
+                            padding: 6px 10px;
+                            font-size: variables.$font-size-xs;
+                            border: 1px solid rgb(16 185 129 / 20%);
+                            background-color: rgb(16 185 129 / 3%);
+                            color: variables.$color-success;
+
+                            &:hover {
+                                background-color: rgb(16 185 129 / 8%);
+                            }
+                        }
+
+                        &.btn-small-error {
+                            padding: 6px 10px;
+                            font-size: variables.$font-size-xs;
+                            border: 1px solid rgb(239 68 68 / 20%);
+                            background-color: rgb(239 68 68 / 3%);
+                            color: variables.$color-danger;
+
+                            &:hover {
+                                background-color: rgb(239 68 68 / 8%);
+                            }
+                        }
+
+                        &.btn-small-warning {
+                            padding: 6px 10px;
+                            font-size: variables.$font-size-xs;
+                            border: 1px solid rgb(245 158 11 / 20%);
+                            background-color: rgb(245 158 11 / 3%);
+                            color: variables.$color-warning;
+
+                            &:hover {
+                                background-color: rgb(245 158 11 / 8%);
+                            }
+                        }
+
+                        &.btn-small-info {
+                            padding: 6px 10px;
+                            font-size: variables.$font-size-xs;
+                            border: 1px solid rgb(59 130 246 / 20%);
+                            background-color: rgb(59 130 246 / 3%);
+                            color: variables.$color-blue-dark;
+
+                            &:hover {
+                                background-color: rgb(59 130 246 / 8%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .showcase-dialog-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            button {
+                padding: 10px 16px;
+                color: $color-white;
+                border: none;
+                border-radius: $radius-small;
+                cursor: pointer;
+                font-size: variables.$font-size-sm;
+                font-weight: 600;
+
+                @include transition-ease;
+
+                &.btn-danger {
+                    background-color: $color-danger;
+
+                    &:hover {
+                        background-color: color-mix(in srgb, $color-danger 95%, black);
+                    }
+                }
+
+                &.btn-warning {
+                    background-color: $color-warning;
+
+                    &:hover {
+                        background-color: color-mix(in srgb, $color-warning 95%, black);
+                    }
+                }
+
+                &.btn-success {
+                    background-color: $color-success;
+
+                    &:hover {
+                        background-color: color-mix(in srgb, $color-success 95%, black);
+                    }
+                }
+
+                &.btn-primary {
+                    background-color: $color-primary;
+
+                    &:hover {
+                        background-color: color-mix(in srgb, $color-primary 95%, black);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@media (width <= 768px) {
+    .components-showcase-wrapper {
+        .showcase-section {
+            .showcase-badges-card {
+                .badge-showcase-row {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+
+                    .row-label {
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.custom-dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    .dialog-form-subtitle {
+        margin: 0 0 4px;
+        font-size: variables.$font-size-sm;
+        color: $color-gray-500;
+        line-height: 1.5;
+    }
+}

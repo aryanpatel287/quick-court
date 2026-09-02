@@ -1,0 +1,165 @@
+@use '../../../../../styles/variables';
+
+.searchbar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    background-color: variables.$color-white;
+
+    @include variables.transition-ease;
+
+    position: relative;
+
+    &:focus-within {
+        background-color: variables.$color-white; // focus turns bg white
+        border-color: variables.$color-black; // focused border turns pure black
+        box-shadow: none; // remove any white/grey box shadow glow
+        outline: none;
+    }
+
+    .searchbar-left-icon {
+        display: flex;
+        align-items: center;
+        color: variables.$color-gray-400;
+        flex-shrink: 0;
+    }
+
+    .searchbar-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .searchbar-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        color: variables.$color-primary;
+        width: 100%;
+        padding: 2px 0;
+        position: relative;
+        z-index: variables.$z-base;
+
+        &::placeholder {
+            color: variables.$color-gray-400;
+        }
+    }
+
+    .searchbar-animated-placeholder {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        gap: 0;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        color: variables.$color-gray-400;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+        z-index: 0;
+        max-width: 100%;
+        overflow: hidden;
+
+        .placeholder-prefix {
+            flex-shrink: 0;
+            font-weight: 500;
+            color: variables.$color-gray-400;
+            margin-right: 7px;
+        }
+
+        .placeholder-option-viewport {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            height: 1.4em;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+        .placeholder-option {
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: 500;
+            color: variables.$color-gray-400;
+
+            &.exiting {
+                position: absolute;
+                top: 0;
+                left: 0;
+                animation: slide-out-top 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+
+            &.entering {
+                animation: slide-in-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+        }
+    }
+
+    .searchbar-clear-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 8px;
+        border: 1px solid variables.$color-gray-200;
+        background-color: variables.$color-gray-100;
+        border-radius: 9999px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-xs;
+        font-weight: 600;
+        color: variables.$color-gray-700;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-left: 6px;
+        z-index: variables.$z-raised;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-200;
+            color: variables.$color-black;
+            border-color: variables.$color-gray-300;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    .searchbar-filter-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border: 1px solid variables.$color-gray-200;
+        border-radius: 50%;
+        background-color: transparent;
+        color: variables.$color-gray-500;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-left: 8px;
+
+        @include variables.transition-ease;
+
+        &:hover,
+        &.active {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-primary;
+            border-color: variables.$color-gray-300;
+        }
+    }
+}

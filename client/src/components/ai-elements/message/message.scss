@@ -1,0 +1,105 @@
+@use '@/styles/variables' as variables;
+
+.ai-message {
+    display: flex;
+    width: 100%;
+    max-width: 95%;
+    flex-direction: column;
+    gap: variables.$spacing-sm;
+
+    &.is-user {
+        margin-left: auto;
+        justify-content: flex-end;
+    }
+}
+
+.ai-message-content {
+    display: flex;
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
+    flex-direction: column;
+    gap: variables.$spacing-sm;
+    overflow: hidden;
+    font-size: variables.$font-size-sm;
+
+    .ai-message.is-user & {
+        margin-left: auto;
+        border-radius: variables.$radius-large;
+        background-color: variables.$color-gray-100;
+        padding: variables.$spacing-sm variables.$spacing-md;
+        color: variables.$color-primary;
+    }
+
+    .ai-message.is-assistant & {
+        color: variables.$color-primary;
+    }
+}
+
+.ai-message-actions {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-xs;
+}
+
+.ai-message-branch {
+    display: grid;
+    width: 100%;
+    gap: variables.$spacing-sm;
+
+    & > div {
+        padding-bottom: 0;
+    }
+}
+
+.ai-message-branch-content-wrapper {
+    display: grid;
+    gap: variables.$spacing-sm;
+    overflow: hidden;
+
+    & > div {
+        padding-bottom: 0;
+    }
+}
+
+.ai-message-branch-selector {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-medium;
+    box-shadow: variables.$shadow-sm;
+    overflow: hidden;
+
+    & > * + * {
+        border-left: 1px solid variables.$color-gray-200;
+    }
+}
+
+.ai-message-branch-page {
+    padding: 0 variables.$spacing-sm;
+    font-size: variables.$font-size-xs;
+    color: variables.$color-gray-500;
+    user-select: none;
+}
+
+.ai-message-response {
+    width: 100%;
+    height: 100%;
+
+    & > *:first-child {
+        margin-top: 0;
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.ai-message-toolbar {
+    margin-top: variables.$spacing-md;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: variables.$spacing-md;
+}

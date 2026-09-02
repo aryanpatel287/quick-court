@@ -1,0 +1,85 @@
+@use '../../../../../../styles/variables';
+
+.sidebar-subtabs-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-left: 24px;
+    margin-bottom: 8px;
+    gap: 4px;
+
+    .sidebar-subtab-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 14px; // Spacing between the vertical line and the item capsule
+        padding: 6px 12px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        font-weight: 500;
+        color: variables.$color-gray-400;
+        cursor: pointer;
+        border-radius: variables.$radius-tiny;
+
+        @include variables.transition-ease;
+
+        // Segmented vertical lines
+        .subtab-v-line-top,
+        .subtab-v-line-bottom {
+            position: absolute;
+            left: -14px;
+            width: 1.5px;
+            background-color: variables.$color-gray-300;
+            pointer-events: none;
+            z-index: variables.$z-base;
+
+            @include variables.transition-ease;
+
+            &.dark {
+                background-color: variables.$color-gray-800;
+                z-index: variables.$z-raised;
+            }
+        }
+
+        .subtab-v-line-top {
+            top: 0;
+            height: 50%;
+        }
+
+        .subtab-v-line-bottom {
+            top: 50%;
+            bottom: -6px; // Overlap by 2px to prevent subpixel layout gaps
+        }
+
+        // Horizontal line connector
+        &::before {
+            content: '';
+            position: absolute;
+            left: -14px; // Reaches back to connect with the vertical line
+            top: 50%;
+            width: 14px; // Spans the gap margin
+            height: 1.5px;
+            background-color: variables.$color-gray-300;
+            transform: translateY(-50%);
+            z-index: variables.$z-base;
+
+            @include variables.transition-ease;
+        }
+
+        &:hover {
+            color: variables.$color-gray-700;
+            background-color: variables.$color-gray-50;
+        }
+
+        &.active {
+            color: variables.$color-primary;
+            font-weight: 600;
+            background-color: variables.$color-gray-100;
+
+            &::before {
+                background-color: variables.$color-gray-900;
+                z-index: variables.$z-raised;
+            }
+        }
+    }
+}

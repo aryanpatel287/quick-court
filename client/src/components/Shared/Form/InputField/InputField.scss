@@ -1,0 +1,105 @@
+@use '@/styles/variables' as variables;
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+
+    .form-label {
+        display: block;
+        font-size: variables.$font-size-sm;
+        font-weight: 600;
+        color: variables.$color-black;
+        margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        width: 100%;
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            background-color: variables.$color-gray-100;
+            border: 1.5px solid transparent;
+            border-radius: variables.$radius-small;
+            color: variables.$color-black;
+            outline: none;
+
+            @include variables.transition-ease;
+
+            &::placeholder {
+                color: variables.$color-gray-400;
+            }
+
+            &:focus {
+                background-color: variables.$color-gray-100;
+                border-color: transparent;
+                outline: none;
+                box-shadow: none;
+            }
+
+            &:hover {
+                border-color: transparent;
+                box-shadow: none;
+            }
+
+            // Override browser autofill green/blue tint to clean minimal grey
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus,
+            &:-webkit-autofill:active {
+                box-shadow: 0 0 0 1000px variables.$color-gray-100 inset;
+                -webkit-text-fill-color: variables.$color-black;
+                transition: background-color 5000s ease-in-out 0s;
+                border-color: transparent;
+            }
+
+            &.password-input {
+                padding-right: 48px;
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                background-color: variables.$color-gray-100;
+                color: variables.$color-gray-400;
+                border-color: transparent;
+            }
+        }
+    }
+
+    .caps-lock-warning {
+        display: block;
+        color: variables.$color-gray-600;
+        font-size: variables.$font-size-xs;
+        font-weight: 600;
+        margin-top: 6px;
+    }
+
+    .error-message {
+        display: block;
+        color: variables.$color-danger;
+        font-size: variables.$font-size-xs;
+        margin-top: 6px;
+        font-weight: 500;
+    }
+
+    &.has-error {
+        .form-input {
+            background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+            border-color: variables.$color-danger-border;
+
+            &:focus {
+                background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+                border-color: variables.$color-danger;
+                outline: none;
+            }
+        }
+
+        .form-label {
+            color: variables.$color-danger;
+        }
+    }
+}

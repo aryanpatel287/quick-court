@@ -1,0 +1,43 @@
+@use '@/styles/variables' as v;
+
+// ─── Glassmorphism Mixins & Utilities ──────────────────────────────────────────
+
+@mixin glass-panel {
+    background: color-mix(in srgb, v.$color-white 75%, transparent);
+    backdrop-filter: blur(20px);
+    border: 1px solid color-mix(in srgb, v.$color-white 40%, transparent);
+    box-shadow: 0 8px 32px 0 color-mix(in srgb, v.$color-black 6%, transparent);
+}
+
+@mixin glass-card {
+    background: color-mix(in srgb, v.$color-white 65%, transparent);
+    backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, v.$color-gray-200 60%, transparent);
+    border-radius: v.$radius-large;
+    box-shadow: v.$shadow-sm;
+    transition:
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: v.$shadow-lg;
+        border-color: color-mix(in srgb, v.$color-primary 30%, transparent);
+    }
+}
+
+@mixin glass-header {
+    background: color-mix(in srgb, v.$color-white 80%, transparent);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid color-mix(in srgb, v.$color-gray-200 50%, transparent);
+    box-shadow: 0 4px 20px 0 color-mix(in srgb, v.$color-black 3%, transparent);
+}
+
+.glass-panel {
+    @include glass-panel;
+}
+
+.glass-card {
+    @include glass-card;
+}

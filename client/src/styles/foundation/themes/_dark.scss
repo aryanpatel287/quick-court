@@ -1,0 +1,83 @@
+@mixin dark-theme-tokens {
+    // ─── Monochromatic Minimalism Neutrals ──────────────────────────────────
+    // Background: #121212 (charcoal black)
+    // Primary Text: #E0E0E0 (light gray)
+    // Secondary Text: #B0B0B0 (medium gray)
+    // Borders/Dividers: #444444 (dark gray)
+    // Accent: #888888 (soft gray)
+
+    --color-black: #fff;
+    --color-white: #1a1a1a; // Card, modal, input, and dropdown surface
+    --color-gray-50: #121212; // Application root background canvas
+    --color-gray-100: #222; // Subtle/hovered item background
+    --color-gray-200: #444; // Standard visible border / divider
+    --color-gray-300: #555; // Active / emphasized border
+    --color-gray-400: #777; // Muted border / placeholder
+    --color-gray-500: #888; // Accent / meta labels / soft gray
+    --color-gray-600: #b0b0b0; // Secondary text / medium gray
+    --color-gray-700: #ccc; // Body text
+    --color-gray-800: #e0e0e0; // Subheadings / light gray
+    --color-gray-900: #f5f5f5; // Primary text / high contrast
+
+    // ─── Brand / Accent ───────────────────────────────────────────────────────
+    --color-primary: #e0e0e0;
+    --color-blue-accent: #888;
+    --color-blue-hover: #b0b0b0;
+    --color-blue-dark: #e0e0e0;
+
+    // ─── Status ───────────────────────────────────────────────────────────────
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+    --color-info: #3b82f6;
+
+    // ─── Chart ────────────────────────────────────────────────────────────────
+    --color-chart-this-month: #e0e0e0;
+    --color-chart-last-month: #888;
+    --color-indigo: #a0a0a0;
+    --color-indigo-light: #ccc;
+
+    // ─── Status Palettes ──────────────────────────────────────────────────────
+    --color-danger-light: rgb(239 68 68 / 12%);
+    --color-danger-border: #622;
+    --color-danger-dark: #fca5a5;
+    --color-warning-light: rgb(245 158 11 / 12%);
+    --color-warning-border: #641;
+    --color-warning-dark: #fde68a;
+    --color-success-light: rgb(16 185 129 / 12%);
+    --color-success-border: #142;
+    --color-success-dark: #86efac;
+    --color-info-light: rgb(59 130 246 / 12%);
+    --color-info-border: #236;
+    --color-info-dark: #bfdbfe;
+
+    // ─── Extended Palette ─────────────────────────────────────────────────────
+    --color-teal: #14b8a6;
+    --color-teal-light: rgb(20 184 166 / 12%);
+    --color-teal-border: #134e48;
+    --color-violet: #a78bfa;
+    --color-purple: #c084fc;
+    --color-purple-light: rgb(192 132 252 / 12%);
+    --color-purple-border: #581c87;
+    --color-pink: #f472b6;
+    --color-pink-light: rgb(244 114 182 / 12%);
+    --color-pink-border: #831843;
+    --color-orange-light: rgb(251 146 60 / 12%);
+    --color-orange-border: #7c2d12;
+
+    // ─── Semantic Shadows (High depth over charcoal) ───────────────────────────
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 60%);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 60%), 0 2px 4px -1px rgb(0 0 0 / 40%);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 70%), 0 4px 6px -2px rgb(0 0 0 / 50%);
+    --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 80%), 0 10px 10px -5px rgb(0 0 0 / 60%);
+}
+
+[data-theme='dark'] {
+    @include dark-theme-tokens;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+        @include dark-theme-tokens;
+    }
+}

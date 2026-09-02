@@ -1,0 +1,103 @@
+@use '../../../../../styles/variables';
+
+.kanban-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 4px 6px;
+    position: relative;
+    z-index: variables.$z-raised;
+
+    .kanban-column-title-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .kanban-column-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .kanban-column-title {
+            font-size: variables.$font-size-sm;
+            font-weight: 700;
+            color: variables.$color-gray-800;
+            margin: 0;
+        }
+
+        .kanban-column-count {
+            font-size: variables.$font-size-sm;
+            font-weight: 500;
+            color: variables.$color-gray-400;
+            background-color: transparent;
+            padding: 0;
+        }
+    }
+
+    .kanban-column-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .kanban-column-scroll-top-btn,
+        .kanban-column-collapse-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border: 1px solid variables.$color-gray-300;
+            border-radius: 50%;
+            background-color: variables.$color-white;
+            color: variables.$color-indigo-light;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+            outline: none;
+            animation: fade-in-btn 0.2s ease-in-out;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: variables.$color-gray-900;
+                border-color: variables.$color-gray-900;
+                color: variables.$color-white;
+                transform: translateY(-1px);
+            }
+        }
+
+        .kanban-column-collapse-btn {
+            color: variables.$color-gray-500;
+            border-color: transparent;
+            background-color: transparent;
+            box-shadow: none;
+
+            &:hover {
+                background-color: rgb(0 0 0 / 6%);
+                color: variables.$color-gray-900;
+            }
+        }
+
+        .kanban-column-add-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border: none;
+            border-radius: 50%;
+            background-color: transparent;
+            color: variables.$color-gray-400;
+            cursor: pointer;
+
+            @include variables.transition-ease;
+
+            &:hover {
+                background-color: rgb(0 0 0 / 6%);
+                color: variables.$color-gray-800;
+            }
+        }
+    }
+}

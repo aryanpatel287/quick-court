@@ -1,0 +1,23 @@
+@use '../variables.scss' as variables2;
+@use '@/styles/variables';
+
+.main-layout {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-color: variables.$color-white;
+}
+
+@media (width <= 900px) {
+    .main-layout {
+        flex-direction: column;
+
+        .hero-panel {
+            display: none; // Hide left column on mobile
+        }
+
+        .form-panel {
+            padding: 48px 24px;
+        }
+    }
+}

@@ -1,0 +1,374 @@
+@use '@/styles/variables' as v;
+@use './glass-effects' as glass;
+
+.website-pricing {
+    position: relative;
+    width: 100%;
+    padding: v.$spacing-xxl v.$spacing-lg;
+    background: color-mix(in srgb, v.$color-gray-50 70%, transparent);
+
+    @include v.tablet {
+        padding: v.$spacing-xl v.$spacing-md;
+    }
+
+    @include v.mobile {
+        padding: v.$spacing-xl v.$spacing-sm;
+    }
+
+    .pricing-container {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: v.$spacing-xxl;
+
+        @include v.mobile {
+            gap: v.$spacing-lg;
+        }
+    }
+
+    // ─── Section Header ────────────────────────────────────────────────────────
+    .section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: v.$spacing-sm;
+        max-width: 760px;
+        margin: 0 auto;
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: v.$spacing-xs;
+            padding: v.$spacing-xs v.$spacing-md;
+            border-radius: 9999px;
+            background: color-mix(in srgb, v.$color-primary 8%, transparent);
+            border: 1px solid color-mix(in srgb, v.$color-primary 15%, transparent);
+            color: v.$color-gray-800;
+            font-size: v.$font-size-xs;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: Poppins, sans-serif;
+            font-size: v.$font-size-display-sm;
+            font-weight: 700;
+            line-height: 1.2;
+            color: v.$color-gray-900;
+            letter-spacing: -0.01em;
+            margin: 0;
+
+            @include v.mobile {
+                font-size: v.$font-size-xl;
+            }
+        }
+
+        .section-subtitle {
+            font-size: v.$font-size-md;
+            color: v.$color-gray-600;
+            line-height: 1.6;
+            margin: 0;
+
+            @include v.mobile {
+                font-size: v.$font-size-sm;
+            }
+        }
+    }
+
+    // ─── Billing Cycle Toggle ──────────────────────────────────────────────────
+    .billing-toggle-wrapper {
+        margin-top: v.$spacing-sm;
+        display: flex;
+        justify-content: center;
+
+        .billing-toggle {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px;
+            background: color-mix(in srgb, v.$color-gray-200 60%, transparent);
+            border: 1px solid color-mix(in srgb, v.$color-gray-300 50%, transparent);
+            border-radius: 9999px;
+            gap: 4px;
+            backdrop-filter: blur(12px);
+
+            .toggle-option {
+                display: inline-flex;
+                align-items: center;
+                gap: v.$spacing-xs;
+                padding: v.$spacing-xs v.$spacing-md;
+                border-radius: 9999px;
+                border: none;
+                background: transparent;
+                color: v.$color-gray-700;
+                font-family: Poppins, sans-serif;
+                font-size: v.$font-size-sm;
+                font-weight: 500;
+                cursor: pointer;
+                transition:
+                    background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                    color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+                &:hover {
+                    color: v.$color-gray-900;
+                }
+
+                &:focus-visible {
+                    outline: none;
+                    box-shadow: 0 0 0 2px color-mix(in srgb, v.$color-primary 40%, transparent);
+                }
+
+                &.is-active {
+                    background: v.$color-white;
+                    color: v.$color-gray-900;
+                    font-weight: 600;
+                    box-shadow: v.$shadow-sm;
+                }
+
+                .discount-pill {
+                    font-size: v.$font-size-xxs;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.04em;
+                    padding: 2px 6px;
+                    border-radius: 9999px;
+                    background: color-mix(in srgb, v.$color-success 15%, transparent);
+                    color: v.$color-success;
+                    border: 1px solid color-mix(in srgb, v.$color-success 30%, transparent);
+                }
+            }
+        }
+    }
+
+    // ─── Pricing Grid ──────────────────────────────────────────────────────────
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: v.$spacing-xl;
+        align-items: stretch;
+
+        @include v.tablet {
+            grid-template-columns: 1fr;
+            max-width: 520px;
+            margin: 0 auto;
+            gap: v.$spacing-lg;
+        }
+
+        @include v.mobile {
+            grid-template-columns: 1fr;
+            gap: v.$spacing-lg;
+        }
+    }
+
+    // ─── Pricing Card ──────────────────────────────────────────────────────────
+    .pricing-card {
+        @include glass.glass-card;
+
+        display: flex;
+        flex-direction: column;
+        padding: v.$spacing-xl;
+        border-radius: v.$radius-xlarge;
+        position: relative;
+        overflow: visible;
+        gap: v.$spacing-lg;
+
+        @include v.mobile {
+            padding: v.$spacing-lg;
+            gap: v.$spacing-md;
+        }
+
+        // Most Popular Highlighting
+        &.is-popular {
+            border-color: color-mix(in srgb, v.$color-primary 50%, transparent);
+            box-shadow:
+                0 12px 36px 0 color-mix(in srgb, v.$color-primary 12%, transparent),
+                0 2px 8px 0 color-mix(in srgb, v.$color-black 4%, transparent);
+            transform: translateY(-4px);
+
+            @include v.desktop {
+                transform: translateY(-8px) scale(1.02);
+
+                &:hover {
+                    transform: translateY(-12px) scale(1.03);
+                }
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: v.$radius-xlarge;
+                background: linear-gradient(
+                    180deg,
+                    color-mix(in srgb, v.$color-primary 6%, transparent) 0%,
+                    transparent 60%
+                );
+                pointer-events: none;
+            }
+
+            .popular-badge {
+                position: absolute;
+                top: -12px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 4px v.$spacing-md;
+                border-radius: 9999px;
+                background: linear-gradient(135deg, v.$color-primary 0%, v.$color-blue-accent 100%);
+                color: v.$color-white;
+                font-family: Poppins, sans-serif;
+                font-size: v.$font-size-xs;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                box-shadow: 0 4px 14px color-mix(in srgb, v.$color-primary 40%, transparent);
+                z-index: v.$z-raised;
+            }
+        }
+
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            gap: v.$spacing-xs;
+
+            .tier-icon-wrapper {
+                width: 40px;
+                height: 40px;
+                border-radius: v.$radius-medium;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: color-mix(in srgb, v.$color-primary 8%, transparent);
+                border: 1px solid color-mix(in srgb, v.$color-primary 15%, transparent);
+                color: v.$color-gray-900;
+                margin-bottom: v.$spacing-xs;
+            }
+
+            .tier-name {
+                font-family: Poppins, sans-serif;
+                font-size: v.$font-size-xl;
+                font-weight: 700;
+                color: v.$color-gray-900;
+                margin: 0;
+                letter-spacing: -0.01em;
+            }
+
+            .tier-description {
+                font-size: v.$font-size-sm;
+                color: v.$color-gray-600;
+                line-height: 1.5;
+                margin: 0;
+                min-height: 42px;
+
+                @include v.mobile {
+                    min-height: auto;
+                }
+            }
+        }
+
+        // Price Box
+        .card-price-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: v.$spacing-md 0;
+            border-top: 1px solid color-mix(in srgb, v.$color-gray-200 60%, transparent);
+            border-bottom: 1px solid color-mix(in srgb, v.$color-gray-200 60%, transparent);
+
+            .price-value-row {
+                display: flex;
+                align-items: baseline;
+                gap: 6px;
+
+                .price-amount {
+                    font-family: Poppins, sans-serif;
+                    font-size: v.$font-size-display-sm;
+                    font-weight: 700;
+                    color: v.$color-gray-900;
+                    line-height: 1;
+                    letter-spacing: -0.02em;
+                }
+
+                .price-period {
+                    font-size: v.$font-size-sm;
+                    color: v.$color-gray-600;
+                    font-weight: 500;
+                }
+            }
+
+            .price-subtext {
+                font-size: v.$font-size-xs;
+                color: v.$color-gray-500;
+                font-weight: 400;
+            }
+        }
+
+        // Action CTA
+        .card-cta {
+            width: 100%;
+
+            .pro-cta-btn {
+                font-family: Poppins, sans-serif;
+                font-weight: 600;
+                box-shadow: 0 4px 16px color-mix(in srgb, v.$color-primary 30%, transparent);
+            }
+        }
+
+        // Features Checklist
+        .card-features {
+            display: flex;
+            flex-direction: column;
+            gap: v.$spacing-sm;
+            flex: 1;
+
+            .features-label {
+                font-size: v.$font-size-xs;
+                font-weight: 600;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
+                color: v.$color-gray-700;
+            }
+
+            .features-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .feature-item {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 10px;
+                    font-size: v.$font-size-sm;
+                    color: v.$color-gray-800;
+                    line-height: 1.4;
+
+                    .check-icon-wrapper {
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 50%;
+                        background: color-mix(in srgb, v.$color-success 12%, transparent);
+                        border: 1px solid color-mix(in srgb, v.$color-success 25%, transparent);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        margin-top: 1px;
+
+                        .check-icon {
+                            color: v.$color-success;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+@use '@/styles/variables' as variables;
+
+.form-header {
+    text-align: center;
+    margin-bottom: 32px;
+    width: 100%;
+
+    .form-title {
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-display-sm;
+        font-weight: 500;
+        color: variables.$color-black;
+        margin-bottom: 10px;
+    }
+
+    .form-subtitle {
+        font-size: variables.$font-size-sm;
+        color: variables.$color-gray-600;
+        line-height: 1.5;
+    }
+}

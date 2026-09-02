@@ -1,0 +1,160 @@
+@use '../../variables.scss' as variables2;
+@use '@/styles/variables';
+
+.form-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: variables.$color-white;
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    // Red Lockout Alert Banner
+    .lockout-banner {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        background-color: color-mix(in srgb, variables.$color-danger-light 70%, white);
+        border: none;
+        border-radius: 12px;
+        color: variables.$color-danger;
+        margin-bottom: 20px;
+        font-size: variables.$font-size-sm;
+        line-height: 1.45;
+        animation: fade-in-banner 0.3s ease-in-out;
+
+        .lockout-icon {
+            flex-shrink: 0;
+            color: variables.$color-danger;
+            margin-top: 2px;
+        }
+
+        .lockout-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .lockout-title {
+                font-weight: 700;
+                font-size: variables.$font-size-sm;
+                color: color-mix(in srgb, variables.$color-danger-dark 80%, black);
+            }
+
+            .lockout-message {
+                color: color-mix(in srgb, variables.$color-danger-dark 80%, black);
+                font-size: variables.$font-size-sm;
+            }
+
+            .lockout-timer-text {
+                font-weight: 600;
+                color: variables.$color-danger;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-top: 2px;
+
+                span {
+                    font-family: monospace;
+                    font-size: variables.$font-size-sm;
+                    font-weight: 700;
+                    background-color: variables.$color-danger-border;
+                    color: variables.$color-danger;
+                    padding: 2px 7px;
+                    border-radius: 6px;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    // Spacing for the role dropdown to match form-group inputs
+    .shared-dropdown-container {
+        margin-bottom: 20px;
+    }
+
+    .login-submit-btn {
+        margin-top: 6px;
+        margin-bottom: 20px;
+    }
+
+    .oauth-divider {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        text-align: center;
+        color: variables.$color-gray-400;
+        font-size: variables.$font-size-xs;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+
+        &::before,
+        &::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid variables.$color-gray-200;
+        }
+
+        span {
+            padding: 0 10px;
+        }
+    }
+
+    .oauth-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        .google-signin-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: variables.$color-white;
+            border: 1px solid variables.$color-gray-200;
+            color: variables.$color-gray-700;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+
+            &:hover {
+                background-color: variables.$color-gray-50;
+                border-color: variables.$color-gray-300;
+                color: variables.$color-gray-900;
+                transform: translateY(-1px);
+                box-shadow:
+                    0 4px 6px -1px rgb(0 0 0 / 5%),
+                    0 2px 4px -1px rgb(0 0 0 / 3%);
+            }
+
+            &:active {
+                transform: translateY(0);
+                box-shadow: none;
+            }
+
+            .google-icon {
+                flex-shrink: 0;
+            }
+        }
+    }
+}
+
+@keyframes fade-in-banner {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

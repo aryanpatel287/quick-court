@@ -1,0 +1,63 @@
+@use '../../../../../styles/variables';
+
+.shared-upload-list-container {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    .shared-upload-list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 6px;
+        border-bottom: 1px solid variables.$color-gray-100;
+
+        .shared-upload-list-title {
+            font-size: variables.$font-size-sm;
+            font-weight: 700;
+            color: variables.$color-gray-800;
+        }
+
+        .shared-upload-clear-all-btn {
+            font-family: variables.$font-sans;
+            font-size: variables.$font-size-sm;
+            font-weight: 600;
+            color: variables.$color-danger;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: variables.$radius-tiny;
+            transition: background-color 0.15s ease;
+
+            &:hover:not(:disabled) {
+                background-color: rgba(variables.$color-danger, 0.08);
+            }
+
+            &:disabled {
+                color: variables.$color-gray-400;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+.shared-upload-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

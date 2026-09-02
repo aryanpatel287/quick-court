@@ -1,0 +1,104 @@
+@use '../../../../../styles/variables';
+
+.kanban-card {
+    .kanban-card-progress-container {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 2px;
+
+        .kanban-card-progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .progress-label {
+                font-size: variables.$font-size-xxs;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: variables.$color-gray-400;
+            }
+
+            .progress-value {
+                font-size: variables.$font-size-xs;
+                font-weight: 700;
+                color: variables.$color-gray-800;
+            }
+        }
+
+        .kanban-card-progress-bar-wrapper {
+            width: 100%;
+
+            .shared-progressbar-container {
+                margin: 0;
+
+                .progressbar-track {
+                    height: 6px;
+                    background-color: variables.$color-gray-100;
+                }
+            }
+        }
+    }
+
+    .kanban-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 4px;
+        margin-top: 2px;
+
+        .kanban-card-metrics {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .kanban-card-metric-item {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: variables.$font-size-xs;
+                font-weight: 600;
+                color: variables.$color-gray-500;
+
+                svg {
+                    color: variables.$color-gray-400;
+                }
+            }
+        }
+
+        .kanban-card-avatar-stack {
+            display: flex;
+            align-items: center;
+
+            .kanban-avatar-wrapper {
+                position: relative;
+                margin-left: -8px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                .shared-avatar-container {
+                    border: 2px solid variables.$color-white;
+                    box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+                }
+            }
+
+            .kanban-avatar-more {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background-color: variables.$color-gray-100;
+                border: 2px solid variables.$color-white;
+                font-size: variables.$font-size-xxs;
+                font-weight: 700;
+                color: variables.$color-gray-600;
+                margin-left: -8px;
+            }
+        }
+    }
+}

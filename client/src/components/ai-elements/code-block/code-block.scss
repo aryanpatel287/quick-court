@@ -1,0 +1,251 @@
+@use '@/styles/variables' as variables;
+
+// Prism code syntax tokens styled with design system variables
+.token {
+    &.comment,
+    &.prolog,
+    &.doctype,
+    &.cdata {
+        color: variables.$color-gray-400;
+        font-style: italic;
+    }
+
+    &.punctuation {
+        color: variables.$color-gray-600;
+    }
+
+    &.property,
+    &.tag,
+    &.boolean,
+    &.number,
+    &.constant,
+    &.symbol,
+    &.deleted {
+        color: variables.$color-danger;
+    }
+
+    &.selector,
+    &.attr-name,
+    &.string,
+    &.char,
+    &.builtin,
+    &.inserted {
+        color: variables.$color-success;
+    }
+
+    &.operator,
+    &.entity,
+    &.url,
+    &.variable {
+        color: variables.$color-gray-700;
+    }
+
+    &.atrule,
+    &.attr-value,
+    &.keyword {
+        color: variables.$color-blue-dark;
+        font-weight: 600;
+    }
+
+    &.function,
+    &.class-name {
+        color: variables.$color-indigo;
+    }
+
+    &.regex,
+    &.important {
+        color: variables.$color-warning;
+    }
+
+    &.bold {
+        font-weight: bold;
+    }
+
+    &.italic {
+        font-style: italic;
+    }
+}
+
+.ai-code-line-number {
+    display: block;
+
+    &::before {
+        content: counter(line);
+        display: inline-block;
+        counter-increment: line;
+        width: 2rem;
+        margin-right: 1rem;
+        text-align: right;
+        color: color-mix(in srgb, variables.$color-gray-500 50%, transparent);
+        font-family: monospace;
+        user-select: none;
+    }
+}
+
+.ai-code-pre {
+    margin: 0;
+    padding: variables.$spacing-md;
+    font-size: variables.$font-size-sm;
+    background-color: variables.$color-gray-50;
+    color: variables.$color-gray-900;
+    border-radius: variables.$radius-small;
+    overflow-x: auto;
+    line-height: 1.6;
+}
+
+.ai-code-code {
+    font-family: monospace;
+    font-size: variables.$font-size-sm;
+
+    &.show-line-numbers {
+        counter-increment: line_0;
+        counter-reset: line;
+    }
+}
+
+.ai-code-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: variables.$radius-medium;
+    border: 1px solid variables.$color-gray-200;
+    background-color: variables.$color-white;
+    color: variables.$color-primary;
+
+    .dark & {
+        border-color: variables.$color-gray-800;
+        background-color: variables.$color-black;
+    }
+}
+
+.ai-code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid variables.$color-gray-200;
+    background-color: color-mix(in srgb, variables.$color-gray-50 80%, transparent);
+    padding: variables.$spacing-sm variables.$spacing-md;
+    color: variables.$color-gray-500;
+    font-size: variables.$font-size-xs;
+
+    .dark & {
+        border-bottom-color: variables.$color-gray-800;
+        background-color: color-mix(in srgb, variables.$color-gray-900 80%, transparent);
+    }
+}
+
+.ai-code-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-code-filename {
+    font-family: monospace;
+}
+
+.ai-code-actions {
+    margin-top: -4px;
+    margin-bottom: -4px;
+    margin-right: -4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-code-content-wrapper {
+    position: relative;
+    overflow: auto;
+}
+
+.ai-code-copy-btn {
+    flex-shrink: 0;
+}
+
+.ai-code-lang-selector {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+
+.ai-code-lang-trigger {
+    display: flex;
+    height: 1.75rem; // h-7
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    border-radius: variables.$radius-small;
+    background-color: transparent;
+    padding: 0 variables.$spacing-sm;
+    font-size: variables.$font-size-xs;
+    font-weight: 500;
+    color: variables.$color-gray-500;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: variables.$color-blue-dark;
+    }
+}
+
+.ai-code-lang-content {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: variables.$z-dropdown;
+    margin-top: 4px;
+    max-height: 15rem; // max-h-60
+    overflow-y: auto;
+    border-radius: variables.$radius-medium;
+    border: 1px solid variables.$color-gray-200;
+    background-color: variables.$color-white;
+    padding: 4px 0;
+    box-shadow: variables.$shadow-lg;
+    min-width: 8rem; // min-w-32
+
+    &:focus {
+        outline: none;
+    }
+
+    .dark & {
+        border-color: variables.$color-gray-800;
+        background-color: variables.$color-gray-900;
+    }
+}
+
+.ai-code-lang-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 6px 12px; // px-3 py-1.5
+    text-align: left;
+    font-size: variables.$font-size-xs;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: variables.$color-gray-700;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: color-mix(in srgb, variables.$color-blue-dark 8%, transparent);
+    }
+
+    &.is-selected {
+        font-weight: 600;
+        color: variables.$color-blue-accent;
+    }
+
+    .dark & {
+        color: variables.$color-gray-300;
+
+        &:hover {
+            background-color: color-mix(in srgb, variables.$color-blue-dark 12%, transparent);
+        }
+
+        &.is-selected {
+            color: variables.$color-blue-accent;
+        }
+    }
+}

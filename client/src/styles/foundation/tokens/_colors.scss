@@ -1,0 +1,68 @@
+:root {
+    // ─── Absolute Neutrals ────────────────────────────────────────────────────
+    --primi-black: #000;
+    --primi-white: #fff;
+
+    // ─── Gray Scale (Standard 50–900) ────────────────────────────────────────
+    --primi-gray-50: #fafafb;
+    --primi-gray-100: #f3f4f6;
+    --primi-gray-200: #e5e7eb;
+    --primi-gray-300: #d1d5db;
+    --primi-gray-400: #9ca3af;
+    --primi-gray-500: #6b7280;
+    --primi-gray-600: #4b5563;
+    --primi-gray-700: #374151;
+    --primi-gray-800: #1f2937;
+    --primi-gray-900: #111827;
+
+    // ─── Brand / Status Colors ────────────────────────────────────────────────
+    --primi-blue-accent: #a2c8fd;
+    --primi-blue-hover: #b9d7fe;
+    --primi-blue-dark: #2f54eb;
+    --primi-success: #10b981;
+    --primi-danger: #ef4444;
+    --primi-warning: #f59e0b;
+    --primi-info: #3b82f6;
+
+    // ─── Chart Colors ─────────────────────────────────────────────────────────
+    --primi-chart-this-month: #2b7af3;
+    --primi-chart-last-month: #f4a261;
+    --primi-indigo: #4f46e5;
+    --primi-indigo-light: #6366f1;
+
+    // ─── Status Color Palettes ────────────────────────────────────────────────
+    // Each status has: base + light (bg) + border + dark (text/icon)
+    // Use color-mix() in components for subtle hover/active derivations.
+
+    // Danger
+    --primi-danger-light: #ffe4e6; // subtle bg for danger states
+    --primi-danger-border: #fca5a5; // border for danger inputs/cards
+    --primi-danger-dark: #991b1b; // dark text/icon on danger bg
+
+    // Warning
+    --primi-warning-light: #fef08a; // subtle bg for warning states
+    --primi-warning-border: #fde68a; // border for warning inputs/cards
+    --primi-warning-dark: #854d0e; // dark text/icon on warning bg
+
+    // Success
+    --primi-success-light: #f0fdf4; // subtle bg for success states
+    --primi-success-border: #bbf7d0; // border for success inputs/cards
+
+    // Info
+    --primi-info-light: #eff6ff; // subtle bg for info states
+    --primi-info-border: #bfdbfe; // border for info inputs/cards
+
+    // ─── Extended Palette (for badge/chip/tag variety) ────────────────────────
+    --primi-teal: #0d9488;
+    --primi-teal-light: #f0fdfa;
+    --primi-teal-border: #99f6e4;
+    --primi-violet: #7c3aed;
+    --primi-purple: #9333ea;
+    --primi-purple-light: #faf5ff;
+    --primi-purple-border: #e9d5ff;
+    --primi-pink: #db2777;
+    --primi-pink-light: #fdf2f8;
+    --primi-pink-border: #fbcfe8;
+    --primi-orange-light: #fff7ed;
+    --primi-orange-border: #ffedd5;
+}

@@ -1,0 +1,79 @@
+.kanban-card-skeleton-placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 18px;
+    min-height: 84px;
+    background-color: rgb(255 255 255 / 85%);
+    border: 2px dashed variables.$color-indigo-light;
+    border-radius: 16px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgb(99 102 241 / 8%);
+    animation: pulse-placeholder 1.5s infinite ease-in-out;
+
+    .skeleton-line {
+        height: 12px;
+        background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+        background-size: 200% 100%;
+        border-radius: 6px;
+        animation: shimmer-skeleton 1.5s infinite;
+
+        &.skeleton-title {
+            width: 65%;
+            height: 14px;
+        }
+
+        &.skeleton-subtitle {
+            width: 40%;
+            height: 10px;
+        }
+    }
+}
+
+.kanban-column-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    border: 1.5px dashed variables.$color-gray-300;
+    border-radius: 16px;
+    color: variables.$color-gray-400;
+    font-size: variables.$font-size-sm;
+    font-weight: 500;
+    background-color: rgb(255 255 255 / 50%);
+}
+
+@keyframes shimmer-skeleton {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@keyframes pulse-placeholder {
+    0%,
+    100% {
+        border-color: variables.$color-indigo-light;
+        background-color: rgb(238 242 255 / 70%);
+    }
+
+    50% {
+        border-color: variables.$color-indigo-light;
+        background-color: rgb(224 231 255 / 90%);
+    }
+}
+
+@keyframes fade-in-btn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

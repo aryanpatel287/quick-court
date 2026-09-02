@@ -1,0 +1,60 @@
+@use '@/styles/variables' as variables;
+
+.shared-spinner-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: variables.$spacing-sm;
+
+    &.full-screen {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: variables.$color-white;
+        z-index: variables.$z-tooltip;
+    }
+}
+
+.shared-spinner {
+    border: 3px solid variables.$color-gray-100;
+    border-top: 3px solid variables.$color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    &.size-sm {
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+    }
+
+    &.size-md {
+        width: 40px;
+        height: 40px;
+    }
+
+    &.size-lg {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+.shared-spinner-label {
+    font-size: variables.$font-size-sm;
+    color: variables.$color-gray-500;
+    font-weight: 500;
+    font-family: variables.$font-sans;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

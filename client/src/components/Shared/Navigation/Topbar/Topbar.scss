@@ -1,0 +1,165 @@
+@use '../../../../styles/variables';
+
+.shared-topbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    padding: 0 16px;
+    background-color: variables.$color-white;
+    border-bottom: 1px solid variables.$color-gray-200;
+    width: 100%;
+    flex-shrink: 0;
+
+    .topbar-menu-trigger {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: variables.$color-gray-600;
+        cursor: pointer;
+        padding: 8px;
+        margin-left: -8px;
+        margin-right: 8px;
+        border-radius: variables.$radius-small;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-100;
+            color: variables.$color-black;
+        }
+    }
+
+    .topbar-breadcrumbs {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: variables.$font-sans;
+        font-size: variables.$font-size-sm;
+        user-select: none;
+
+        .breadcrumb-icon {
+            color: variables.$color-gray-800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 2px;
+        }
+
+        .breadcrumb-tab {
+            color: variables.$color-gray-800;
+            font-weight: 700;
+        }
+
+        .breadcrumb-separator {
+            color: variables.$color-gray-400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breadcrumb-subtab {
+            color: variables.$color-primary;
+            font-weight: 700;
+        }
+
+        &.has-subtab {
+            .breadcrumb-icon {
+                color: variables.$color-gray-400;
+            }
+
+            .breadcrumb-tab {
+                color: variables.$color-gray-400;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .topbar-notification-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+
+            .notification-badge {
+                position: absolute;
+                top: 1px;
+                right: -1px;
+                min-width: 16px;
+                height: 16px;
+                padding: 0 4px;
+                background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+                color: variables.$color-white;
+                font-family: variables.$font-sans;
+                font-size: variables.$font-size-xxs;
+                font-weight: 700;
+                border-radius: 9999px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                pointer-events: none;
+                line-height: 1;
+                box-shadow: 0 1px 4px rgb(239 68 68 / 35%);
+                transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+        }
+    }
+}
+
+// Responsiveness: match main content paddings
+@media (width <= 900px) {
+    .shared-topbar-container {
+        padding: 0 24px;
+    }
+}
+
+@media (width <= 600px) {
+    .shared-topbar-container {
+        padding: 0 16px;
+
+        .topbar-menu-trigger {
+            display: flex;
+        }
+    }
+}
+
+@media (width <= 480px) {
+    .shared-topbar-container {
+        .topbar-breadcrumbs {
+            gap: 6px;
+            font-size: variables.$font-size-sm;
+
+            .breadcrumb-icon {
+                display: none;
+            }
+        }
+
+        .topbar-right {
+            gap: 8px;
+
+            .topbar-divider {
+                margin: 0;
+            }
+        }
+    }
+}
+
+@media (width <= 380px) {
+    .shared-topbar-container {
+        .topbar-breadcrumbs {
+            &.has-subtab {
+                .breadcrumb-tab,
+                .breadcrumb-separator {
+                    display: none;
+                }
+            }
+        }
+    }
+}

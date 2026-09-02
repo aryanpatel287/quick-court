@@ -1,0 +1,65 @@
+@use '../../../../../styles/variables';
+
+.sidebar-logo-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    margin-bottom: 16px;
+
+    .logo-dashboard {
+        margin-bottom: 0;
+    }
+
+    .sidebar-toggle-btn,
+    .sidebar-close-btn {
+        border: none;
+        background: transparent;
+        color: variables.$color-gray-400;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        border-radius: variables.$radius-small;
+
+        @include variables.transition-ease;
+
+        &:hover {
+            background-color: variables.$color-gray-50;
+            color: variables.$color-black;
+        }
+    }
+}
+
+@include variables.tablet {
+    .sidebar-logo-wrapper {
+        justify-content: center;
+
+        .sidebar-toggle-btn {
+            display: none;
+        }
+    }
+}
+
+@include variables.mobile {
+    .sidebar-logo-wrapper {
+        justify-content: space-between;
+    }
+}
+
+.sidebar-logo-wrapper .sidebar-toggle-btn.collapsed-expand-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: variables.$radius-small;
+    color: variables.$color-gray-500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        color: variables.$color-gray-800;
+        background-color: variables.$color-gray-100;
+    }
+}

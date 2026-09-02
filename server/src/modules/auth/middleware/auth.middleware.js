@@ -91,7 +91,10 @@ export async function protect(req, res, next) {
  */
 export function restrictTo(...roles) {
     return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
+        const userRole = (req.user?.role || '').toUpperCase();
+        const allowedRoles = roles.map((r) => String(r).toUpperCase());
+
+        if (!allowedRoles.includes(userRole)) {
             return sendResponse({
                 res,
                 statusCode: 403,

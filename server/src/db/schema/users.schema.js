@@ -1,38 +1,94 @@
-import { pgTable, uuid, text, boolean, timestamp, index, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, boolean, timestamp, index, uniqueIndex } from 'drizzle-orm/pg-core';
 
-export const roleEnum = pgEnum('role_enum', ['user', 'admin']);
+import { roleEnum } from './enums.schema.js';
 
 export const users = pgTable(
     'users',
     {
         id: uuid('id').defaultRandom().primaryKey(),
+
         firstName: text('first_name').notNull(),
+
         lastName: text('last_name').notNull(),
-        email: text('email').unique().notNull(),
+
+        /**
+         * Email must be normalized to lowercase by the service
+         * before insertion/update.
+         */
+        email: text('email').notNull(),
+
+        /**
+         * Nullable for OAuth users.
+         */
         password: text('password'),
-        googleId: text('google_id').unique(),
-        profileImage: text('profile_image').default(
-            'https://ik.imagekit.io/2bzzjhgkg/defaul_profile_image.jpeg',
-        ),
-        role: roleEnum('role').default('user').notNull(),
+
+        /**
+         * Google OAuth identifier.
+         */
+        googleId: text('google_id'),
+
+        profileImage: text('profile_image'),
+
+        /**
+         * NEVER trust role from public registration input.
+         *
+         * Normal signup should create USER accounts.
+         * Facility-owner/admin assignment must be controlled
+         * by authorized backend logic.
+         */
+        role: roleEnum('role').default('USER').notNull(),
+
         emailVerified: boolean('email_verified').default(false).notNull(),
+
+        /**
+         * false = banned/disabled.
+         */
         isActive: boolean('is_active').default(true).notNull(),
+
+        /**
+         * Soft deletion preserves historical relationships.
+         */
         isDeleted: boolean('is_deleted').default(false).notNull(),
-        deletedAt: timestamp('deleted_at', { withTimezone: true }),
-        recoveryExpiresAt: timestamp('recovery_expires_at', { withTimezone: true }),
-        createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-        updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+
+        deletedAt: timestamp('deleted_at', {
+            withTimezone: true,
+        }),
+
+        recoveryExpiresAt: timestamp('recovery_expires_at', {
+            withTimezone: true,
+        }),
+
+        createdAt: timestamp('created_at', {
+            withTimezone: true,
+        })
+            .defaultNow()
+            .notNull(),
+
+        updatedAt: timestamp('updated_at', {
+            withTimezone: true,
+        })
+            .defaultNow()
+            .notNull(),
     },
-    (table) => {
-        return {
-            emailIdx: index('users_email_idx').on(table.email),
-            googleIdIdx: index('users_google_id_idx').on(table.googleId),
-            roleIdx: index('users_role_idx').on(table.role),
-            isDeletedIdx: index('users_is_deleted_idx').on(table.isDeleted),
-            deletedAtIdx: index('users_deleted_at_idx').on(table.deletedAt),
-            recoveryExpiresAtIdx: index('users_recovery_expires_at_idx').on(
-                table.recoveryExpiresAt,
-            ),
-        };
-    },
+
+    (table) => ({
+        /**
+         * Case-insensitive uniqueness is preferably enforced
+         * through normalized lowercase email in the service.
+         *
+         * If you want DB-level case-insensitive uniqueness,
+         * use a PostgreSQL functional unique index:
+         *
+         * UNIQUE (LOWER(email))
+         */
+        emailUniqueIdx: uniqueIndex('users_email_unique_idx').on(table.email),
+
+        googleIdUniqueIdx: uniqueIndex('users_google_id_unique_idx').on(table.googleId),
+
+        roleIdx: index('users_role_idx').on(table.role),
+
+        activeIdx: index('users_active_idx').on(table.isActive),
+
+        deletedIdx: index('users_deleted_idx').on(table.isDeleted),
+    }),
 );

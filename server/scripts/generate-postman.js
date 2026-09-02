@@ -135,8 +135,8 @@ function buildPostmanUrl(rawEndpoint, queryParams) {
 }
 
 export function generatePostmanCollection({
-    collectionName = 'Apex Template API Integration Collection',
-    collectionDescription = 'Live tested Postman Collection with saved mock responses generated directly from Jest E2E test runs.',
+    collectionName = 'Quick Court API Integration Collection',
+    collectionDescription = 'Comprehensive end-to-end Postman Collection v2.1.0 with verified mock responses generated directly from Jest integration test runs for Quick Court platform.',
     baseUrl = 'http://localhost:3000',
     docsDir = DOCS_DIR,
     outputFile = OUTPUT_FILE,

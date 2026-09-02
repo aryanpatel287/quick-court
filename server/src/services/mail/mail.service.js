@@ -3,6 +3,10 @@ import { sendEmailWithNodeMailer } from './nodemailer.mail.service.js';
 
 export async function sendEmail({ to, subject, html, text }) {
     try {
+        if (process.env.NODE_ENV === 'test') {
+            return 'Email delivery skipped in test environment';
+        }
+
         if (process.env.NODE_ENV === 'development') {
             const emailResponse = await sendEmailWithNodeMailer({
                 to,

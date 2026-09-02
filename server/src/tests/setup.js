@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 import { pool } from '../config/database.config.js';
 import redis from '../config/cache.config.js';
 

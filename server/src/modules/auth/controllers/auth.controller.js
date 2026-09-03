@@ -58,6 +58,22 @@ export async function registerUser(req, res, next) {
 
         const hashedPassword = await bcrypt.hash(passwordValue, 10);
 
+        const isVerifiedKey = `verified_email:${normalizedEmail}`;
+        const isEmailVerified = await redis.get(isVerifiedKey);
+
+        let emailVerified = false;
+        if (isEmailVerified) {
+            emailVerified = true;
+            await redis.del(isVerifiedKey);
+        } else {
+            await issueOtp({
+                email: normalizedEmail,
+                purpose: OTP_PURPOSES.VERIFY_EMAIL,
+                subject: 'QuickCourt Email Verification',
+                buildHtml: getOtpHtml,
+            });
+        }
+
         const user = await createUser({
             email: normalizedEmail,
             password: hashedPassword,
@@ -65,17 +81,14 @@ export async function registerUser(req, res, next) {
             lastName: lastNameValue,
             profileImage: profileImage || null,
             role: 'USER',
-            emailVerified: false,
+            emailVerified: emailVerified,
             isActive: true,
             isDeleted: false,
         });
 
-        await issueOtp({
-            email: normalizedEmail,
-            purpose: OTP_PURPOSES.VERIFY_EMAIL,
-            subject: 'QuickCourt Email Verification',
-            buildHtml: getOtpHtml,
-        });
+        if (emailVerified) {
+            return sendTokenResponse(res, 201, 'User registered successfully', user);
+        }
 
         return sendResponse({
             res,
@@ -130,6 +143,22 @@ export async function registerFacilityOwner(req, res, next) {
 
         const hashedPassword = await bcrypt.hash(passwordValue, 10);
 
+        const isVerifiedKey = `verified_email:${normalizedEmail}`;
+        const isEmailVerified = await redis.get(isVerifiedKey);
+
+        let emailVerified = false;
+        if (isEmailVerified) {
+            emailVerified = true;
+            await redis.del(isVerifiedKey);
+        } else {
+            await issueOtp({
+                email: normalizedEmail,
+                purpose: OTP_PURPOSES.VERIFY_EMAIL,
+                subject: 'QuickCourt Facility Owner Email Verification',
+                buildHtml: getOtpHtml,
+            });
+        }
+
         const user = await createUser({
             email: normalizedEmail,
             password: hashedPassword,
@@ -137,17 +166,14 @@ export async function registerFacilityOwner(req, res, next) {
             lastName: lastNameValue,
             profileImage: profileImage || null,
             role: 'FACILITY_OWNER',
-            emailVerified: false,
+            emailVerified: emailVerified,
             isActive: true,
             isDeleted: false,
         });
 
-        await issueOtp({
-            email: normalizedEmail,
-            purpose: OTP_PURPOSES.VERIFY_EMAIL,
-            subject: 'QuickCourt Facility Owner Email Verification',
-            buildHtml: getOtpHtml,
-        });
+        if (emailVerified) {
+            return sendTokenResponse(res, 201, 'Facility owner registered successfully', user);
+        }
 
         return sendResponse({
             res,

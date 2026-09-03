@@ -30,7 +30,17 @@ export const useAuth = () => {
         }
     };
 
-    const handleLogin = async (email, password, role, rememberMe) => {
+    const handleLogin = async (email, password, roleOrRememberMe, maybeRememberMe) => {
+        let role;
+        let rememberMe;
+        if (typeof roleOrRememberMe === 'boolean') {
+            rememberMe = roleOrRememberMe;
+            role = undefined;
+        } else {
+            role = roleOrRememberMe;
+            rememberMe = maybeRememberMe;
+        }
+
         setLoading(true);
         setError(null);
         try {
@@ -98,10 +108,26 @@ export const useAuth = () => {
     const handleVerifyEmail = async (email, otp) => {
         setError(null);
         try {
-            return await authService.verifyEmail({ email, otp });
+            const data = await authService.verifyEmail({ email, otp });
+            const userData = data?.user || data?.data?.user || null;
+            if (userData) {
+                setUser(userData);
+            }
+            return data;
         } catch (err) {
             console.error('Error in handleVerifyEmail:', err);
             setError(err.response?.data?.message || err.message || 'OTP verification failed');
+            throw err;
+        }
+    };
+
+    const handleResendOtp = async (email, purpose = 'VERIFY_EMAIL') => {
+        setError(null);
+        try {
+            return await authService.resendOtp({ email, purpose });
+        } catch (err) {
+            console.error('Error in handleResendOtp:', err);
+            setError(err.response?.data?.message || err.message || 'Failed to resend OTP');
             throw err;
         }
     };
@@ -119,7 +145,9 @@ export const useAuth = () => {
                 profileImage,
             });
             const userData = data.user || data.data?.user || null;
-            setUser(userData);
+            if (userData?.emailVerified) {
+                setUser(userData);
+            }
             return data;
         } catch (err) {
             console.error('Error in handleRegister:', err);
@@ -254,6 +282,8 @@ export const useAuth = () => {
         handleVerifyRecovery,
         handleSendVerificationOtp,
         handleVerifyEmail,
+        handleVerifyOtp: handleVerifyEmail,
+        handleResendOtp,
         handleRegister,
         handleUpdateProfile,
         handleUploadAvatar,

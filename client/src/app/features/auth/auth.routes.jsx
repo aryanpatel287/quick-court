@@ -17,7 +17,23 @@ export default {
         },
         {
             path: 'register',
-            element: <RegisterLayout />,
+            element: <RegisterLayout role="USER" />,
+        },
+        {
+            path: 'register/user',
+            element: <RegisterLayout role="USER" />,
+        },
+        {
+            path: 'register/facility-owner',
+            element: <RegisterLayout role="FACILITY_OWNER" />,
+        },
+        {
+            path: 'user/register',
+            element: <RegisterLayout role="USER" />,
+        },
+        {
+            path: 'facility-owner/register',
+            element: <RegisterLayout role="FACILITY_OWNER" />,
         },
     ],
 };

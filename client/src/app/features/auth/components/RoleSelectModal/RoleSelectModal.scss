@@ -1,0 +1,165 @@
+@use '@/styles/variables' as variables;
+
+.role-select-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-md;
+    padding-top: variables.$spacing-xs;
+}
+
+.role-select-subtitle {
+    margin: 0;
+    font-size: variables.$font-size-sm;
+    color: variables.$color-gray-500;
+    line-height: 1.5;
+}
+
+.role-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-md;
+    margin-top: variables.$spacing-xs;
+}
+
+.role-card-item {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-md;
+    width: 100%;
+    padding: variables.$spacing-md;
+    background-color: variables.$color-white;
+    border: 1px solid variables.$color-gray-200;
+    border-radius: variables.$radius-large;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    position: relative;
+    box-sizing: border-box;
+
+    @include variables.transition-ease;
+
+    &:hover {
+        border-color: variables.$color-blue-accent;
+        background-color: variables.$color-gray-50;
+        transform: translateY(-2px);
+        box-shadow: variables.$shadow-md;
+
+        .action-arrow {
+            transform: translateX(4px);
+            color: variables.$color-blue-accent;
+        }
+
+        .user-icon-box {
+            background-color: variables.$color-blue-accent;
+            color: variables.$color-white;
+        }
+
+        .owner-icon-box {
+            background-color: variables.$color-primary;
+            color: variables.$color-white;
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid variables.$color-blue-accent;
+        outline-offset: 2px;
+    }
+}
+
+.role-card-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: variables.$radius-medium;
+    background-color: variables.$color-gray-100;
+    color: variables.$color-gray-700;
+
+    @include variables.transition-ease;
+
+    &.user-icon-box {
+        color: variables.$color-blue-accent;
+        background-color: variables.$color-gray-100;
+    }
+
+    &.owner-icon-box {
+        color: variables.$color-primary;
+        background-color: variables.$color-gray-100;
+    }
+}
+
+.role-card-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-xs;
+}
+
+.role-card-header {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-sm;
+}
+
+.role-card-title {
+    margin: 0;
+    font-size: variables.$font-size-md;
+    font-weight: 600;
+    color: variables.$color-gray-900;
+}
+
+.role-card-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px variables.$spacing-xs;
+    font-size: variables.$font-size-xxs;
+    font-weight: 600;
+    border-radius: variables.$radius-tiny;
+    background-color: variables.$color-info-light;
+    color: variables.$color-blue-accent;
+    border: 1px solid variables.$color-info-border;
+
+    &.partner-badge {
+        background-color: variables.$color-purple-light;
+        color: variables.$color-purple;
+        border-color: variables.$color-purple-border;
+    }
+}
+
+.role-card-desc {
+    margin: 0;
+    font-size: variables.$font-size-xs;
+    color: variables.$color-gray-600;
+    line-height: 1.45;
+}
+
+.role-card-action {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-xs;
+    color: variables.$color-gray-400;
+    font-size: variables.$font-size-xs;
+    font-weight: 500;
+    padding-left: variables.$spacing-xs;
+
+    @include variables.transition-ease;
+
+    .action-label {
+        display: none;
+
+        @include variables.tablet {
+            display: inline;
+        }
+
+        @include variables.desktop {
+            display: inline;
+        }
+    }
+
+    .action-arrow {
+        @include variables.transition-ease;
+    }
+}

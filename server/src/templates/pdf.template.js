@@ -351,10 +351,10 @@ export function invoiceTemplate(data = {}) {
     const grandTotal = data.total !== undefined ? Number(data.total) : taxableAmount + taxAmount;
 
     const company = {
-        name: data.company?.name || 'Apex Technologies Inc.',
+        name: data.company?.name || 'quickcourt Technologies Inc.',
         address: data.company?.address || '100 Innovation Way, Suite 400',
         cityStateZip: data.company?.cityStateZip || 'San Francisco, CA 94107',
-        email: data.company?.email || 'billing@apex-template.io',
+        email: data.company?.email || 'billing@quickcourt-template.io',
         phone: data.company?.phone || '+1 (555) 019-2834',
         taxId: data.company?.taxId || 'US-EIN-98-7654321',
     };
@@ -625,7 +625,7 @@ export function receiptTemplate(data = {}) {
     </table>
 
     <div class="footer">
-      Apex Platform · Automatic Billing System · Keep this receipt for your records
+      quickcourt Platform · Automatic Billing System · Keep this receipt for your records
     </div>
   </div>
 </body>

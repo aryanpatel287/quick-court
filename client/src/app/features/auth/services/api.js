@@ -10,6 +10,34 @@ const userApiInstance = axios.create({
     withCredentials: true,
 });
 
+export async function registerUser({ firstName, lastName, email, password, profileImage }) {
+    const response = await authApiInstance.post('/register/user', {
+        firstName,
+        lastName,
+        email,
+        password,
+        profileImage,
+    });
+    return response.data;
+}
+
+export async function registerFacilityOwner({
+    firstName,
+    lastName,
+    email,
+    password,
+    profileImage,
+}) {
+    const response = await authApiInstance.post('/register/facility-owner', {
+        firstName,
+        lastName,
+        email,
+        password,
+        profileImage,
+    });
+    return response.data;
+}
+
 export async function register({ firstName, lastName, email, password, profileImage, role }) {
     const response = await authApiInstance.post('/register', {
         firstName,
@@ -50,17 +78,28 @@ export async function uploadAvatar(file) {
 }
 
 export async function login({ email, password, role, rememberMe }) {
-    const response = await authApiInstance.post('/login', {
+    const payload = {
         email,
         password,
-        role,
-        rememberMe,
-    });
+        rememberMe: !!rememberMe,
+    };
+    if (role && typeof role === 'string') {
+        payload.role = role;
+    }
+    const response = await authApiInstance.post('/login', payload);
     return response.data;
 }
 
 export async function verifyEmail({ email, otp }) {
     const response = await authApiInstance.post('/verify-email', {
+        email,
+        otp,
+    });
+    return response.data;
+}
+
+export async function verifyOtp({ email, otp }) {
+    const response = await authApiInstance.post('/verify-otp', {
         email,
         otp,
     });

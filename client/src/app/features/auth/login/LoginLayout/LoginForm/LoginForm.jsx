@@ -10,6 +10,7 @@ import { useToast } from '@/components/Shared/Feedback/Toast';
 import { ShieldAlert } from 'lucide-react';
 import { validateEmail, validatePassword } from '@/utils/validation';
 import Dialog from '@/components/Shared/Feedback/Dialog';
+import RoleSelectModal from '../../../components/RoleSelectModal/RoleSelectModal';
 import { useAuth } from '../../../hooks/useAuth';
 import './LoginForm.scss';
 
@@ -76,6 +77,9 @@ function LoginForm() {
     const [recoverableEmail, setRecoverableEmail] = useState('');
     const [daysRemaining, setDaysRemaining] = useState(15);
     const [recoveryExpiresAt, setRecoveryExpiresAt] = useState('');
+
+    // Role Selection Modal State
+    const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
 
     // Interactive Countdown Timer Effect
     useEffect(() => {
@@ -197,7 +201,15 @@ function LoginForm() {
     };
 
     const handleSignUp = () => {
-        navigate('/register');
+        setIsRoleModalOpen(true);
+    };
+
+    const handleSelectRole = (selectedRole) => {
+        if (selectedRole === 'facility-owner') {
+            navigate('/register/facility-owner');
+        } else {
+            navigate('/register/user');
+        }
     };
 
     return (
@@ -338,6 +350,12 @@ function LoginForm() {
 
                 <SignupPrompt onSignUp={handleSignUp} />
 
+                <RoleSelectModal
+                    isOpen={isRoleModalOpen}
+                    onClose={() => setIsRoleModalOpen(false)}
+                    onSelectRole={handleSelectRole}
+                />
+
                 <Dialog
                     isOpen={isRecoveryModalOpen}
                     onClose={() => setIsRecoveryModalOpen(false)}
@@ -351,7 +369,7 @@ function LoginForm() {
                         navigate('/recover-account', { state: { email: recoverableEmail } });
                     }}
                 >
-                    <p style={{ margin: 0, lineHeight: 1.5, fontSize: '0.9rem', color: '#374151' }}>
+                    <p style={{ margin: 0, lineHeight: 1.5, fontSize: '0.9rem' }}>
                         This account was deleted, but it is still within its recovery window.
                     </p>
                     <p
@@ -359,7 +377,6 @@ function LoginForm() {
                             margin: '8px 0 0 0',
                             lineHeight: 1.5,
                             fontSize: '0.9rem',
-                            color: '#374151',
                         }}
                     >
                         You have <strong>{daysRemaining} days</strong> remaining (until{' '}

@@ -3,7 +3,7 @@ import './SignupPrompt.scss';
 function SignupPrompt({ onSignUp }) {
     return (
         <div className="form-footer">
-            Don't have an account?
+            Don't have an account?{' '}
             <a
                 href="#"
                 className="footer-link"
@@ -12,7 +12,7 @@ function SignupPrompt({ onSignUp }) {
                     onSignUp();
                 }}
             >
-                Sign Up
+                Register
             </a>
         </div>
     );

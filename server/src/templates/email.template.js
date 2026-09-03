@@ -40,17 +40,17 @@ export const otpEmailTemplate = (otp) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>APEX</h1>
+          <h1>quickcourt</h1>
         </div>
         <div class="content">
           <p>Hello,</p>
-          <p>Thank you for choosing Apex. Please use the following one-time password (OTP) code to complete your email verification process:</p>
+          <p>Thank you for choosing quickcourt. Please use the following one-time password (OTP) code to complete your email verification process:</p>
           <div class="otp-box">${otp}</div>
           <p>This verification code is valid for 10 minutes. For security reasons, please do not share this OTP with anyone.</p>
           <p class="note">If you did not request this code, you can safely ignore this email.</p>
         </div>
         <div class="footer">
-          <p>&copy; ${new Date().getFullYear()} Apex. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} quickcourt. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -73,16 +73,16 @@ export const forgotPasswordOtpEmailTemplate = (otp) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>APEX</h1>
+          <h1>quickcourt</h1>
         </div>
         <div class="content">
           <p>Hello,</p>
-          <p>We received a request to reset the password for your Apex account. Use the following one-time password (OTP) code to complete the reset process:</p>
+          <p>We received a request to reset the password for your quickcourt account. Use the following one-time password (OTP) code to complete the reset process:</p>
           <div class="otp-box">${otp}</div>
           <p>This code expires in 10 minutes. If you did not make this request, your account is still secure and you can safely ignore this email.</p>
         </div>
         <div class="footer">
-          <p>&copy; ${new Date().getFullYear()} Apex. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} quickcourt. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -105,17 +105,17 @@ export const recoverAccountOtpEmailTemplate = (otp) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>APEX</h1>
+          <h1>quickcourt</h1>
         </div>
         <div class="content">
           <p>Hello,</p>
-          <p>We received a request to recover your deleted Apex account. Use the following one-time password (OTP) code to reactivate your account:</p>
+          <p>We received a request to recover your deleted quickcourt account. Use the following one-time password (OTP) code to reactivate your account:</p>
           <div class="otp-box">${otp}</div>
           <p>This code expires in 10 minutes. Once verified, your account and all associated data will be fully recovered.</p>
           <p class="note">If you did not initiate this recovery process, please contact support immediately.</p>
         </div>
         <div class="footer">
-          <p>&copy; ${new Date().getFullYear()} Apex. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} quickcourt. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -138,16 +138,16 @@ export const accountRecoveredEmailTemplate = () => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>APEX</h1>
+          <h1>quickcourt</h1>
         </div>
         <div class="content">
           <p>Hello,</p>
-          <p>We are pleased to inform you that your Apex account associated with this email address has been successfully recovered and reactivated.</p>
+          <p>We are pleased to inform you that your quickcourt account associated with this email address has been successfully recovered and reactivated.</p>
           <p>You can now log in using your password.</p>
           <p class="note">If you did not initiate this action, please contact support immediately.</p>
         </div>
         <div class="footer">
-          <p>&copy; ${new Date().getFullYear()} Apex. All rights reserved.</p>
+          <p>&copy; ${new Date().getFullYear()} quickcourt. All rights reserved.</p>
         </div>
       </div>
     </body>

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 
 import FormHeader from '@/components/Shared/DataDisplay/FormHeader/FormHeader';
 import InputField from '@/components/Shared/Form/InputField/InputField';
-import RoleSelector from '@/components/Shared/Form/RoleSelector/RoleSelector';
 import Button from '@/components/Shared/Buttons/Button/Button';
 import SigninPrompt from './SigninPrompt/SigninPrompt';
 import { useToast } from '@/components/Shared/Feedback/Toast';
@@ -14,7 +13,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { DEFAULT_AVATAR_URL } from '@/utils/avatar';
 import './RegisterForm.scss';
 
-function RegisterForm() {
+function RegisterForm({ role = 'USER' }) {
     const navigate = useNavigate();
 
     const handleNavigateToLogin = () => {
@@ -45,7 +44,6 @@ function RegisterForm() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('');
     const [avatar, setAvatar] = useState(null);
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const [attemptsLeft, setAttemptsLeft] = useState(undefined);
@@ -56,7 +54,6 @@ function RegisterForm() {
     const [emailError, setEmailError] = useState('');
     const [otpError, setOtpError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const [roleError, setRoleError] = useState('');
 
     const getPasswordValidationMessage = (password) => {
         return validatePassword(password, email).message;
@@ -66,7 +63,6 @@ function RegisterForm() {
     const lastNameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-    const roleRef = useRef(null);
 
     // Step 1: Details Submit
     const handleDetailsSubmit = async (e) => {
@@ -185,29 +181,18 @@ function RegisterForm() {
         }
     };
 
-    // Step 3: Setup Password and Role Submit
+    // Step 3: Setup Password Submit
     const handleSetupSubmit = (e) => {
         e.preventDefault();
-        let hasError = false;
         setPasswordError('');
-        setRoleError('');
 
         const passwordValidation = validatePassword(password, email);
         if (!passwordValidation.isValid) {
             setPasswordError(passwordValidation.message);
-            hasError = true;
             passwordRef.current?.focus();
+            return;
         }
 
-        if (!role) {
-            setRoleError('Please select a workspace role');
-            hasError = true;
-            if (passwordValidation.isValid) {
-                roleRef.current?.focus();
-            }
-        }
-
-        if (hasError) return;
         setStep('photo');
     };
 
@@ -241,6 +226,8 @@ function RegisterForm() {
 
     const fullName = `${firstName.trim()} ${lastName.trim()}`;
 
+    const isFacilityOwner = role === 'FACILITY_OWNER';
+
     return (
         <div className="form-panel">
             <div className="form-wrapper">
@@ -269,8 +256,14 @@ function RegisterForm() {
                 {step === 'details' && (
                     <>
                         <FormHeader
-                            title="Create Account"
-                            subtitle="Enter your name and email to start verification"
+                            title={
+                                isFacilityOwner ? 'Partner Registration' : 'Create Player Account'
+                            }
+                            subtitle={
+                                isFacilityOwner
+                                    ? 'Enter your details to register as a facility owner'
+                                    : 'Enter your name and email to start verification'
+                            }
                         />
 
                         <form onSubmit={handleDetailsSubmit} noValidate>
@@ -358,7 +351,11 @@ function RegisterForm() {
                     <>
                         <FormHeader
                             title="Setup Password"
-                            subtitle="Create a secure password and select your workspace role"
+                            subtitle={
+                                isFacilityOwner
+                                    ? 'Create a secure password for your facility owner account'
+                                    : 'Create a secure password for your player account'
+                            }
                         />
 
                         <form onSubmit={handleSetupSubmit} noValidate>
@@ -376,17 +373,6 @@ function RegisterForm() {
                                 autoComplete="new-password"
                                 error={passwordError}
                                 inputRef={passwordRef}
-                                disabled={authLoading}
-                            />
-
-                            <RoleSelector
-                                value={role}
-                                onChange={(selectedRole) => {
-                                    setRole(selectedRole);
-                                    if (roleError) setRoleError('');
-                                }}
-                                error={roleError}
-                                triggerRef={roleRef}
                                 disabled={authLoading}
                             />
 
@@ -412,7 +398,7 @@ function RegisterForm() {
                     <>
                         <FormHeader
                             title="Add Profile Photo"
-                            subtitle="Upload an avatar image to personalize your dashboard profile"
+                            subtitle="Upload an avatar image to personalize your account profile"
                         />
 
                         <form onSubmit={handleFinalSubmit} noValidate>

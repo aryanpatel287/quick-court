@@ -1,13 +1,18 @@
-import { User } from 'lucide-react';
+import { User, Building2 } from 'lucide-react';
 import Dropdown from '@/components/Shared/Form/Dropdown/Dropdown';
 import RoleCard from './RoleCard/RoleCard';
 import './RoleSelector.scss';
 
 const ROLES = [
     {
-        value: 'user',
-        label: 'User',
+        value: 'USER',
+        label: 'Player / User',
         icon: User,
+    },
+    {
+        value: 'FACILITY_OWNER',
+        label: 'Facility Owner',
+        icon: Building2,
     },
 ];
 
